@@ -1,0 +1,43 @@
+#pie-chart {
+  width: 500px;
+  height: 400px;
+  margin-bottom: 20px;
+}
+
+.tooltip {
+  position: absolute;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  border-radius: 6px;
+  pointer-events: none;
+  font-size: 14px;
+  line-height: 1.4;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+#legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin: 5px 10px;
+}
+
+.legend-color {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.legend-text {
+  font-size: 14px;
+  color: #4a5568;
+  font-weight: 500;
+}
