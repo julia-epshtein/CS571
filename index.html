@@ -1,25 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ethnicity Distribution</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/pie-chart.css">
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-</head>
-<body>
-  <div class="dashboard">
-    <h1>Inmate Ethnicity Distribution</h1>
-    <div id="chart-container">
-      <div id="pie-chart"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>California Sentencing by County</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/pie-chart.css" />
+    <link rel="stylesheet" href="css/map.css" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/topojson.v3.min.js"></script>
+  </head>
+  <body>
+    <div class="dashboard">
+      <h1>California Sentencing by County</h1>
+      <div id="map-container">
+        <div id="map"></div>
+      </div>
+      <div id="legend-container"></div>
+      <div id="county-details">
+        <h3>Click on a county to see details</h3>
+      </div>
     </div>
-    <div id="summary"></div>
-  </div>
-  <script src="js/main.js"></script>
-  <script src="js/pie-chart.js"></script>
-</body>
+    <div class="dashboard">
+      <h1>Inmate Ethnicity Distribution</h1>
+      <div id="chart-container">
+        <div id="pie-chart"></div>
+      </div>
+      <div id="summary"></div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/pie-chart.js"></script>
+    <script src="js/map.js"></script>
+  </body>
 </html>
