@@ -132,6 +132,10 @@ function renderMap(geoData, countyStats) {
   createLegend(colorScale);
 }
 
+function roundToHundred(num) {
+  return Math.round(num / 100) * 100;
+}
+
 function createLegend(colorScale) {
   const legendContainer = d3.select("#legend-container");
   legendContainer.html("");
@@ -150,8 +154,11 @@ function createLegend(colorScale) {
       .style("background-color", mapConfig.colors[i + 1]);
 
     let label;
-    if (i === 0) label = `< ${Math.ceil(threshold)}`;
-    else label = `${Math.ceil(thresholds[i - 1])} - ${Math.ceil(threshold)}`;
+    if (i === 0) {
+      label = `< ${roundToHundred(threshold)}`;
+    } else {
+      label = `${roundToHundred(thresholds[i - 1])} - ${roundToHundred(threshold)}`;
+    }
 
     item.append("div")
       .attr("class", "legend-label")
