@@ -40,15 +40,15 @@ const minorityMapConfig = {
   function loadDemographicData() {
     Promise.all([
       d3.json("https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/california-counties.geojson"),
-      d3.csv("minority-map_dataset/white.csv", d3.autoType),
-      d3.csv("minority-map_dataset/hispanic.csv", d3.autoType),
-      d3.csv("minority-map_dataset/black.csv", d3.autoType),
-      d3.csv("minority-map_dataset/asian.csv", d3.autoType),
-      d3.csv("minority-map_dataset/indian.csv", d3.autoType)
+      d3.csv("data/minority-map _dataset/asian.csv", d3.autoType),
+      d3.csv("data/minority-map _dataset/hispanic.csv", d3.autoType),
+      d3.csv("data/minority-map _dataset/black.csv", d3.autoType),
+      d3.csv("data/minority-map _dataset/asian.csv", d3.autoType),
+      d3.csv("data/minority-map _dataset/indian.csv", d3.autoType)
     ])
-    .then(([geoData, whiteData, hispanicData, blackData, asianData, indianData]) => {
+    .then(([geoData, whiteData, hispanicData, blackData, asianData, american_indianData]) => {
       geoDataMinority = geoData;
-      processDemographicData(whiteData, hispanicData, blackData, asianData, indianData);
+      processDemographicData(whiteData, hispanicData, blackData, asianData, american_indianData);
       renderMinorityMap(geoDataMinority, demographicData);
     })
     .catch(error => {
@@ -57,24 +57,24 @@ const minorityMapConfig = {
   }
   
   // Process the CSVs to merge data by county and compute % minority
-  function processDemographicData(whiteData, hispanicData, blackData, asianData, indianData) {
+  function processDemographicData(whiteData, hispanicData, blackData, asianData, american_indianData) {
     // Collect unique county names from all files
     const counties = new Set();
     whiteData.forEach(d => counties.add(d.County));
     hispanicData.forEach(d => counties.add(d.County));
     blackData.forEach(d => counties.add(d.County));
     asianData.forEach(d => counties.add(d.County));
-    indianData.forEach(d => counties.add(d.County));
+    american_indianData.forEach(d => counties.add(d.County));
   
     counties.forEach(county => {
       const whitePop = getPopulationForCounty(whiteData, county);
       const hispanicPop = getPopulationForCounty(hispanicData, county);
       const blackPop = getPopulationForCounty(blackData, county);
       const asianPop = getPopulationForCounty(asianData, county);
-      const indianPop = getPopulationForCounty(indianData, county);
+      const american_indianPop = getPopulationForCounty(american_indianData, county);
   
       // Sum all non‑white populations (minority groups)
-      const minorityPop = (hispanicPop || 0) + (blackPop || 0) + (asianPop || 0) + (indianPop || 0);
+      const minorityPop = (hispanicPop || 0) + (blackPop || 0) + (asianPop || 0) + (american_indianPop || 0);
       const totalPop = (whitePop || 0) + minorityPop;
   
       // Calculate % minority (if totalPop > 0)
@@ -85,7 +85,7 @@ const minorityMapConfig = {
         hispanic: hispanicPop || 0,
         black: blackPop || 0,
         asian: asianPop || 0,
-        indian: indianPop || 0,
+        american_indian: american_indianPop || 0,
         total: totalPop,
         pctMinority: pctMinority
       };
