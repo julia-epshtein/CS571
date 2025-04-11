@@ -1,0 +1,61 @@
+County,FIPS,Value (Percent),People (API)
+United States,0,6.0,19981951
+California,6000,15.7,6144896
+Sierra County,6091,0.0,0
+Alpine County,6003,0.5,8
+Colusa County,6011,0.7,159
+Modoc County,6049,1.2,103
+Plumas County,6063,1.2,226
+Lake County,6033,1.4,983
+Amador County,6005,1.5,613
+Imperial County,6025,1.5,2733
+Mariposa County,6043,1.7,284
+Nevada County,6057,1.8,1885
+Tuolumne County,6109,1.8,976
+Siskiyou County,6093,2.0,885
+Tehama County,6103,2.0,1292
+Mono County,6051,2.2,296
+Mendocino County,6045,2.3,2095
+Calaveras County,6009,2.4,1090
+Madera County,6039,2.6,4121
+Inyo County,6027,2.7,509
+Lassen County,6035,2.7,837
+Glenn County,6021,2.8,799
+Trinity County,6105,3.0,472
+Humboldt County,6023,3.4,4614
+Del Norte County,6015,3.6,975
+Shasta County,6089,3.6,6624
+San Benito County,6069,3.7,2440
+Tulare County,6107,3.7,17496
+Kings County,6031,3.8,5776
+San Luis Obispo County,6079,3.9,10954
+Sonoma County,6097,4.8,23332
+Santa Cruz County,6087,4.9,13065
+Kern County,6029,5.2,47691
+El Dorado County,6017,5.4,10323
+Santa Barbara County,6083,5.4,24150
+Butte County,6007,5.7,11979
+Monterey County,6053,6.3,27428
+Marin County,6041,6.4,16458
+Stanislaus County,6099,6.6,36386
+Riverside County,6065,7.4,180720
+Ventura County,6111,7.4,62132
+Merced County,6047,7.5,21278
+Yuba County,6115,8.0,6642
+Napa County,6055,8.3,11296
+San Bernardino County,6071,8.5,185243
+Placer County,6061,9.2,37874
+Fresno County,6019,11.2,113114
+San Diego County,6073,12.6,414853
+Los Angeles County,6037,15.2,1501837
+Yolo County,6113,15.3,33380
+Solano County,6095,16.9,76062
+Sutter County,6101,17.8,17660
+San Joaquin County,6077,18.5,145392
+Sacramento County,6067,18.6,295058
+Contra Costa County,6013,19.0,220551
+Orange County,6059,22.3,704143
+San Mateo County,6081,31.9,237928
+Alameda County,6001,33.0,544859
+San Francisco County,6075,35.3,295618
+Santa Clara County,6085,39.9,759199

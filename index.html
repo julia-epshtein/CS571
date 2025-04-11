@@ -15,21 +15,44 @@
     <link rel="stylesheet" href="css/map.css" />
     <link rel="stylesheet" href="css/bar-chart.css" />
     <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/sankey-diagram.css" />
+    <link rel="stylesheet" href="css/minority-map.css" />
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://d3js.org/topojson.v3.min.js"></script>
   </head>
   <body>
+
+  <hr class="section-divider">
+
     <div class="dashboard">
-      <h1>California Sentencing by County</h1>
       <div id="map-container">
-        <div id="map"></div>
+          <h1>California Sentencing by County</h1>
+          <div id="map"></div>
       </div>
       <div id="legend-container"></div>
       <div id="county-details">
         <h3>Click on a county to see details</h3>
       </div>
     </div>
+
+    <hr class="section-divider">
+
+    <div class="dashboard">
+      <div id="minority-map-container">
+        <h1>% Minority by County</h1>
+        <div id="minority-map"></div>
+        <div id="minority-legend-container"></div>
+      </div>
+      <div id="legend-container"></div>
+      <div id="county-details">
+        <h3>Click on a county to see details</h3>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+
     <div class="dashboard">
       <div class="pie-charts-container">
         <div class="pie-chart-wrapper">
@@ -49,15 +72,47 @@
       </div>
       <div id="summary"></div>
     </div>
+
+    <hr class="section-divider">
+
+    <div class="dashboard">
+      <h1>Timeline </h1>
+      <div id="sankey-diagram">
+        <div class="sankey-placeholder">
+          <div class="sankey-placeholder-icon">X</div>
+          <div class="sankey-placeholder-text">Chart Goes Here</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+
     <div class="dashboard">
       <h1>Sentence Length Distribution by Strike Type</h1>
       <div id="bar-chart"></div>
     </div>
+
+    <hr class="section-divider">
+
+    <div class="dashboard">
+      <h1>Sentencing Flow Analysis</h1>
+      <div id="sankey-diagram">
+        <div class="sankey-placeholder">
+          <div class="sankey-placeholder-icon">X</div>
+          <div class="sankey-placeholder-text">Sankey Diagram Goes Here</div>
+        </div>
+      </div>
+    </div>
+
+
     <script src="js/header.js"></script>
     <script src="js/main.js"></script>
     <script src="js/pie-chart.js"></script>
     <script src="js/sentence-pie-chart.js"></script>
     <script src="js/map.js"></script>
     <script src="js/bar-chart.js"></script>
+    <script src="sankey-diagram.js"></script>
+    <script src="js/minority-map.js"></script>
   </body>
 </html>

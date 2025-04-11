@@ -37,3 +37,8 @@ h1 {
     margin-top: 15px;
     font-weight: 500;
 }
+hr.section-divider {
+    border: none;             
+    border-top: 2px solid #c89f65;
+    margin: 40px 0;          
+  }
