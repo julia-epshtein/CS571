@@ -11,7 +11,7 @@ let inmateData = null;
 let currentGeoData = null;
 let processedCountyStats = null;
 
-// Initialize map
+// Initialization
 function initMap() {
   setupMapSVG();
   loadData();
@@ -55,11 +55,11 @@ function updateMap() {
   renderMap(currentGeoData, processedData);
 }
 
-// Process inmate data to get sentencing count by county
+// Sentencing count by county
 function processInmateData(data) {
   const countyStats = {};
 
-  // Group data by county
+  // Group by county
   const byCounty = d3.group(data, d => d['Sentencing County']);
 
   byCounty.forEach((inmates, county) => {
@@ -84,7 +84,7 @@ function renderMap(geoData, countyStats) {
   mapConfig.projection.fitSize([mapConfig.width, mapConfig.height], geoData);
   const path = d3.geoPath().projection(mapConfig.projection);
 
-  // Extracting count values for color scale domain
+  // count values for color scale domain
   const counts = Object.values(countyStats).map(d => d.count).filter(d => !isNaN(d));
   const colorScale = d3.scaleQuantile().domain(counts).range(mapConfig.colors);
 
@@ -218,4 +218,4 @@ function displayCountyDetails(countyName, countyData) {
 
 // Start map
 initMap();
-Configuration
+
