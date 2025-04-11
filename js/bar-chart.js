@@ -3,7 +3,7 @@ const barConfig = {
   width: 900,
   height: 500,
   margin: { top: 50, right: 50, bottom: 100, left: 60 },
-  colors: ["#6050DC", "#D52DB7"]
+  colors: ["#6baed6", "#54278f"]
 };
 
 // Initialization
