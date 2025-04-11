@@ -1,0 +1,60 @@
+#bar-chart {
+    width: 900px;
+    height: 500px;
+    margin: 0 auto;
+  }
+  
+  .bar {
+    transition: opacity 0.3s;
+  }
+  
+  .bar:hover {
+    opacity: 0.7;
+  }
+  
+  .axis text {
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .axis-label {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .tooltip {
+    position: absolute;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    border-radius: 6px;
+    pointer-events: none;
+    font-size: 14px;
+    line-height: 1.4;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  
+  #legend {
+    margin: 20px auto;
+    text-align: center;
+  }
+  
+  .legend-item {
+    display: inline-block;
+    margin: 0 10px;
+  }
+  
+  .legend-color {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+  
+  .legend-text {
+    font-size: 14px;
+    color: #4a5568;
+    font-weight: 500;
+    vertical-align: middle;
+  }

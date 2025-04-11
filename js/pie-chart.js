@@ -1,9 +1,9 @@
 // Configuration
 const config = {
-  width: 500,
-  height: 400,
-  margin: 30,
-  colors: ['#6050DC', '#D52DB7', '#FF2E7E', '#FF6B45', '#FFAB05', '#8A2BE2']
+    width: 500,
+    height: 400,
+    margin: 30,
+    colors: ["#eff3ff","#c6dbef","#9ecae1","#6baed6","#3182bd","#08519c"].reverse()
 };
 
 // Group ethnic groups by race
@@ -16,13 +16,12 @@ const ethnicityGroups = {
   'Other': ['Other', 'American Indian', 'Laotian', 'Jamaican', 'Unknown']
 };
 
-// Initialize visualization
 function initVisualization() {
   setupSVG();
   loadData();
 }
 
-// Set up SVG container
+// Container
 function setupSVG() {
   const radius = Math.min(config.width, config.height) / 2 - config.margin;
 
@@ -47,7 +46,7 @@ function loadData() {
   });
 }
 
-// Process raw CSV data with grouping
+// Process raw CSV data w/ grouping
 function processData(data) {
   const groupedCounts = new Map();
   Object.keys(ethnicityGroups).forEach(group => {
@@ -83,7 +82,7 @@ function processData(data) {
   };
 }
 
-// Render pie chart
+// Pie chart
 function renderVisualization({ pieData }) {
   const svg = d3.select(".pie-chart-svg");
   const radius = Math.min(config.width, config.height) / 2 - config.margin;
@@ -100,13 +99,13 @@ function renderVisualization({ pieData }) {
       .innerRadius(0)
       .outerRadius(radius);
 
-  // Tooltip setup
+  // Tooltip 
   const tooltip = d3.select("body")
       .append("div")
       .attr("class", "tooltip")
       .style("opacity", 0);
 
-  // Draw arcs
+  // arcs
   const arcs = svg.selectAll(".arc")
       .data(pie(pieData))
       .enter()
@@ -137,14 +136,14 @@ function renderVisualization({ pieData }) {
       });
 }
 
-// Render legend
+// legend
 function renderLegend(pieData) {
   const color = d3.scaleOrdinal()
       .domain(pieData.map(d => d.group))
       .range(config.colors);
 
   const legend = d3.select("#legend");
-  legend.html("");  // Clear existing content
+  legend.html("");  
 
   pieData.forEach(d => {
       const item = legend.append("div").attr("class", "legend-item");
@@ -159,12 +158,11 @@ function renderLegend(pieData) {
   });
 }
 
-// Render summary
+// summary
 function renderSummary(total) {
   d3.select("#summary")
       .append("p")
       .text(`Total inmates: ${total.toLocaleString()}`);
 }
 
-// Initialize the pie chart visualization
 initVisualization();

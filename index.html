@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/pie-chart.css" />
     <link rel="stylesheet" href="css/map.css" />
+    <link rel="stylesheet" href="css/bar-chart.css" />
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://d3js.org/topojson.v3.min.js"></script>
@@ -29,15 +30,33 @@
       </div>
     </div>
     <div class="dashboard">
-      <h1>Inmate Ethnicity Distribution</h1>
-      <div id="chart-container">
-        <div id="pie-chart"></div>
+      <div class="pie-charts-container">
+        <div class="pie-chart-wrapper">
+          <h2>Inmate Ethnicity Distribution</h2>
+          <div class="chart-container">  
+            <div id="pie-chart"></div>
+          </div>
+          <div id="legend"></div>
+        </div>
+        <div class="pie-chart-wrapper">
+          <h2>Sentence Type Distribution</h2>
+          <div class="chart-container"> 
+            <div id="sentence-pie-chart"></div>
+          </div>
+          <div id="sentence-legend"></div>
+        </div>
       </div>
       <div id="summary"></div>
+    </div>
+    <div class="dashboard">
+      <h1>Sentence Length Distribution by Strike Type</h1>
+      <div id="bar-chart"></div>
     </div>
 
     <script src="js/main.js"></script>
     <script src="js/pie-chart.js"></script>
+    <script src="js/sentence-pie-chart.js"></script>
     <script src="js/map.js"></script>
+    <script src="js/bar-chart.js"></script>
   </body>
 </html>

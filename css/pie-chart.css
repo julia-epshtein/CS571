@@ -1,9 +1,3 @@
-#pie-chart {
-  width: 500px;
-  height: 400px;
-  margin-bottom: 20px;
-}
-
 .tooltip {
   position: absolute;
   padding: 12px;
@@ -14,13 +8,6 @@
   font-size: 14px;
   line-height: 1.4;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-
-#legend {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 10px;
 }
 
 .legend-item {
@@ -40,4 +27,50 @@
   font-size: 14px;
   color: #4a5568;
   font-weight: 500;
+}
+
+#sentence-chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pie-charts-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+#pie-chart, #sentence-pie-chart {
+  width: 500px;
+  height: 400px;
+}
+
+.pie-chart-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  min-width: 400px;
+  max-width: 500px;
+  text-align: center;
+}
+
+#legend, #sentence-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+  width: 100%;
 }
