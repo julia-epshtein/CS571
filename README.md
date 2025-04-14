@@ -1,3 +1,6 @@
+# Process Book
+[View our Process Here](https://www.canva.com/design/DAGkQXK-pD4/-254poNSlgvkSuaSI0a3Ww/view?utm_content=DAGkQXK-pD4&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hd6e2adb9d6)
+
 # CS571
 Final Project For CS571
 
@@ -21,5 +24,3 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-# Process Book
-## [View the PDF](./ProcessBook.pdf)
