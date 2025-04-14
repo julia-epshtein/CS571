@@ -2,43 +2,68 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: rgb(25, 26, 22);
-
+    background-color: black;  
 }
-  
+
 .dashboard {
     max-width: 1200px;
     margin: 0 auto;
-    background: rgb(236, 236, 236);
+    background: black; 
     padding: 25px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
-  
+
 h1 {
-    color: #2d3748;
+    color: #fff; 
     text-align: center;
     margin-bottom: 25px;
     font-weight: 700;
     font-size: 24px;
 }
-  
+
+h2 {
+    color: #fff; 
+    margin-bottom: 25px;
+    font-weight: 700;
+    font-size: 24px;
+}
+
 #chart-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 20px;
 }
-  
+
 #summary {
     text-align: center;
     font-size: 15px;
-    color: #4a5568;
+    color: white;  
     margin-top: 15px;
     font-weight: 500;
 }
+
 hr.section-divider {
     border: none;             
     border-top: 2px solid #c89f65;
     margin: 40px 0;          
-  }
+}
+
+p {
+    color: #fff;
+}
+
+.pie-charts-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.pie-chart-wrapper {
+    flex: 1;
+    min-width: 300px;
+    max-width: 450px;
+    text-align: center;
+}

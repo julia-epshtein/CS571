@@ -1,10 +1,9 @@
-// Function to create the header component
 function createHeader() {
     const header = document.createElement('div');
     header.className = 'header';
     
     const logo = document.createElement('img');
-    logo.src = 'assets/justice_logo.svg'; // Path to your logo image
+    logo.src = 'assets/justice_logo.svg'; 
     logo.alt = 'Justice Through Data Logo';
     logo.className = 'header-logo';
     

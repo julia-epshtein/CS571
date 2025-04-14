@@ -1,15 +1,12 @@
-// js/sankey-diagram.js
-
-// Configuration
 const sankeyConfig = {
-    width: 900,
-    height: 500,
-    margin: { top: 50, right: 50, bottom: 50, left: 50 }
+  width: 900,
+  height: 500,
+  margin: { top: 50, right: 50, bottom: 50, left: 50 }
 };
 
 function initSankeyPlaceholder() {
-    console.log("Initializing Sankey diagram placeholder");
-    setupSankeyPlaceholder();
+  console.log("Initializing Sankey diagram placeholder");
+  setupSankeyPlaceholder();
 }
 
 function setupSankeyPlaceholder() {
@@ -28,28 +25,28 @@ style("display", "flex")
 .style("justify-content", "center")
 .style("align-items", "center")
 .style("background-color", "#f7fafc");
-    
-
-    placeholder
-      .append("div")
-      .style("font-size", "48px")
-      .style("color", "#a0aec0")
-      .style("margin-bottom", "20px")
-      .html("&#10005;"); 
-    
-    placeholder
-      .append("div")
-      .style("font-family", "'Roboto', sans-serif")
-      .style("font-size", "24px")
-      .style("color", "#4a5568")
-      .style("font-weight", "500")
-      .style("text-align", "center")
-      .text("Sankey Diagram Goes Here");
-      
-    console.log("Sankey diagram placeholder created successfully");
-  }
   
 
-  document.addEventListener("DOMContentLoaded", function() {
-    initSankeyPlaceholder();
-  });
+  placeholder
+    .append("div")
+    .style("font-size", "48px")
+    .style("color", "#a0aec0")
+    .style("margin-bottom", "20px")
+    .html("&#10005;"); 
+  
+  placeholder
+    .append("div")
+    .style("font-family", "'Roboto', sans-serif")
+    .style("font-size", "24px")
+    .style("color", "#4a5568")
+    .style("font-weight", "500")
+    .style("text-align", "center")
+    .text("Sankey Diagram Goes Here");
+    
+  console.log("Sankey diagram placeholder created successfully");
+}
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  initSankeyPlaceholder();
+});

@@ -1,7 +1,6 @@
-// Configuration
 const mapConfig = {
-  width: 700,
-  height: 700,
+  width: 500,    
+  height: 500,  
   projection: d3.geoMercator(),
   colors: d3.schemeBlues[9]
 };
@@ -11,22 +10,20 @@ let inmateData = null;
 let currentGeoData = null;
 let processedCountyStats = null;
 
-// Initialization
 function initMap() {
   setupMapSVG();
   loadData();
 }
 
-// SVG container for map
 function setupMapSVG() {
-  d3.select("#map")
+  const svg = d3.select("#map")
     .append("svg")
     .attr("width", mapConfig.width)
     .attr("height", mapConfig.height)
+    .style("background-color", "black") 
     .append("g")
     .attr("class", "map-container");
 
-  // Tooltip
   d3.select("body")
     .append("div")
     .attr("class", "tooltip")
@@ -105,7 +102,7 @@ function renderMap(geoData, countyStats) {
       const countyData = countyStats[countyName];
 
       d3.select(this)
-        .style("stroke", "#000")
+        .style("stroke", "#fff") 
         .style("stroke-width", "1.5px");
 
       const tooltip = d3.select(".tooltip");
@@ -124,7 +121,7 @@ function renderMap(geoData, countyStats) {
     })
     .on("mouseout", function() {
       d3.select(this)
-        .style("stroke", "#fff")
+        .style("stroke", "#eee") 
         .style("stroke-width", "0.5px");
       d3.select(".tooltip").transition().duration(500).style("opacity", 0);
     });
@@ -145,7 +142,8 @@ function createLegend(colorScale) {
 
   legend.append("div")
     .text("Inmates:")
-    .style("font-weight", "bold");
+    .style("font-weight", "bold")
+    .style("color", "white");  
 
   thresholds.forEach((threshold, i) => {
     const item = legend.append("div").attr("class", "legend-item");
@@ -162,7 +160,8 @@ function createLegend(colorScale) {
 
     item.append("div")
       .attr("class", "legend-label")
-      .text(label);
+      .text(label)
+      .style("color", "white");  
   });
 
   const lastItem = legend.append("div").attr("class", "legend-item");
@@ -172,7 +171,8 @@ function createLegend(colorScale) {
 
   lastItem.append("div")
     .attr("class", "legend-label")
-    .text(`> ${Math.ceil(thresholds[thresholds.length - 1])}`);
+    .text(`> ${Math.ceil(thresholds[thresholds.length - 1])}`)
+    .style("color", "white");  
 }
 
 function displayCountyDetails(countyName, countyData) {
@@ -218,4 +218,3 @@ function displayCountyDetails(countyName, countyData) {
 
 // Start map
 initMap();
-

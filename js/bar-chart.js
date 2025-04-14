@@ -20,7 +20,8 @@ function setupSVG() {
     .select("#bar-chart")
     .append("svg")
     .attr("width", barConfig.width)
-    .attr("height", barConfig.height);
+    .attr("height", barConfig.height)
+    .style("background-color", "black");  
 
   console.log("SVG container created successfully");
 
@@ -108,12 +109,18 @@ function renderChart(data) {
     .call(d3.axisBottom(x0))
     .selectAll("text")
     .style("text-anchor", "middle")
-    .attr("transform", "translate(0,10)");
+    .attr("transform", "translate(0,10)")
+    .style("fill", "white"); 
 
   svg
     .append("g")
     .attr("class", "axis y-axis")
-    .call(d3.axisLeft(y).tickFormat(d => `${d}%`));
+    .call(d3.axisLeft(y).tickFormat(d => `${d}%`))
+    .selectAll("text")
+    .style("fill", "white"); 
+
+    svg.selectAll(".domain")
+    .style("stroke", "white");  
 
   // axis labels
   svg
@@ -124,6 +131,7 @@ function renderChart(data) {
       `translate(${chartWidth / 2}, ${chartHeight + barConfig.margin.bottom - 20})`
     )
     .style("text-anchor", "middle")
+    .style("fill", "white")  
     .text("Sentence Length (months)");
 
   svg
@@ -134,6 +142,7 @@ function renderChart(data) {
     .attr("x", 0 - chartHeight / 2)
     .attr("dy", "1em")
     .style("text-anchor", "middle")
+    .style("fill", "white")  
     .text("Percentage of Cases (%)");
 
   // Tooltip 
@@ -206,18 +215,9 @@ function renderChart(data) {
       .attr("x", 20)
       .attr("y", 12)
       .text(type)
-      .style("font-size", "12px");
+      .style("font-size", "12px")
+      .style("fill", "white"); 
   });
-
-  // chart title
-  svg
-    .append("text")
-    .attr("x", chartWidth / 2)
-    .attr("y", -20)
-    .attr("text-anchor", "middle")
-    .style("font-size", "16px")
-    .style("font-weight", "bold")
-    .text("Sentence Length Distribution by Strike Type");
 
   console.log("Chart rendering completed successfully");
 }
