@@ -1,6 +1,6 @@
 const minorityMapConfig = {
-  width: 700,
-  height: 700,
+  width: 500,
+  height: 500,
   projection: d3.geoMercator(),
   colors: d3.schemeReds[7],
 };
@@ -20,6 +20,7 @@ function setupMinorityMapSVG() {
     .append("svg")
     .attr("width", minorityMapConfig.width)
     .attr("height", minorityMapConfig.height)
+    .style("background-color", "black")  
     .append("g")
     .attr("class", "map-container");
 
@@ -140,15 +141,15 @@ function renderMinorityMap(geoData, dataByCounty) {
       });
 
       d3.select(this)
-        .style("stroke", "#000")
+        .style("stroke", "#fff") 
         .style("stroke-width", "1.5px");
 
       const tooltip = d3.select(".minority-tooltip");
       tooltip.transition().duration(200).style("opacity", 0.9);
 
-      let tooltipContent = `<strong>${countyName}</strong>`;
+      let tooltipContent = `<strong style="color: white;">${countyName}</strong>`;
       if (countyData) {
-        tooltipContent += `<br>% Minority: ${countyData[1].pctMinority.toFixed(1)}%`;
+        tooltipContent += `<br style="color: white;">% Minority: ${countyData[1].pctMinority.toFixed(1)}%`;
         tooltipContent += `<br>White: ${countyData[1].white.toLocaleString()}`;
         tooltipContent += `<br>Hispanic: ${countyData[1].hispanic.toLocaleString()}`;
         tooltipContent += `<br>Black: ${countyData[1].black.toLocaleString()}`;
@@ -164,7 +165,7 @@ function renderMinorityMap(geoData, dataByCounty) {
     })
     .on("mouseout", function() {
       d3.select(this)
-        .style("stroke", "#fff")
+        .style("stroke", "#eee")  
         .style("stroke-width", "0.5px");
       d3.select(".minority-tooltip").transition().duration(500).style("opacity", 0);
     });
@@ -181,7 +182,8 @@ function createMinorityLegend(colorScale) {
 
   legendContainer.append("div")
     .text("% Minority:")
-    .style("font-weight", "bold");
+    .style("font-weight", "bold")
+    .style("color", "white"); 
 
   const bins = [
     { range: "0-10%", color: minorityMapConfig.colors[0] },
@@ -202,7 +204,8 @@ function createMinorityLegend(colorScale) {
 
     item.append("div")
       .attr("class", "legend-label")
-      .text(bin.range);
+      .text(bin.range)
+      .style("color", "white"); 
   });
 }
 

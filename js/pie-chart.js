@@ -1,9 +1,15 @@
 // Configuration
 const config = {
-    width: 500,
+    width: 450,
     height: 400,
-    margin: 30,
-    colors: ["#eff3ff","#c6dbef","#9ecae1","#6baed6","#3182bd","#08519c"].reverse()
+    margin: 40,
+    colors: {
+        'White': '#FFF1C9',
+        'Black': '#2b0b3f',
+        'Hispanic': '#57167e',
+        'Asian': '#f7b7a3',
+        'Other': '#ea5f89'
+    }
 };
 
 // Group ethnic groups by race
@@ -12,8 +18,7 @@ const ethnicityGroups = {
   'White': ['White'],
   'Hispanic': ['Hispanic', 'Mexican', 'Salvadorian', 'Puerto Rican', 'Guatemalan', 'Cuban', 'Columbian', 'Nicaraguan'],
   'Asian': ['Other Asian', 'Chinese', 'Cambodian', 'Korean', 'Indian', 'Japanese', 'Thai', 'Vietnamese', 'Filipino'],
-  'Pacific Islander': ['Pacific Islander', 'Samoan', 'Hawaiian', 'Guamanian'],
-  'Other': ['Other', 'American Indian', 'Laotian', 'Jamaican', 'Unknown']
+  'Other': ['Other', 'American Indian', 'Laotian', 'Jamaican', 'Unknown', 'Pacific Islander', 'Samoan', 'Hawaiian', 'Guamanian']
 };
 
 function initVisualization() {
@@ -87,9 +92,7 @@ function renderVisualization({ pieData }) {
   const svg = d3.select(".pie-chart-svg");
   const radius = Math.min(config.width, config.height) / 2 - config.margin;
 
-  const color = d3.scaleOrdinal()
-      .domain(pieData.map(d => d.group))
-      .range(config.colors);
+  const color = d => config.colors[d.group] || '#ea5f89'; 
 
   const pie = d3.pie()
       .value(d => d.count)
@@ -114,7 +117,7 @@ function renderVisualization({ pieData }) {
 
   arcs.append("path")
       .attr("d", arc)
-      .attr("fill", d => color(d.data.group))
+      .attr("fill", d => color(d.data))
       .attr("stroke", "white")
       .style("stroke-width", 2)
       .on("mouseover", (event, d) => {
@@ -138,9 +141,7 @@ function renderVisualization({ pieData }) {
 
 // legend
 function renderLegend(pieData) {
-  const color = d3.scaleOrdinal()
-      .domain(pieData.map(d => d.group))
-      .range(config.colors);
+  const color = d => config.colors[d.group] || '#ea5f89'; 
 
   const legend = d3.select("#legend");
   legend.html("");  
@@ -150,7 +151,7 @@ function renderLegend(pieData) {
 
       item.append("div")
           .attr("class", "legend-color")
-          .style("background-color", color(d.group));
+          .style("background-color", color(d));
 
       item.append("span")
           .attr("class", "legend-text")

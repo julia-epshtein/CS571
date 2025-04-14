@@ -26,107 +26,126 @@
   <hr class="section-divider">
 
   <div class="dashboard">
+    <h1>California Sentencing by County vs. Minority Population</h1>
     <div class="maps-container">
       <div class="map-wrapper">
-        <h1>California Sentencing by County</h1>
+        <h2>Sentencing by County</h2>
         <div id="map"></div>
         <div id="legend-container"></div>
+        <p>Here we can provide insights from the California Sentencing by County map. For example, we might observe trends of higher incarceration rates in certain counties.</p>
       </div>
       
       <div class="map-wrapper">
-        <h1>% Minority by County</h1>
+        <h2>% Minority by County</h2>
         <div id="minority-map"></div>
         <div id="minority-legend-container"></div>
+        <p> For future reference: Add context here for explaining demographic patterns in relation to sentencing rates.</p>
       </div>
     </div>
   </div>
+
   <div class="explanation dashboard">
-    <h2>Maps Explanation</h2>
-    <p>Text/explanations go here:</p>
+    <h2>Chart Explanations</h2>
+    <p>More text and explanations here.</p>
   </div>
-    <hr class="section-divider">
 
+  <hr class="section-divider">
 
-    <div class="dashboard">
-      <div class="pie-charts-container">
-        <div class="pie-chart-wrapper">
-          <h2>Inmate Ethnicity Distribution</h2>
-          <div class="chart-container">  
-            <div id="pie-chart"></div>
-          </div>
-          <div id="legend"></div>
+  <div class="dashboard">
+    <div class="pie-charts-container">
+      <div class="pie-chart-wrapper">
+        <h2>Inmate Ethnicity Distribution</h2>
+        <div class="chart-container">  
+          <div id="pie-chart"></div>
         </div>
-        <div class="pie-chart-wrapper">
-          <h2>Sentence Type Distribution</h2>
-          <div class="chart-container"> 
-            <div id="sentence-pie-chart"></div>
-          </div>
-          <div id="sentence-legend"></div>
-        </div>
+        <div id="legend"></div>
+        <p> For future reference: Discuss how the proportion of incarcerated individuals is different from the overall state demographics, especially with how Black people are the minority of the population but make up a huge chunk of the prison system.</p>
       </div>
-      <div id="summary"></div>
-    </div>
-
-    <div class="explanation dashboard">
-      <h2>Maps Explanation</h2>
-      <p>Text/explanations go here:</p>
-    </div>
-
-    <hr class="section-divider">
-
-    <div class="dashboard">
-      <h1>Timeline </h1>
-      <div id="sankey-diagram">
-        <div class="sankey-placeholder">
-          <div class="sankey-placeholder-icon">X</div>
-          <div class="sankey-placeholder-text">Chart Goes Here</div>
+  
+      <div class="pie-chart-wrapper">
+        <h2>California Demographics</h2>
+        <div class="chart-container">  
+          <div id="california-demographics-pie-chart"></div>  
         </div>
+        <div id="california-demographics-legend"></div>
+        <p> For future reference: Text will go here, something similar to what is on the left. </p>
       </div>
     </div>
-
-    <div class="explanation dashboard">
-      <h2>Maps Explanation</h2>
-      <p>Text/explanations go here:</p>
+    
+    <div class="pie-chart-wrapper">
+      <h2>Sentence Type Distribution</h2>
+      <div class="chart-container"> 
+        <div id="sentence-pie-chart"></div>
+      </div>
+      <div id="sentence-legend"></div>
+      <p>For future reference: Maybe discuss how there's a lot of serious sentences here (2nd/3rd/condemned) </p>
     </div>
+  
+    <div id="summary"></div>
+  </div>
 
-    <hr class="section-divider">
+  <div class="explanation dashboard">
+    <h2>Chart Explanations</h2>
+    <p>These pie charts show (Insert a summary here summarizing pie charts) </p>
+  </div>
 
+  <hr class="section-divider">
 
-    <div class="dashboard">
-      <h1>Sentence Length Distribution by Strike Type</h1>
-      <div id="bar-chart"></div>
-    </div>
-
-    <div class="explanation dashboard">
-      <h2>Maps Explanation</h2>
-      <p>Text/explanations go here:</p>
-    </div>
-
-    <hr class="section-divider">
-
-    <div class="dashboard">
-      <h1>Sentencing Flow Analysis</h1>
-      <div id="sankey-diagram">
-        <div class="sankey-placeholder">
-          <div class="sankey-placeholder-icon">X</div>
-          <div class="sankey-placeholder-text">Sankey Diagram Goes Here</div>
-        </div>
+  <div class="dashboard">
+    <h1>Timeline </h1>
+    <div id="sankey-diagram">
+      <div class="sankey-placeholder">
+        <div class="sankey-placeholder-icon">X</div>
+        <div class="sankey-placeholder-text">Chart Goes Here</div>
       </div>
     </div>
+  </div>
 
-    <div class="explanation dashboard">
-      <h2>Maps Explanation</h2>
-      <p>Text/explanations go here:</p>
+  <div class="explanation dashboard">
+    <h2>Chart Explanations</h2>
+    <p>Highlighting key stuff about the timeline goes here</p>
+  </div>
+
+  <hr class="section-divider">
+
+  <div class="dashboard">
+    <h1>Sentence Length Distribution by Strike Type</h1>
+    <div id="bar-chart"></div>
+    <p>For future reference: Explain the last value and how severe the sentences are for Third Strikers</p>
+  </div>
+
+  <div class="explanation dashboard">
+    <h2>Chart Explanations</h2>
+    <p>This chart shows how sentence lengths vary between second and third strikers, showing that blah blah blah</p>
+  </div>
+
+  <hr class="section-divider">
+
+  <div class="dashboard">
+    <h1>Sentencing Flow Analysis</h1>
+    <div id="sankey-diagram">
+      <div class="sankey-placeholder">
+        <div class="sankey-placeholder-icon">X</div>
+        <div class="sankey-placeholder-text">Sankey Diagram Goes Here</div>
+      </div>
     </div>
+  </div>
+
+  <div class="explanation dashboard">
+    <h2>Chart Explanations</h2>
+    <p>The Sankey diagram will visualize the flow of cases through the criminal justice system -- just have to figure out how to get the initial sentence</p>
+  </div>
 
 
-    <script src="js/header.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/pie-chart.js"></script>
-    <script src="js/sentence-pie-chart.js"></script>
-    <script src="js/map.js"></script>
-    <script src="js/bar-chart.js"></script>
-    <script src="sankey-diagram.js"></script>
-    <script src="js/minority-map.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/pie-chart.js"></script>
+  <script src="js/sentence-pie-chart.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/bar-chart.js"></script>
+  <script src="sankey-diagram.js"></script>
+  <script src="js/minority-map.js"></script>
+  <script src="js/california-demographics.js"></script> 
+
   </body>
 </html>
