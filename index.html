@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/sankey-diagram.css" />
     <link rel="stylesheet" href="css/minority-map.css" />
+    <link rel="stylesheet" href="css/california-demographics.css" />
+    <link rel="stylesheet" href="css/california-demographics-bar-chart.css" />
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://d3js.org/topojson.v3.min.js"></script>
@@ -27,7 +29,7 @@
   <hr class="section-divider">
 
   <div class="explanation dashboard">
-    <h2>Chart Explanations</h2>
+    <h2 class="Chart-title">Chart Explanations</h2>
     <p>More text and explanations here.</p>
   </div>
 
@@ -53,38 +55,38 @@
   <hr class="section-divider">
 
   <div class="explanation dashboard">
-    <h2>Chart Explanations</h2>
-    <p>These pie charts show (Insert a summary here summarizing pie charts) </p>
+    <h2>California's Prison Population vs. State Demographics</h2>
+    <p>These bar charts compare the ethnic composition of California's prison population with the overall demographic makeup of the state, highlighting significant disparities.</p>
   </div>
 
   <div class="dashboard">
-    <div class="pie-charts-container">
-      <div class="pie-chart-wrapper">
+    <div class="ethnicity-bar-chart-container">
+      <div class="ethnicity-bar-chart-wrapper">
         <h2>Inmate Ethnicity Distribution</h2>
         <div class="chart-container">  
-          <div id="pie-chart"></div>
+          <div id="bars-chart"></div>
         </div>
         <div id="legend"></div>
-        <p> For future reference: Discuss how the proportion of incarcerated individuals is different from the overall state demographics, especially with how Black people are the minority of the population but make up a huge chunk of the prison system.</p>
+        <p>The prison population shows significant racial disparities compared to overall state demographics, with Black individuals representing a disproportionately high percentage of the incarcerated population despite being a smaller minority group statewide.</p>
       </div>
   
-      <div class="pie-chart-wrapper">
+      <div class="ethnicity-bar-chart-wrapper">
         <h2>California Demographics</h2>
         <div class="chart-container">  
-          <div id="california-demographics-pie-chart"></div>  
+          <div id="california-demographics-bar-chart"></div>  
         </div>
         <div id="california-demographics-legend"></div>
-        <p> For future reference: Text will go here, something similar to what is on the left. </p>
+        <p>California's general population has a different ethnic composition than its prison population, with Hispanic and White residents forming the largest demographic groups in the state overall.</p>
       </div>
     </div>
     
-    <div class="pie-chart-wrapper">
+    <div class="ethnicity-bar-chart-wrapper">
       <h2>Sentence Type Distribution</h2>
       <div class="chart-container"> 
-        <div id="sentence-pie-chart"></div>
+        <div id="sentence-bar-chart"></div>
       </div>
       <div id="sentence-legend"></div>
-      <p>For future reference: Maybe discuss how there's a lot of serious sentences here (2nd/3rd/condemned) </p>
+      <p>The distribution of sentence types shows a high percentage of serious sentences, including second and third strikes, reflecting California's approach to repeat offenders.</p>
     </div>
   
     <div id="summary"></div>
@@ -94,7 +96,7 @@
   <hr class="section-divider">
 
   <div class="explanation dashboard">
-    <h2>Chart Explanations</h2>
+    <h2 class="Chart-title">Chart Explanations</h2>
     <p>Highlighting key stuff about the timeline goes here</p>
   </div>
 
@@ -112,7 +114,7 @@
   <hr class="section-divider">
 
     <div class="explanation dashboard">
-    <h2>Chart Explanations</h2>
+    <h2 class="Chart-title">Chart Explanations</h2>
     <p>This chart shows how sentence lengths vary between second and third strikers, showing that blah blah blah</p>
   </div>
 
@@ -126,7 +128,7 @@
   <hr class="section-divider">
 
   <div class="explanation dashboard">
-    <h2>Chart Explanations</h2>
+    <h2 class="Chart-title">Chart Explanations</h2>
     <p>The Sankey diagram will visualize the flow of cases through the criminal justice system -- just have to figure out how to get the initial sentence</p>
   </div>
 
@@ -145,12 +147,14 @@
   <script src="js/header.js"></script>
   <script src="js/main.js"></script>
   <script src="js/pie-chart.js"></script>
+  <script src="js/ethnicity-bar-chart.js"></script>
   <script src="js/sentence-pie-chart.js"></script>
   <script src="js/map.js"></script>
   <script src="js/bar-chart.js"></script>
   <script src="sankey-diagram.js"></script>
   <script src="js/minority-map.js"></script>
   <script src="js/california-demographics.js"></script> 
+  <script src="js/california-demographics-bar-chart.js"></script>
 
   </body>
 </html>

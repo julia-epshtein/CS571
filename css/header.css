@@ -42,7 +42,7 @@
     margin: 0 0 1rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    font-family: 'Inter', -apple-system, Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Canvas-Sans', system-ui, -apple-system, sans-serif;
 }
 
 .header-description {
@@ -53,7 +53,7 @@
 }
 
 .name-box {
-    position: absolute;
+    position: flex-start;
     top: 22px;
     right: 20px;
     color: white;
