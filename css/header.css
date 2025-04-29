@@ -1,12 +1,13 @@
 .header {
-    width: 100%;
+    max-width: 960px;
+    margin: 2rem auto 1rem;
     color: #c89f65;
     padding: 30px 20px;
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
     background-color: black;
     box-shadow: 0 4px 12px rgba(23, 23, 23, 0.2);
 }
@@ -14,7 +15,9 @@
 .header-logo {
     width: 100px;
     height: 100px;
-    margin-bottom: 20px;
+    margin-bottom: 1rem;
+    align-self: flex-start;
+    
 }
 
 .header-title {
@@ -35,17 +38,18 @@
 .header-main-title {
     font-size: 55px;
     font-weight: 700;
-    margin-bottom: 20px;
+    line-height: 1.2;
+    margin: 0 0 1rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Inter', -apple-system, Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .header-description {
     max-width: 900px;
     font-size: 16px;
     line-height: 1.6;
-    margin: 0 auto;
+    margin: 0 0 1rem;
 }
 
 .name-box {
@@ -59,15 +63,14 @@
 
 @media (max-width: 768px) {
     .header-main-title {
-    font-size: 28px;
-}
-    
-.header-description {
-font-size: 13px;
-}
-    
-.name-box {
-    position: static;
-    margin-top: 10px;
+        font-size: 2rem;
+}  
+    .header-description {
+    font-size: 13px;
+    max-width: 100%;
+    }
+    .header {
+        padding: 20px 10px;
+        margin: 1.5rem auto;
     }
 }

@@ -1,8 +1,9 @@
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Inter', -apple-system, Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     margin: 0;
     padding: 20px;
     background-color: black;  
+    line-height: 1.5;
 }
 
 .container {
@@ -11,34 +12,43 @@ body {
     padding: 2rem 1rem;
 }
 
+hr.section-divider {
+    border: none;             
+    border-top: 2px solid #c89f65;
+    max-width: 960px;
+    margin: 3rem auto;         
+}
+
 .dashboard {
     max-width: 1200px;
-    margin: 0 auto;
     background: black; 
-    padding: 25px;
-    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    text-align: left;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 h1 {
     color: #fff; 
-    text-align: center;
-    margin-bottom: 25px;
+    text-align: left;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    font-size: 24px;
 }
 
 h2 {
     color: #fff; 
-    margin-bottom: 25px;
-    font-weight: 700;
-    font-size: 24px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    text-align: left;
 }
 
 #chart-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     margin-bottom: 20px;
 }
 
@@ -48,12 +58,6 @@ h2 {
     color: white;  
     margin-top: 15px;
     font-weight: 500;
-}
-
-hr.section-divider {
-    border: none;             
-    border-top: 2px solid #c89f65;
-    margin: 40px 0;          
 }
 
 p {
