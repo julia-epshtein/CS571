@@ -2,16 +2,19 @@ const mapConfig = {
   width: 500,    
   height: 500,  
   projection: d3.geoMercator(),
-  colors: d3.schemeBlues[9]
+  colors: d3.schemeReds[9],
+  yearRange: [2009, 2016]
 };
 
 let countyData = null;
-let inmateData = null;
+let measuresData = null;
 let currentGeoData = null;
 let processedCountyStats = null;
+let currentYear = 2009; 
 
 function initMap() {
   setupMapSVG();
+  setupYearControls();
   loadData();
 }
 
@@ -30,14 +33,80 @@ function setupMapSVG() {
     .style("opacity", 0);
 }
 
+// Filter by year
+function setupYearControls() {
+  const controlsContainer = d3.select("#map")
+    .append("div")
+    .attr("class", "year-controls")
+    .style("position", "absolute")
+    .style("top", "10px")
+    .style("right", "10px")
+    .style("background", "rgba(0,0,0,0.7)")
+    .style("padding", "8px")
+    .style("border-radius", "5px")
+    .style("display", "flex")
+    .style("align-items", "center")
+    .style("gap", "5px");
+
+  // Previous year button
+  controlsContainer
+    .append("button")
+    .attr("id", "prev-year")
+    .text("◀")
+    .style("background", "none")
+    .style("border", "1px solid white")
+    .style("color", "white")
+    .style("cursor", "pointer")
+    .style("border-radius", "3px")
+    .on("click", () => {
+      if (currentYear > mapConfig.yearRange[0]) {
+        currentYear--;
+        updateYearDisplay();
+        updateMap();
+      }
+    });
+
+  // Add year label
+  controlsContainer
+    .append("span")
+    .attr("id", "year-label")
+    .style("color", "white")
+    .style("font-weight", "bold")
+    .style("min-width", "60px")
+    .style("text-align", "center")
+    .text(`Year: ${currentYear}`);
+
+  // Add next year button
+  controlsContainer
+    .append("button")
+    .attr("id", "next-year")
+    .text("▶")
+    .style("background", "none")
+    .style("border", "1px solid white")
+    .style("color", "white")
+    .style("cursor", "pointer")
+    .style("border-radius", "3px")
+    .on("click", () => {
+      if (currentYear < mapConfig.yearRange[1]) {
+        currentYear++;
+        updateYearDisplay();
+        updateMap();
+      }
+    });
+}
+
+function updateYearDisplay() {
+  d3.select("#year-label").text(`Year: ${currentYear}`);
+}
+
 // Load and process data
 function loadData() {
   Promise.all([
     d3.json("https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/california-counties.geojson"),
-    d3.csv("data/preprocessed/merged_inmate_data.csv", d3.autoType)
+    d3.csv("data/all_years/measures_all_years.csv", d3.autoType)
   ]).then(([geoData, data]) => {
     countyData = geoData;
-    inmateData = data;
+    measuresData = data;
     currentGeoData = geoData;
     updateMap();
   }).catch(error => {
@@ -45,29 +114,37 @@ function loadData() {
   });
 }
 
-// Inmate count by county
+// Update map based on current year
 function updateMap() {
-  const processedData = processInmateData(inmateData);
+  const processedData = processCountyData(measuresData, currentYear);
   processedCountyStats = processedData;
   renderMap(currentGeoData, processedData);
 }
 
-// Sentencing count by county
-function processInmateData(data) {
+// Process county data for the specified year
+function processCountyData(data, year) {
   const countyStats = {};
 
+  // Filter data for the current year
+  const yearData = data.filter(d => d.Year === year);
+  
   // Group by county
-  const byCounty = d3.group(data, d => d['Sentencing County']);
-
-  byCounty.forEach((inmates, county) => {
-    if (!county || county === "") return;
-
-    const count = inmates.length;
-
-    countyStats[county] = {
-      count,
-      countyName: county
-    };
+  yearData.forEach(county => {
+    if (!county.County || county.County === "") return;
+    
+    const imprisonmentRate = county['Total adult imprisonments per 100,000/population age 18-69'];
+    
+    if (!isNaN(imprisonmentRate)) {
+      countyStats[county.County] = {
+        rate: imprisonmentRate,
+        countyName: county.County,
+        year: year,
+        // Store other relevant measures that might be useful for tooltips
+        totalPopulation: county['Total population'],
+        minorityRate: county['Percent of felony imprisonments/minority share of county population'],
+        adultImprisonments: county['Total adult imprisonments']
+      };
+    }
   });
 
   return countyStats;
@@ -81,9 +158,9 @@ function renderMap(geoData, countyStats) {
   mapConfig.projection.fitSize([mapConfig.width, mapConfig.height], geoData);
   const path = d3.geoPath().projection(mapConfig.projection);
 
-  // count values for color scale domain
-  const counts = Object.values(countyStats).map(d => d.count).filter(d => !isNaN(d));
-  const colorScale = d3.scaleQuantile().domain(counts).range(mapConfig.colors);
+  // Get imprisonment rates for color scale domain
+  const rates = Object.values(countyStats).map(d => d.rate).filter(d => !isNaN(d));
+  const colorScale = d3.scaleQuantile().domain(rates).range(mapConfig.colors);
 
   svg.selectAll("path")
     .data(geoData.features)
@@ -94,8 +171,8 @@ function renderMap(geoData, countyStats) {
     .attr("fill", d => {
       const countyName = d.properties.name;
       const countyData = countyStats[countyName];
-      if (!countyData) return "#eee";
-      return isNaN(countyData.count) ? "#eee" : colorScale(countyData.count);
+      if (!countyData) return "#333"; // Dark gray for counties with no data
+      return isNaN(countyData.rate) ? "#333" : colorScale(countyData.rate);
     })
     .on("mouseover", function(event, d) {
       const countyName = d.properties.name;
@@ -108,9 +185,18 @@ function renderMap(geoData, countyStats) {
       const tooltip = d3.select(".tooltip");
       tooltip.transition().duration(200).style("opacity", 0.9);
 
-      let tooltipContent = `<strong>${countyName}</strong>`;
+      let tooltipContent = `<strong>${countyName} (${currentYear})</strong>`;
       if (countyData) {
-        tooltipContent += `<br>Inmates: ${countyData.count.toLocaleString()}`;
+        tooltipContent += `<br>Imprisonment Rate: ${countyData.rate.toFixed(1)} per 100,000`;
+        if (countyData.adultImprisonments) {
+          tooltipContent += `<br>Total Imprisonments: ${countyData.adultImprisonments.toLocaleString()}`;
+        }
+        if (countyData.totalPopulation) {
+          tooltipContent += `<br>Population: ${countyData.totalPopulation.toLocaleString()}`;
+        }
+        if (countyData.minorityRate) {
+          tooltipContent += `<br>Minority Imprisonment Index: ${countyData.minorityRate.toFixed(2)}`;
+        }
       } else {
         tooltipContent += "<br>No data available";
       }
@@ -118,6 +204,11 @@ function renderMap(geoData, countyStats) {
       tooltip.html(tooltipContent)
         .style("left", (event.pageX + 15) + "px")
         .style("top", (event.pageY - 28) + "px");
+        
+      // Also update the county details section if it exists
+      if (d3.select("#county-details").size() > 0) {
+        displayCountyDetails(countyName, countyData);
+      }
     })
     .on("mouseout", function() {
       d3.select(this)
@@ -127,10 +218,10 @@ function renderMap(geoData, countyStats) {
     });
 
   createLegend(colorScale);
-}
+  }
 
-function roundToHundred(num) {
-  return Math.round(num / 100) * 100;
+function roundToNearest(num, nearest) {
+  return Math.round(num / nearest) * nearest;
 }
 
 function createLegend(colorScale) {
@@ -141,7 +232,7 @@ function createLegend(colorScale) {
   const thresholds = colorScale.quantiles();
 
   legend.append("div")
-    .text("Inmates:")
+    .text("Imprisonment Rate (per 100,000):")
     .style("font-weight", "bold")
     .style("color", "white");  
 
@@ -153,9 +244,9 @@ function createLegend(colorScale) {
 
     let label;
     if (i === 0) {
-      label = `< ${roundToHundred(threshold)}`;
+      label = `< ${roundToNearest(threshold, 10).toFixed(0)}`;
     } else {
-      label = `${roundToHundred(thresholds[i - 1])} - ${roundToHundred(threshold)}`;
+      label = `${roundToNearest(thresholds[i - 1], 10).toFixed(0)} - ${roundToNearest(threshold, 10).toFixed(0)}`;
     }
 
     item.append("div")
@@ -171,7 +262,7 @@ function createLegend(colorScale) {
 
   lastItem.append("div")
     .attr("class", "legend-label")
-    .text(`> ${Math.ceil(thresholds[thresholds.length - 1])}`)
+    .text(`> ${roundToNearest(thresholds[thresholds.length - 1], 10).toFixed(0)}`)
     .style("color", "white");  
 }
 
@@ -180,41 +271,19 @@ function displayCountyDetails(countyName, countyData) {
 
   if (!countyData) {
     detailsContainer.html(`
-      <h3>${countyName}</h3>
+      <h3>${countyName} (${currentYear})</h3>
       <p>No data available for this county</p>
     `);
     return;
   }
 
-  const countyInmates = countyData.inmates || [];
-  const offenseCategories = {};
-  countyInmates.forEach(inmate => {
-    const category = inmate['Offense Category_current'] || 'Unknown';
-    offenseCategories[category] = (offenseCategories[category] || 0) + 1;
-  });
-
-  const sortedCategories = Object.entries(offenseCategories)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 5);
-
-  let categoriesHTML = '';
-  if (sortedCategories.length > 0) {
-    categoriesHTML = `
-      <h4>Top Offense Categories</h4>
-      <ul style="text-align: left; padding-left: 20px;">
-        ${sortedCategories.map(([category, count]) =>
-          `<li>${category}: ${count} (${((count / countyInmates.length) * 100).toFixed(1)}%)</li>`
-        ).join('')}
-      </ul>
-    `;
-  }
-
   detailsContainer.html(`
-    <h3>${countyName}</h3>
-    <p><strong>Total Inmates:</strong> ${countyData.count.toLocaleString()}</p>
-    ${categoriesHTML}
+    <h3>${countyName} (${currentYear})</h3>
+    <p><strong>Imprisonment Rate:</strong> ${countyData.rate.toFixed(1)} per 100,000 adults</p>
+    ${countyData.adultImprisonments ? `<p><strong>Total Imprisonments:</strong> ${countyData.adultImprisonments.toLocaleString()}</p>` : ''}
+    ${countyData.totalPopulation ? `<p><strong>Population:</strong> ${countyData.totalPopulation.toLocaleString()}</p>` : ''}
+    ${countyData.minorityRate ? `<p><strong>Minority Imprisonment Index:</strong> ${countyData.minorityRate.toFixed(2)}</p>` : ''}
   `);
 }
 
-// Start map
 initMap();
