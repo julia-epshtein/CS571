@@ -1,0 +1,87 @@
+#scatterplot {
+    width: 100%;
+    height: 100%;
+}
+
+/* Tooltip styling */
+.scatterplot-tooltip {
+    position: absolute;
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 4px;
+    pointer-events: none;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Controls styling */
+#scatterplot-container {
+    position: relative;
+    background-color: black;
+  }
+  
+  .scatterplot-controls {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: bold;
+    z-index: 1;
+  }
+  
+
+.scatterplot-controls button {
+    background: none;
+    border: 1px solid white;
+    color: white;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 2px 8px;
+}
+
+.scatterplot-controls span {
+    color: white;
+    font-weight: bold;
+    min-width: 60px;
+    text-align: center;
+}
+
+/* Scatterplot text elements */
+.scatterplot-title {
+    color: white;
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+
+.scatterplot-year {
+    color: #c89f65;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+/* Axis styling */
+.axis-label {
+    fill: white;
+    font-size: 12px;
+}
+
+.axis line, .axis path {
+    stroke: #666;
+}
+
+.axis text {
+    fill: #999;
+}
+
+/* Regression line styling */
+.regression-line {
+    stroke: #c89f65;
+    stroke-width: 2px;
+    stroke-dasharray: 5, 5;
+}

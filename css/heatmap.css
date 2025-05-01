@@ -1,0 +1,133 @@
+/* Heatmap container */
+.heatmaps-container {
+    width: 100%;
+    max-width: 1800px; 
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Individual heatmap containers */
+#rates-heatmap-container, 
+#costs-heatmap-container {
+    flex: 1;
+    min-width: 400px;
+    background-color: black;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Heatmap title */
+.heatmap-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+/* Scrollable heatmap area */
+.scrollable-heatmap {
+    overflow-y: auto;
+    max-height: 500px;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+/* Axis styling */
+.heatmap-axis text {
+    fill: #fff;
+    font-size: 12px;
+}
+
+.heatmap-axis path,
+.heatmap-axis line {
+    stroke: #c89f65;
+    stroke-width: 1px;
+}
+
+/* Cell hover effect */
+.heatmap-cell:hover {
+    stroke: #fff;
+    stroke-width: 2px;
+}
+
+/* Legend styling */
+.heatmap-legend text {
+    fill: #fff;
+    font-size: 12px;
+}
+
+.heatmap-legend-title {
+    fill: #fff;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.year-legend-container {
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Heatmap tooltip */
+.heatmap-tooltip {
+    position: absolute;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: 1px solid #c89f65;
+    border-radius: 4px;
+    pointer-events: none;
+    font-size: 14px;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.heatmap-tooltip strong {
+    color: #c89f65;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.heatmap-tooltip span {
+    display: block;
+    margin: 2px 0;
+}
+
+.legend-container {
+    margin-top: 10px;
+    padding: 10px;
+    background: rgba(0,0,0,0.7);
+    border-radius: 5px;
+    width: fit-content;
+    align-self: flex-start;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .heatmaps-container {
+        flex-direction: column;
+    }
+    
+    #rates-heatmap-container, 
+    #costs-heatmap-container {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .heatmap-axis text {
+        font-size: 10px;
+    }
+    
+    .heatmap-title {
+        font-size: 1rem;
+    }
+}
