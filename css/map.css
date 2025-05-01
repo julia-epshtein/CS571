@@ -12,7 +12,7 @@
   min-width: 400px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
 }
 
 #map, #minority-map {
@@ -20,7 +20,7 @@
   height: 500px; 
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
 }
 
 #legend-container, #minority-legend-container {
@@ -29,7 +29,7 @@
   padding: 10px 0;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: left;
   min-height: 60px;
 }
 
