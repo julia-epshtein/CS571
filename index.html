@@ -11,150 +11,214 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/main.css" />
-    <link rel="stylesheet" href="css/pie-chart.css" />
-    <link rel="stylesheet" href="css/map.css" />
-    <link rel="stylesheet" href="css/bar-chart.css" />
     <link rel="stylesheet" href="css/header.css" />
-    <link rel="stylesheet" href="css/sankey-diagram.css" />
+    <link rel="stylesheet" href="css/map.css" />
     <link rel="stylesheet" href="css/minority-map.css" />
-    <link rel="stylesheet" href="css/california-demographics.css" />
+    <link rel="stylesheet" href="css/heatmap.css" />
+    <link rel="stylesheet" href="css/scatterplot.css" />
+    <link rel="stylesheet" href="css/bar-chart.css" />
+    <link rel="stylesheet" href="css/line-chart.css" />
     <link rel="stylesheet" href="css/california-demographics-bar-chart.css" />
+    <link rel="stylesheet" href="css/pie-chart.css" />
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://d3js.org/topojson.v3.min.js"></script>
   </head>
   <body>
+    <div class="container">
+      <hr class="section-divider" />
 
-  <div class="container">
-  <hr class="section-divider">
-
-  <div class="explanation dashboard">
-    <h2 class="Chart-title">Chart Explanations</h2>
-    <p>More text and explanations here.</p>
-  </div>
-
-  <div class="dashboard">
-    <h1>California Sentencing by County vs. Minority Population</h1>
-    <div class="maps-container">
-      <div class="map-wrapper">
-        <h2>Sentencing by County</h2>
-        <div id="map"></div>
-        <div id="legend-container"></div>
-        <p>Here we can provide insights from the California Sentencing by County map. For example, we might observe trends of higher incarceration rates in certain counties.</p>
+      <div class="explanation dashboard">
+        <h2 class="Chart-title">Chart Explanations</h2>
+        <p>More text and explanations here.</p>
       </div>
-      
-      <div class="map-wrapper">
-        <h2>% Minority by County</h2>
-        <div id="minority-map"></div>
-        <div id="minority-legend-container"></div>
-        <p> For future reference: Add context here for explaining demographic patterns in relation to sentencing rates.</p>
-      </div>
-    </div>
-  </div>
 
-  <hr class="section-divider">
+      <div class="dashboard">
+        <h1>California Sentencing by County vs. Minority Population</h1>
+        <div class="maps-container">
+          <div class="map-wrapper">
+            <h2>Sentencing by County</h2>
+            <div id="map"></div>
+            <div id="legend-container"></div>
+            <p>
+              Here we can provide insights from the California Sentencing by
+              County map. For example, we might observe trends of higher
+              incarceration rates in certain counties.
+            </p>
+          </div>
 
-  <div class="explanation dashboard">
-    <h2>California's Prison Population vs. State Demographics</h2>
-    <p>These bar charts compare the ethnic composition of California's prison population with the overall demographic makeup of the state, highlighting significant disparities.</p>
-  </div>
-
-  <div class="dashboard">
-    <div class="ethnicity-bar-chart-container">
-      <div class="ethnicity-bar-chart-wrapper">
-        <h2>Inmate Ethnicity Distribution</h2>
-        <div class="chart-container">  
-          <div id="bars-chart"></div>
+          <div class="map-wrapper">
+            <h2>% Minority by County</h2>
+            <div id="minority-map"></div>
+            <div id="minority-legend-container"></div>
+            <p>
+              For future reference: Add context here for explaining demographic
+              patterns in relation to sentencing rates.
+            </p>
+          </div>
         </div>
-        <div id="legend"></div>
-        <p>The prison population shows significant racial disparities compared to overall state demographics, with Black individuals representing a disproportionately high percentage of the incarcerated population despite being a smaller minority group statewide.</p>
       </div>
-  
-      <div class="ethnicity-bar-chart-wrapper">
-        <h2>California Demographics</h2>
-        <div class="chart-container">  
-          <div id="california-demographics-bar-chart"></div>  
+
+      <hr class="section-divider" />
+
+      <div class="explanation dashboard">
+        <h2>California's Prison Population vs. State Demographics</h2>
+        <p>
+          These bar charts compare the ethnic composition of California's prison
+          population with the overall demographic makeup of the state,
+          highlighting significant disparities.
+        </p>
+      </div>
+
+      <div class="dashboard">
+        <div class="ethnicity-bar-chart-container">
+          <div class="ethnicity-bar-chart-wrapper">
+            <h2>Inmate Ethnicity Distribution</h2>
+            <div class="chart-container">
+              <div id="bar-chart"></div>
+            </div>
+            <div id="legend"></div>
+            <p>
+              The prison population shows significant racial disparities
+              compared to overall state demographics, with Black individuals
+              representing a disproportionately high percentage of the
+              incarcerated population despite being a smaller minority group
+              statewide.
+            </p>
+          </div>
+
+          <div class="ethnicity-bar-chart-wrapper">
+            <h2>California Demographics</h2>
+            <div class="chart-container">
+              <div id="california-demographics-bar-chart"></div>
+            </div>
+            <div id="california-demographics-legend"></div>
+            <p>
+              California's general population has a different ethnic composition
+              than its prison population, with Hispanic and White residents
+              forming the largest demographic groups in the state overall.
+            </p>
+          </div>
         </div>
-        <div id="california-demographics-legend"></div>
-        <p>California's general population has a different ethnic composition than its prison population, with Hispanic and White residents forming the largest demographic groups in the state overall.</p>
+
+        <div class="ethnicity-bar-chart-wrapper">
+          <h2>Sentence Type Distribution</h2>
+          <div class="chart-container">
+            <div id="sentence-bar-chart"></div>
+          </div>
+          <div id="sentence-legend"></div>
+          <p>
+            The distribution of sentence types shows a high percentage of
+            serious sentences, including second and third strikes, reflecting
+            California's approach to repeat offenders.
+          </p>
+        </div>
+
+        <div id="summary"></div>
       </div>
-    </div>
-    
-    <div class="ethnicity-bar-chart-wrapper">
-      <h2>Sentence Type Distribution</h2>
-      <div class="chart-container"> 
-        <div id="sentence-bar-chart"></div>
+
+      <hr class="section-divider" />
+
+      <div class="explanation dashboard">
+        <h2 class="Chart-title">Sentence Length Distribution</h2>
+        <p>
+          This chart shows how sentence lengths vary between second and third
+          strikers, showing that blah blah blah
+        </p>
       </div>
-      <div id="sentence-legend"></div>
-      <p>The distribution of sentence types shows a high percentage of serious sentences, including second and third strikes, reflecting California's approach to repeat offenders.</p>
-    </div>
-  
-    <div id="summary"></div>
-  </div>
 
-
-  <hr class="section-divider">
-
-  <div class="explanation dashboard">
-    <h2 class="Chart-title">Chart Explanations</h2>
-    <p>Highlighting key stuff about the timeline goes here</p>
-  </div>
-
-  <div class="dashboard">
-    <h1>Timeline </h1>
-    <div id="sankey-diagram">
-      <div class="sankey-placeholder">
-        <div class="sankey-placeholder-icon">X</div>
-        <div class="sankey-placeholder-text">Chart Goes Here</div>
+      <div class="dashboard">
+        <h1>Sentence Length Distribution by Strike Type</h1>
+        <div id="strikes-bar-chart"></div>
+        <p>
+          For future reference: Explain the last value and how severe the
+          sentences are for Third Strikers
+        </p>
       </div>
-    </div>
-  </div>
 
+      <hr class="section-divider" />
 
-  <hr class="section-divider">
-
-    <div class="explanation dashboard">
-    <h2 class="Chart-title">Chart Explanations</h2>
-    <p>This chart shows how sentence lengths vary between second and third strikers, showing that blah blah blah</p>
-  </div>
-
-  <div class="dashboard">
-    <h1>Sentence Length Distribution by Strike Type</h1>
-    <div id="bar-chart"></div>
-    <p>For future reference: Explain the last value and how severe the sentences are for Third Strikers</p>
-  </div>
-
-
-  <hr class="section-divider">
-
-  <div class="explanation dashboard">
-    <h2 class="Chart-title">Chart Explanations</h2>
-    <p>The Sankey diagram will visualize the flow of cases through the criminal justice system -- just have to figure out how to get the initial sentence</p>
-  </div>
-
-  <div class="dashboard">
-    <h1>Sentencing Flow Analysis</h1>
-    <div id="sankey-diagram">
-      <div class="sankey-placeholder">
-        <div class="sankey-placeholder-icon">X</div>
-        <div class="sankey-placeholder-text">Sankey Diagram Goes Here</div>
+      <div class="explanation dashboard">
+        <h2 class="Chart-title">County-Level Imprisonment Trends</h2>
+        <p>
+          These heatmaps show imprisonment rates and costs across all California
+          counties from 2009-2016. Darker colors indicate higher values.
+        </p>
       </div>
+
+      <div class="dashboard">
+        <h1>County-Level Imprisonment Analysis</h1>
+        <div
+          class="heatmaps-container"
+          style="display: flex; justify-content: space-between"
+        >
+          <div id="rates-heatmap-container"></div>
+          <div id="costs-heatmap-container"></div>
+        </div>
+        <p>
+          The left heatmap shows imprisonment rates per 100,000 population,
+          while the right shows total imprisonment costs in millions of dollars.
+          Hover over cells to see exact values.
+        </p>
+      </div>
+
+      <hr class="section-divider" />
+
+      <div class="dashboard">
+        <h1>Poverty and Imprisonment Relationship</h1>
+        <div id="scatterplot-container"></div>
+        <p>
+          This scatterplot shows the relationship between poverty rates and
+          imprisonment rates across California counties. Each point represents a
+          county, with the regression line showing the overall trend. Use the
+          controls to explore different years.
+        </p>
+      </div>
+
+      <hr class="section-divider" />
+
+      <div class="explanation dashboard">
+        <h2 class="chart-title">Imprisonment Trends Over Time</h2>
+        <p>
+          These charts show the historical trends of imprisonment rates and
+          costs across all California counties from 2009-2016.
+        </p>
+      </div>
+
+      <div class="dashboard">
+        <div class="line-charts-container">
+          <div class="line-chart-wrapper">
+            <h3>Imprisonment Rates</h3>
+            <div id="rate-chart"></div>
+            <p>
+              Average imprisonment rate per 100,000 adult population shows
+              trends in incarceration levels.
+            </p>
+          </div>
+          <div class="line-chart-wrapper">
+            <h3>Imprisonment Costs</h3>
+            <div id="cost-chart"></div>
+            <p>
+              Total costs in millions of dollars associated with imprisonment
+              across all counties.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <script src="js/header.js"></script>
+      <script src="js/main.js"></script>
+      <script src="js/choropleth-maps/imprisonment-map.js"></script>
+      <script src="js/choropleth-maps/minority-map.js"></script>
+      <script src="js/bar-charts/california-demographics.js"></script>
+      <script src="js/bar-charts/strikes-bar-chart.js"></script>
+      <script src="js/california-demographics-bar-chart.js"></script>
+      <script src="js/pie-charts/pie-chart.js"></script>
+      <script src="js/pie-charts/sentence-pie-chart.js"></script>
+      <script src="js/heatmaps/imprisonment-heatmap.js"></script>
+      <script src="js/heatmaps/costs-heatmap.js"></script>
+      <script src="js/scatterplots/scatterplot.js"></script>
+      <script src="js/line-charts/line-chart.js"></script>
     </div>
-  </div>
-
-
-
-  <script src="js/header.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/pie-chart.js"></script>
-  <script src="js/ethnicity-bar-chart.js"></script>
-  <script src="js/sentence-pie-chart.js"></script>
-  <script src="js/map.js"></script>
-  <script src="js/bar-chart.js"></script>
-  <script src="sankey-diagram.js"></script>
-  <script src="js/minority-map.js"></script>
-  <script src="js/california-demographics.js"></script> 
-  <script src="js/california-demographics-bar-chart.js"></script>
-
   </body>
 </html>

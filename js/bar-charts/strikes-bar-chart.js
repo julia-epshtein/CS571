@@ -1,46 +1,41 @@
-// Configuration
-const barConfig = {
+const strikesBarConfig = {
   width: 900,
   height: 500,
   margin: { top: 50, right: 50, bottom: 100, left: 60 },
   colors: ["#6baed6", "#54278f"]
 };
 
-// Initialization
-function initVisualization() {
-  console.log("Starting initialization of visualization");
-  setupSVG();
-  loadData();
+function initStrikesVisualization() {
+  setupStrikesSVG();
+  loadStrikesData();
 }
 
 // SVG container
-function setupSVG() {
-  console.log("Setting up SVG container");
+function setupStrikesSVG() {
+  
+  d3.select("#strikes-bar-chart").html("");
+  
   const svg = d3
-    .select("#bar-chart")
+    .select("#strikes-bar-chart")
     .append("svg")
-    .attr("width", barConfig.width)
-    .attr("height", barConfig.height)
+    .attr("width", strikesBarConfig.width)
+    .attr("height", strikesBarConfig.height)
     .style("background-color", "black");  
-
-  console.log("SVG container created successfully");
 
   svg
     .append("g")
-    .attr("class", "chart-container")
+    .attr("class", "strikes-chart-container")
     .attr(
       "transform",
-      `translate(${barConfig.margin.left}, ${barConfig.margin.top})`
+      `translate(${strikesBarConfig.margin.left}, ${strikesBarConfig.margin.top})`
     );
 }
 
 // Load and process data
-function loadData() {
-  console.log("Starting data loading");
+function loadStrikesData() {
 
   d3.csv("data/preprocessed/sentence_length_distribution.csv")
     .then(data => {
-      console.log("Data loaded successfully", data);
       
       const processedData = data.map(d => ({
         bin: d["Sentence Length Bin"],
@@ -48,29 +43,28 @@ function loadData() {
         "Third Striker": +d["Third Striker"]
       }));
       
-      renderChart(processedData);
+      renderStrikesChart(processedData);
     })
     .catch((error) => {
-      const errorMsg = `Failed to load data: ${error.message}`;
+      const errorMsg = `Failed to load strikes data: ${error.message}`;
       console.error(errorMsg, error);
       alert(errorMsg);
     });
 }
 
 // Render 
-function renderChart(data) {
-  console.log("Starting chart rendering with", data.length, "data points");
+function renderStrikesChart(data) {
 
-  const svg = d3.select("#bar-chart svg .chart-container");
+  const svg = d3.select("#strikes-bar-chart svg .strikes-chart-container");
   if (svg.empty()) {
-    console.error("Chart container not found. Check if setupSVG() ran successfully.");
+    console.error("Strikes chart container not found. Check if setupStrikesSVG() ran successfully.");
     return;
   }
 
   svg.selectAll("*").remove();
 
-  const chartWidth = barConfig.width - barConfig.margin.left - barConfig.margin.right;
-  const chartHeight = barConfig.height - barConfig.margin.top - barConfig.margin.bottom;
+  const chartWidth = strikesBarConfig.width - strikesBarConfig.margin.left - strikesBarConfig.margin.right;
+  const chartHeight = strikesBarConfig.height - strikesBarConfig.margin.top - strikesBarConfig.margin.bottom;
 
   // Get bins and strike types
   const bins = data.map(d => d.bin);
@@ -99,7 +93,7 @@ function renderChart(data) {
   const color = d3
     .scaleOrdinal()
     .domain(strikeTypes)
-    .range(barConfig.colors);
+    .range(strikesBarConfig.colors);
 
   // axes
   svg
@@ -119,7 +113,7 @@ function renderChart(data) {
     .selectAll("text")
     .style("fill", "white"); 
 
-    svg.selectAll(".domain")
+  svg.selectAll(".domain")
     .style("stroke", "white");  
 
   // axis labels
@@ -128,7 +122,7 @@ function renderChart(data) {
     .attr("class", "axis-label")
     .attr(
       "transform",
-      `translate(${chartWidth / 2}, ${chartHeight + barConfig.margin.bottom - 20})`
+      `translate(${chartWidth / 2}, ${chartHeight + strikesBarConfig.margin.bottom - 20})`
     )
     .style("text-anchor", "middle")
     .style("fill", "white")  
@@ -138,7 +132,7 @@ function renderChart(data) {
     .append("text")
     .attr("class", "axis-label")
     .attr("transform", "rotate(-90)")
-    .attr("y", 0 - barConfig.margin.left)
+    .attr("y", 0 - strikesBarConfig.margin.left)
     .attr("x", 0 - chartHeight / 2)
     .attr("dy", "1em")
     .style("text-anchor", "middle")
@@ -149,7 +143,7 @@ function renderChart(data) {
   const tooltip = d3
     .select("body")
     .append("div")
-    .attr("class", "tooltip")
+    .attr("class", "strikes-tooltip tooltip")
     .style("opacity", 0);
 
   // bars
@@ -218,10 +212,9 @@ function renderChart(data) {
       .style("font-size", "12px")
       .style("fill", "white"); 
   });
-
-  console.log("Chart rendering completed successfully");
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  initVisualization();
+  console.log("DOM loaded, initializing strikes visualization");
+  setTimeout(initStrikesVisualization, 100);
 });

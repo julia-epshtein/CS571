@@ -1,85 +1,44 @@
 #california-demographics-bar-chart {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .california-demographics-bar-chart-svg .domain,
-  .california-demographics-bar-chart-svg .tick line {
-    stroke: #555;
-  }
-  
-  .california-demographics-bar-chart-svg text {
-    font-family: 'Canvas-Sans', sans-serif;
-    font-size: 12px;
-  }
-  
-  .tooltip {
-    position: absolute;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    border-radius: 4px;
-    pointer-events: none;
-    font-family: 'Canvas-Sans', sans-serif;
-    font-size: 12px;
-    z-index: 10;
-  }
-  
-  .bar:hover {
-    opacity: 0.8;
-  }
-  
-  #california-demographics-legend {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 15px;
-    width: 100%;
-  }
-  
-  .legend-item {
-    display: flex;
-    align-items: left;
-  }
-  
-  .legend-color {
-    width: 15px;
-    height: 15px;
-    margin-right: 8px;
-    border-radius: 2px;
-  }
-  
-  .legend-text {
-    font-size: 13px;
-    color: white;
-    font-family: 'Canvas-Sans', sans-serif;
-  }
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
 
-  .ethnicity-bar-chart-wrapper {
-    flex: 1;
-    min-width: 300px;
-    max-width: 450px;
-    text-align: left;
+.california-demographics-bar-chart-svg .domain,
+.california-demographics-bar-chart-svg .tick line {
+  stroke: #555;
+}
+
+.california-demographics-bar-chart-svg text {
+  font-family: 'Canvas-Sans', sans-serif;
+  font-size: 12px;
+}
+
+/* Ethnicity chart wrappers */
+.ethnicity-bar-chart-wrapper {
+  flex: 1;
+  min-width: 300px;
+  max-width: 450px;
+  text-align: left;
 }
 
 .ethnicity-bar-chart-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
 }
 
+/* Responsive adjustments */
 @media (max-width: 768px) {
-    .ethnicity-bar-chart-container,
-    .maps-container {
-        flex-direction: column;
-    }
-    
-    .ethnicity-bar-chart-wrapper,
-    .map-wrapper {
-        max-width: 100%;
-    }
+  .ethnicity-bar-chart-container,
+  .maps-container {
+      flex-direction: column;
+  }
+  
+  .ethnicity-bar-chart-wrapper,
+  .map-wrapper {
+      max-width: 100%;
+  }
 }

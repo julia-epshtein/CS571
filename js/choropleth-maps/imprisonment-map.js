@@ -66,7 +66,7 @@ function setupYearControls() {
       }
     });
 
-  // Add year label
+  // Year label
   controlsContainer
     .append("span")
     .attr("id", "year-label")
@@ -76,7 +76,7 @@ function setupYearControls() {
     .style("text-align", "center")
     .text(`Year: ${currentYear}`);
 
-  // Add next year button
+  // Next year button
   controlsContainer
     .append("button")
     .attr("id", "next-year")
@@ -139,7 +139,7 @@ function processCountyData(data, year) {
         rate: imprisonmentRate,
         countyName: county.County,
         year: year,
-        // Store other relevant measures that might be useful for tooltips
+        // Store info for tooltip
         totalPopulation: county['Total population'],
         minorityRate: county['Percent of felony imprisonments/minority share of county population'],
         adultImprisonments: county['Total adult imprisonments']

@@ -1,3 +1,4 @@
+/* Container for maps */
 .maps-container {
   display: flex;
   flex-direction: row;
@@ -7,6 +8,7 @@
   width: 100%;
 }
 
+/* Individual map wrapper */
 .map-wrapper {
   flex: 1;
   min-width: 400px;
@@ -15,6 +17,7 @@
   align-items: left;
 }
 
+/* Map container styling */
 #map, #minority-map {
   position: relative;
   width: 100%;
@@ -24,6 +27,7 @@
   align-items: left;
 }
 
+/* Legend container styling */
 #legend-container, #minority-legend-container {
   width: 100%;
   margin: 10px 0;
@@ -34,6 +38,7 @@
   min-height: 60px;
 }
 
+/* Legend styling */
 .legend {
   display: flex;
   flex-direction: row;
@@ -65,3 +70,4 @@
   color: white !important;
   margin: 0;
 }
+
