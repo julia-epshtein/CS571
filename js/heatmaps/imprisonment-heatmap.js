@@ -2,7 +2,7 @@ const ratesHeatmapConfig = {
   width: 900, 
   height: 600,
   margin: { top: 70, right: 30, bottom: 30, left: 150 },
-  colorScheme: d3.interpolateReds,
+  colorScheme: d3.interpolateYlOrRd, 
   title: "Imprisonment Rates Over Time (per 100,000)",
   containerId: "#rates-heatmap-container",
   visibleCounties: 10
@@ -62,8 +62,14 @@ function createHeatmap(heatmapData, config) {
   container.append("div")
     .attr("class", "heatmap-title")
     .text(config.title);
+  
+  // Create x scale for year labels
+  const x = d3.scaleBand()
+    .range([0, config.width - config.margin.left - config.margin.right])
+    .domain(heatmapData.years)
+    .padding(0.05);
     
-  // container for heatmap
+  // Scrollable container for heatmap
   const scrollContainer = container
     .append("div")
     .attr("class", "scrollable-heatmap");
@@ -84,12 +90,6 @@ function createHeatmap(heatmapData, config) {
   const cellHeight = 30; 
   const totalHeight = cellHeight * heatmapData.counties.length;
   
-  // x scale
-  const x = d3.scaleBand()
-    .range([0, config.width - config.margin.left - config.margin.right])
-    .domain(heatmapData.years)
-    .padding(0.05);
-
   // y scale with fixed cell height
   const y = d3.scaleBand()
     .range([0, totalHeight])
@@ -136,6 +136,24 @@ function createHeatmap(heatmapData, config) {
         .duration(500)
         .style("opacity", 0);
     });
+
+  // Add value text inside each cell
+  svg.selectAll(".cell-value")
+    .data(heatmapData.matrix.flatMap((row, i) => row.map((value, j) => ({ 
+      county: heatmapData.counties[i], 
+      year: heatmapData.years[j], 
+      value 
+    }))))
+    .enter()
+    .append("text")
+    .attr("class", "cell-value")
+    .attr("x", d => x(d.year) + x.bandwidth() / 2)
+    .attr("y", d => y(d.county) + y.bandwidth() / 2 + 5)
+    .attr("text-anchor", "middle")
+    .style("fill", d => d.value > maxValue / 2 ? "white" : "black")
+    .style("font-size", "10px")
+    .style("pointer-events", "none")
+    .text(d => d.value ? d.value.toFixed(1) : "");
 
   // y-axis (County labels)
   svg.append("g")

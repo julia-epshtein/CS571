@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
     svg.append("text")
       .attr("class", "axis-label")
       .attr("x", width / 2)
-      .attr("y", height + margin.bottom - 10)
+      .attr("y", height + margin.bottom)
       .style("text-anchor", "middle")
       .text("Year");
     
@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
     svg.append("text")
       .attr("class", "axis-label")
       .attr("x", width / 2)
-      .attr("y", height + margin.bottom - 10)
+      .attr("y", height + margin.bottom)
       .style("text-anchor", "middle")
       .text("Year");
     

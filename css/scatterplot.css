@@ -1,12 +1,3 @@
-/* Scatterplot container */
-.scatterplot-container {
-    width: 100%;
-    height: 500px;
-    position: absolute;
-    background-color: black;
-    margin-bottom: 20px;
-}
-
 #scatterplot {
     width: 100%;
     height: 100%;
@@ -16,7 +7,7 @@
 .scatterplot-tooltip {
     position: absolute;
     padding: 8px;
-    background: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
     color: white;
     border-radius: 4px;
     pointer-events: none;
@@ -26,18 +17,24 @@
 }
 
 /* Controls styling */
-.scatterplot-controls {
+#scatterplot-container {
     position: relative;
-    top: 20px;  
-    right: 20px; 
-    background: rgba(0, 0, 0, 0.7);
-    padding: 8px;
-    border-radius: 5px;
+    background-color: black;
+  }
+  
+  .scatterplot-controls {
+    position: absolute;
+    top: 10px;
+    right: 10px;
     display: flex;
-    align-items: center;
     gap: 5px;
-    z-index: 10;
-}
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: bold;
+    z-index: 1;
+  }
+  
 
 .scatterplot-controls button {
     background: none;

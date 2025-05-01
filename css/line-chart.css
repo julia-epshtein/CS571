@@ -43,6 +43,11 @@
     font-size: 12px;
     fill: #666;
   }
+
+  .axis-label {
+    font-size: 18px;
+    fill: black;
+  }
   
   /* grid */
   .grid line {

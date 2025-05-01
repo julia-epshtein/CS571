@@ -2,7 +2,6 @@
 body {
     font-family: 'Canvas-Sans', sans-serif;
     margin: 0;
-    padding: 20px;
     background-color: black;  
     line-height: 1.5;
 }
@@ -14,6 +13,24 @@ body {
     padding: 2rem 1rem;
 }
 
+/* Wide container for charts */
+.container-wide {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1.5rem 20px;
+  }
+  
+  /* Ensure heatmaps fill the wide container */
+  .container-wide .scrollable-heatmap {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  /* Adjust section divider for wide containers */
+  .container-wide + hr.section-divider {
+    max-width: 1200px;
+  }  
 /* Section divider styling */
 hr.section-divider {
     border: none;             
