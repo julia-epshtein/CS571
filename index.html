@@ -10,6 +10,9 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/topojson.v3.min.js"></script>
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/header.css" />
     <link rel="stylesheet" href="css/map.css" />
@@ -19,9 +22,6 @@
     <link rel="stylesheet" href="css/bar-chart.css" />
     <link rel="stylesheet" href="css/line-chart.css" />
     <link rel="stylesheet" href="css/california-demographics-bar-chart.css" />
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-    <script src="https://d3js.org/topojson.v3.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -68,13 +68,14 @@
           highlighting significant disparities.
         </p>
       </div>
+      
 
       <div class="dashboard">
         <div class="ethnicity-bar-chart-container">
           <div class="ethnicity-bar-chart-wrapper">
             <h2>Inmate Ethnicity Distribution</h2>
             <div class="chart-container">
-              <div id="bars-chart"></div>
+              <div id="bar-chart"></div>
             </div>
             <div id="legend"></div>
             <p>
@@ -202,8 +203,8 @@
       <script src="js/choropleth-maps/imprisonment-map.js"></script>
       <script src="js/choropleth-maps/minority-map.js"></script>
       <script src="js/bar-charts/strikes-bar-chart.js"></script>
-      <script src="js/bar-charts/inmate-demographics.js"></script>
       <script src="js/bar-charts/california-demographics-bar-chart.js"></script>
+      <script src="js/bar-charts/demographics-bar-chart.js"></script>
       <script src="js/bar-charts/sentence-bar-chart.js"></script>
       <script src="js/heatmaps/imprisonment-heatmap.js"></script>
       <script src="js/heatmaps/costs-heatmap.js"></script>
