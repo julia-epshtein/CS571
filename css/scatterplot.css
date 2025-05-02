@@ -20,7 +20,7 @@
 #scatterplot-container {
     position: relative;
     background-color: black;
-  }
+}
   
   .scatterplot-controls {
     position: absolute;
@@ -68,7 +68,7 @@
 /* Axis styling */
 .axis-label {
     fill: white;
-    font-size: 12px;
+    font-size: 15px;
 }
 
 .axis line, .axis path {

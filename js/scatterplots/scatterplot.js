@@ -1,7 +1,7 @@
 const scatterplotConfig = {
-    width: 900,
-    height: 600,
-    margin: { top: 60, right: 20, bottom: 50, left: 60 },
+    width: 1100,
+    height: 800,
+    margin: { top: 60, right: 20, bottom: 40, left: 80 },
     yearRange: [2009, 2016],
     pointRadius: 6,
     transitionDuration: 1000
@@ -53,16 +53,22 @@ const scatterplotConfig = {
     chartG.append("text")
       .attr("class", "axis-label")
       .attr("x", getChartWidth() / 2)
-      .attr("y", getChartHeight() + scatterplotConfig.margin.bottom - 10)
+      .attr("y", getChartHeight() + scatterplotConfig.margin.bottom + 20) // Increased spacing from axis
       .style("text-anchor", "middle")
+      .style("font-size", "16px")
+      .style("font-weight", "bold")
+      .style("font-family", "'Inter', sans-serif")
       .text("Adult Poverty Rate (%)");
     
     chartG.append("text")
       .attr("class", "axis-label")
       .attr("transform", "rotate(-90)")
       .attr("x", -getChartHeight() / 2)
-      .attr("y", -scatterplotConfig.margin.left + 15)
+      .attr("y", -scatterplotConfig.margin.left + 15) // Adjusted position
       .style("text-anchor", "middle")
+      .style("font-size", "16px")
+      .style("font-weight", "bold")
+      .style("font-family", "'Inter', sans-serif")
       .text("Imprisonments per 100,000 Adults");
     
     // tooltip
@@ -189,17 +195,26 @@ const scatterplotConfig = {
       .domain(counties)
       .range(d3.schemeTableau10);
     
-    // Update axes
+    // Update axes with larger tick labels
     const xAxis = d3.axisBottom(xScale).ticks(6);
     const yAxis = d3.axisLeft(yScale).ticks(6);
     
     xAxisG.transition()
       .duration(scatterplotConfig.transitionDuration)
-      .call(xAxis);
+      .call(xAxis)
+      .selectAll("text")
+      .style("font-size", "14px")
+      .style("font-weight", "bold")
+      .style("font-family", "'Inter', sans-serif")
+      .attr("dy", "1em"); // Push numbers down a bit for better spacing
     
     yAxisG.transition()
       .duration(scatterplotConfig.transitionDuration)
-      .call(yAxis);
+      .call(yAxis)
+      .selectAll("text")
+      .style("font-size", "14px")
+      .style("font-weight", "bold")
+      .style("font-family", "'Inter', sans-serif");
   }
   
   function updatePoints(data) {

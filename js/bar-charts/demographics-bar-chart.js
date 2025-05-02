@@ -96,6 +96,7 @@ const demographicsConfig = {
       .style("fill", "white")
       .style("font-size", "28px")
       .style("font-weight", "bold")
+      .style("font-family", "'Inter', sans-serif")
       .text("Percent of People in Prison");
   
     const y = d3.scaleBand()
