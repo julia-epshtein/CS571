@@ -1,4 +1,4 @@
-/* Base styles for the entire application */
+
 body {
     font-family: 'Canvas-Sans', sans-serif;
     margin: 0;
@@ -6,14 +6,12 @@ body {
     line-height: 1.5;
 }
 
-/* Container for all content */
 .container {
     max-width: 960px;
     margin: 0 auto;
     padding: 2rem 1rem;
 }
 
-/* Wide container for charts */
 .container-wide {
     max-width: 1200px;
     width: 100%;
@@ -21,17 +19,15 @@ body {
     padding: 1.5rem 20px;
   }
   
-  /* Ensure heatmaps fill the wide container */
   .container-wide .scrollable-heatmap {
     width: 100%;
     overflow-x: auto;
   }
   
-  /* Adjust section divider for wide containers */
   .container-wide + hr.section-divider {
     max-width: 1200px;
   }  
-/* Section divider styling */
+
 hr.section-divider {
     border: none;             
     border-top: 2px solid #c89f65;
@@ -39,10 +35,9 @@ hr.section-divider {
     margin: 3rem auto;         
 }
 
-/* Dashboard container styling */
 .dashboard {
     max-width: 1200px;
-    background: black; 
+    background: rgb(24, 24, 24); 
     padding: 1.5rem;
     margin-bottom: 2rem;
     border-radius: 8px;
@@ -67,7 +62,6 @@ h2 {
     text-align: left;
 }
 
-/* Chart container base styling */
 #chart-container {
     display: flex;
     flex-direction: column;
@@ -75,7 +69,6 @@ h2 {
     margin-bottom: 20px;
 }
 
-/* Summary text styling */
 #summary {
     text-align: center;
     font-size: 15px;
@@ -84,12 +77,10 @@ h2 {
     font-weight: 500;
 }
 
-/* Paragraph styling */
 p {
     color: #fff;
 }
 
-/* Special chart title styling */
 .Chart-title {
     font-size: 30px;
     font-weight: 600;
