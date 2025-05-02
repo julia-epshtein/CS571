@@ -1,103 +1,116 @@
-
+/* Base Styles */
 body {
-    font-family: 'Canvas-Sans', sans-serif;
     margin: 0;
-    background-color: black;  
+    background-color: black;
     line-height: 1.5;
-}
-
-.container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-}
-
-.container-wide {
-    max-width: 1200px;
+  }
+  
+  /* Layout Containers */
+  .container-wide {
+    max-width: 2000px;
     width: 100%;
     margin: 0 auto;
     padding: 1.5rem 20px;
+    text-align: center;
   }
   
-  .container-wide .scrollable-heatmap {
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    text-align: left;
+  }
+  
+  .dashboard {
+    max-width: 1200px;
+    background: rgb(24, 24, 24);
+    padding: 1.5rem;
+    margin: 0 auto 2rem;
+    border-radius: 8px;
+    text-align: left;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* Utility Classes */
+  .scrollable-heatmap {
     width: 100%;
     overflow-x: auto;
   }
   
-  .container-wide + hr.section-divider {
-    max-width: 1200px;
-  }  
-
-hr.section-divider {
-    border: none;             
+  .section-divider {
+    border: none;
     border-top: 2px solid #c89f65;
     max-width: 950px;
-    margin: 3rem auto;         
-}
-
-.dashboard {
+    margin: 3rem auto;
+  }
+  
+  .container-wide + hr.section-divider {
     max-width: 1200px;
-    background: rgb(24, 24, 24); 
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    border-radius: 8px;
+  }
+  
+  /* Typography */
+  h1, h2, h3, p, .Chart-title, .chart-caption {
     text-align: left;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-/* Typography styles */
-h1 {
-    color: #fff; 
-    text-align: left;
-    margin-bottom: 1rem;
+    color: #fff;
+  }
+  
+  h1 {
     font-size: 1.5rem;
     font-weight: 700;
-}
-
-h2 {
-    color: #fff; 
+    margin-bottom: 1rem;
+  }
+  
+  h2 {
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 0.75rem;
-    text-align: left;
-}
-
-#chart-container {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    margin-bottom: 20px;
-}
-
-#summary {
-    text-align: center;
-    font-size: 15px;
-    color: white;  
-    margin-top: 15px;
-    font-weight: 500;
-}
-
-p {
-    color: #fff;
-}
-
-.Chart-title {
+  }
+  
+  .Chart-title {
     font-size: 30px;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: #fff; 
-}
-
-.charts-container {
+  }
+  
+  #summary {
+    text-align: center;
+    font-size: 15px;
+    color: white;
+    margin-top: 15px;
+    font-weight: 500;
+  }
+  
+  /* Chart Containers */
+  #chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  
+  .charts-container, 
+  .maps-container, 
+  .three-charts-container, 
+  .heatmaps-container, 
+  .line-charts-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
     gap: 20px;
-}
-
-.ethnicity-bar-chart-wrapper {
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  .ethnicity-bar-chart-wrapper {
     flex: 1;
     min-width: 300px;
     max-width: 450px;
     text-align: center;
-}
+  }
+  
+  /* Individual Components */
+  .map-wrapper, 
+  .chart-wrapper, 
+  .line-chart-wrapper {
+    text-align: left;
+  }

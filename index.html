@@ -6,10 +6,7 @@
     <title>California Sentencing by County</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Canvas+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://d3js.org/topojson.v3.min.js"></script>
@@ -24,152 +21,170 @@
     <link rel="stylesheet" href="css/california-demographics-bar-chart.css" />
   </head>
   <body>
-    <div class="container">
+    <div class="container-wide">
       <hr class="section-divider" />
-
-      <div class="explanation dashboard">
-        <h2 class="Chart-title">Chart Explanations</h2>
-        <p>More text and explanations here.</p>
+      <div class="container">
+        <div class="explanation dashboard">
+          <h2 class="Chart-title">Chart Explanations</h2>
+          <p>More text and explanations here.</p>
+        </div>
       </div>
 
       <div class="dashboard">
-        <h1>California Sentencing by County vs. Minority Population</h1>
+        <div class="container">
+          <h1>California Sentencing by County vs. Minority Population</h1>
+        </div>
         <div class="maps-container">
           <div class="map-wrapper">
-            <h2>Sentencing by County</h2>
+            <div class="container">
+              <h2>Sentencing by County</h2>
+              <p>
+                Here we can provide insights from the California Sentencing by
+                County map. For example, we might observe trends of higher
+                incarceration rates in certain counties.
+              </p>
+            </div>
             <div id="map"></div>
             <div id="legend-container"></div>
-            <p>
-              Here we can provide insights from the California Sentencing by
-              County map. For example, we might observe trends of higher
-              incarceration rates in certain counties.
-            </p>
           </div>
 
           <div class="map-wrapper">
-            <h2>% Minority by County</h2>
+            <div class="container">
+              <h2>% Minority by County</h2>
+              <p>
+                For future reference: Add context here for explaining demographic
+                patterns in relation to sentencing rates.
+              </p>
+            </div>
             <div id="minority-map"></div>
             <div id="minority-legend-container"></div>
-            <p>
-              For future reference: Add context here for explaining demographic
-              patterns in relation to sentencing rates.
-            </p>
           </div>
         </div>
       </div>
 
       <hr class="section-divider" />
 
-      <div class="explanation dashboard">
-        <h1>California's Prison Population vs. State Demographics</h1>
-        <p>
-          These bar charts compare the ethnic composition of California's prison
-          population with the overall demographic makeup of the state,
-          highlighting significant disparities.
-        </p>
-      </div>
-      
-
       <div class="dashboard">
-        <div class="ethnicity-bar-chart-container">
-          <div class="ethnicity-bar-chart-wrapper">
-            <div class="chart-container">
-              <div id="bar-chart"></div>
-            </div>
-          </div>
-
-          <div class="ethnicity-bar-chart-wrapper">
-            <div class="chart-container">
-              <div id="california-demographics-bar-chart"></div>
-            </div>
-          </div>
+        <div class="container">
+          <h1>California's Prison Population vs. State Demographics</h1>
+          <p>
+            These charts compare the ethnic composition of California's prison population with the overall demographic makeup of the state and imprisonment rates, highlighting significant disparities.
+          </p>
         </div>
 
-        <div class="ethnicity-bar-chart-wrapper">
-          <div class="chart-container">
+        <div class="three-charts-container">
+          <div class="chart-wrapper">
+            <div id="bar-chart"></div>
+            <div class="container">
+              <p class="chart-caption">Prison Population Demographics</p>
+            </div>
+          </div>
+
+          <div class="chart-wrapper">
+            <div id="california-demographics-bar-chart"></div>
+            <div class="container">
+              <p class="chart-caption">California State Demographics</p>
+            </div>
+          </div>
+
+          <div class="chart-wrapper">
             <div id="sentence-bar-chart"></div>
+            <div class="container">
+              <p class="chart-caption">Imprisonment Rate per 100K</p>
+            </div>
           </div>
         </div>
-
-        <div id="summary"></div>
       </div>
 
       <hr class="section-divider" />
 
-      <div class="explanation dashboard">
-        <h2 class="Chart-title">Sentence Length Distribution</h2>
-        <p>
-          This chart shows how sentence lengths vary between second and third
-          strikers, showing that blah blah blah
-        </p>
+      <div class="container">
+        <div class="explanation dashboard">
+          <h2 class="Chart-title">Sentence Length Distribution</h2>
+          <p>
+            This chart shows how sentence lengths vary between second and third
+            strikers, showing that blah blah blah
+          </p>
+        </div>
       </div>
 
       <div class="dashboard">
-        <h1>Sentence Length Distribution by Strike Type</h1>
+        <div class="container">
+          <h1>Sentence Length Distribution by Strike Type</h1>
+          <p>
+            For future reference: Explain the last value and how severe the
+            sentences are for Third Strikers
+          </p>
+        </div>
         <div id="strikes-bar-chart"></div>
-        <p>
-          For future reference: Explain the last value and how severe the
-          sentences are for Third Strikers
-        </p>
       </div>
 
       <hr class="section-divider" />
 
-      <div class="explanation dashboard">
-        <h2 class="Chart-title">County-Level Imprisonment Trends</h2>
-        <p>
-          These heatmaps show imprisonment rates and costs across all California
-          counties from 2009-2016. Darker colors indicate higher values.
-        </p>
+      <div class="container">
+        <div class="explanation dashboard">
+          <h2 class="Chart-title">County-Level Imprisonment Trends</h2>
+          <p>
+            These heatmaps show imprisonment rates and costs across all California
+            counties from 2009-2016. Darker colors indicate higher values.
+          </p>
+        </div>
       </div>
 
       <div class="dashboard">
-        <h1>County-Level Imprisonment Analysis</h1>
-        <div
-          class="heatmaps-container"
-          style="display: flex; justify-content: space-between"
-        >
+        <div class="container">
+          <h1>County-Level Imprisonment Analysis</h1>
+          <p>
+            The left heatmap shows imprisonment rates per 100,000 population,
+            while the right shows total imprisonment costs in millions of dollars.
+            Hover over cells to see exact values.
+          </p>
+        </div>
+        <div class="heatmaps-container" style="display: flex; justify-content: space-between">
           <div id="rates-heatmap-container"></div>
           <div id="costs-heatmap-container"></div>
         </div>
-        <p>
-          The left heatmap shows imprisonment rates per 100,000 population,
-          while the right shows total imprisonment costs in millions of dollars.
-          Hover over cells to see exact values.
-        </p>
       </div>
 
       <hr class="section-divider" />
 
       <div class="dashboard">
-        <h1>Poverty and Imprisonment Relationship</h1>
+        <div class="container">
+          <h1>Poverty and Imprisonment Relationship</h1>
+          <p>
+            This scatterplot shows the relationship between poverty rates and
+            imprisonment rates across California counties. Each point represents a
+            county, with the regression line showing the overall trend. Use the
+            controls to explore different years.
+          </p>
+        </div>
         <div id="scatterplot-container"></div>
-        <p>
-          This scatterplot shows the relationship between poverty rates and
-          imprisonment rates across California counties. Each point represents a
-          county, with the regression line showing the overall trend. Use the
-          controls to explore different years.
-        </p>
       </div>
 
       <hr class="section-divider" />
 
-      <div class="explanation dashboard">
-        <h2 class="chart-title">Imprisonment Trends Over Time</h2>
-        <p>
-          These charts show the historical trends of imprisonment rates and
-          costs across all California counties from 2009-2016.
-        </p>
+      <div class="container">
+        <div class="explanation dashboard">
+          <h2 class="chart-title">Imprisonment Trends Over Time</h2>
+          <p>
+            These charts show the historical trends of imprisonment rates and
+            costs across all California counties from 2009-2016.
+          </p>
+        </div>
       </div>
 
       <div class="dashboard">
         <div class="line-charts-container">
           <div class="line-chart-wrapper">
-            <h3>Imprisonment Rates</h3>
+            <div class="container">
+              <h3>Imprisonment Rates</h3>
+            </div>
             <div id="rate-chart"></div>
           </div>
           <div class="line-chart-wrapper">
-            <h3>Imprisonment Costs</h3>
+            <div class="container">
+              <h3>Imprisonment Costs</h3>
+            </div>
             <div id="cost-chart"></div>
           </div>
         </div>

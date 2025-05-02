@@ -1,6 +1,3 @@
-// sentence-bar-chart.js (modified to match inmate ethnicity chart style)
-
-// Configuration
 const sentenceConfig = {
   width: 800,
   height: 500,
@@ -8,14 +5,13 @@ const sentenceConfig = {
   barHeight: 50,
   barPadding: 30,
   colors: {
-    'Black': '#cbca75',    
-    'Latino': '#cbca75',    
-    'White': '#cbca75',     
-    'Asian / Other': '#cbca75'    
+    'Black': '#cbca75',
+    'Latino': '#cbca75',
+    'White': '#cbca75',
+    'Other': '#cbca75'
   }
 };
 
-// Initialization
 function initSentenceVisualization() {
   setupSentenceSVG();
   loadSentenceData();
@@ -26,68 +22,42 @@ function setupSentenceSVG() {
     .append("svg")
     .attr("width", sentenceConfig.width)
     .attr("height", sentenceConfig.height)
-    .style("background-color", "black") // Black background like the example
+    .style("background-color", "black")
     .append("g")
     .attr("transform", `translate(${sentenceConfig.margin.left},${sentenceConfig.margin.top})`)
     .attr("class", "sentence-bar-svg");
 }
 
-// Load & process CSV
 function loadSentenceData() {
   d3.csv("data/all_years/measures_all_years.csv").then(data => {
-    // parse numeric Year
     data.forEach(d => d.Year = +d.Year);
     
-    // pick the most recent year
     const latestYear = d3.max(data, d => d.Year);
     const row = data.find(d => d.Year === latestYear);
     
-    // Extract values
     const latinoValue = +row["Latino imprisonments per 100,000 Latinos"];
     const blackValue = +row["Black imprisonments per 100,000 African Americans"];
     const whiteValue = +row["White, not Latino, imprisonments per 100,000 whites"];
     const asianValue = +row["Asian/other imprisonments per 100,000 asian/other population"];
     
-    // Calculate total for percentages
     const total = latinoValue + blackValue + whiteValue + asianValue;
     
-    // build the four‐bar dataset
     const barData = [
-      {
-        category: "Latino",
-        value: latinoValue,
-        percentage: ((latinoValue / total) * 100).toFixed(1)
-      },
-      {
-        category: "Black",
-        value: blackValue,
-        percentage: ((blackValue / total) * 100).toFixed(1)
-      },
-      {
-        category: "White",
-        value: whiteValue,
-        percentage: ((whiteValue / total) * 100).toFixed(1)
-      },
-      {
-        category: "Asian / Other",
-        value: asianValue,
-        percentage: ((asianValue / total) * 100).toFixed(1)
-      }
-    ].sort((a, b) => b.value - a.value); // Sort by value descending
+      { category: "Black", value: blackValue, percentage: ((blackValue / total) * 100).toFixed(1) },
+      { category: "Latino", value: latinoValue, percentage: ((latinoValue / total) * 100).toFixed(1) },
+      { category: "White", value: whiteValue, percentage: ((whiteValue / total) * 100).toFixed(1) },
+      { category: "Other", value: asianValue, percentage: ((asianValue / total) * 100).toFixed(1) }
+    ];
     
     renderSentenceVisualization(barData, latestYear);
-    renderSentenceLegend(barData);
-  })
-  .catch(err => console.error("CSV load error:", err));
+  }).catch(err => console.error("CSV load error:", err));
 }
 
-// Render the bars - HORIZONTAL orientation
 function renderSentenceVisualization(barData, year) {
   const svg = d3.select(".sentence-bar-svg");
   const width = sentenceConfig.width - sentenceConfig.margin.left - sentenceConfig.margin.right;
   const height = barData.length * (sentenceConfig.barHeight + sentenceConfig.barPadding);
 
-  // Title
   svg.append("text")
     .attr("x", width / 2)
     .attr("y", -40)
@@ -98,30 +68,25 @@ function renderSentenceVisualization(barData, year) {
     .style("font-weight", "bold")
     .text(`Imprisonment Rate (per 100K)`);
 
-  // Y scale for categories (horizontal axis labels)
   const y = d3.scaleBand()
     .domain(barData.map(d => d.category))
     .range([0, height])
     .padding(0.1);
     
-  // X scale for values (horizontal bar lengths)
   const xMax = d3.max(barData, d => d.value);
   const x = d3.scaleLinear()
-    .domain([0, xMax * 1.1]) // Add 10% padding
+    .domain([0, xMax * 1.1])
     .range([0, width]);
 
-  // Add y-axis (categories on left)
   svg.append("g")
     .call(d3.axisLeft(y))
     .selectAll("text")
     .style("fill", "white")
     .style("font-size", "16px");
 
-  // Remove axis lines
   svg.selectAll(".domain").style("stroke", "none");
   svg.selectAll(".tick line").style("stroke", "none");
 
-  // Create tooltip
   const tooltip = d3.select("body")
     .append("div")
     .attr("class", "tooltip")
@@ -136,7 +101,6 @@ function renderSentenceVisualization(barData, year) {
     .style("opacity", 0)
     .style("z-index", 10);
 
-  // Create bars - HORIZONTAL orientation
   svg.selectAll(".bar")
     .data(barData)
     .enter()
@@ -167,7 +131,6 @@ function renderSentenceVisualization(barData, year) {
         .style("opacity", 0);
     });
 
-  // Add percentage labels inside bars
   svg.selectAll(".percent-label")
     .data(barData)
     .enter()
@@ -182,7 +145,6 @@ function renderSentenceVisualization(barData, year) {
     .style("font-weight", "bold")
     .text(d => d.percentage + "%");
   
-  // Add value labels on the right end of bars
   svg.selectAll(".count-label")
     .data(barData)
     .enter()
@@ -196,39 +158,4 @@ function renderSentenceVisualization(barData, year) {
     .text(d => Math.round(d.value).toLocaleString());
 }
 
-// Render legend
-function renderSentenceLegend(barData) {
-  const svg = d3.select("#sentence-bar-chart svg");
-  const legendY = sentenceConfig.height - 60;
-  
-  // Create legend group
-  const legend = svg.append("g")
-    .attr("class", "legend")
-    .attr("transform", `translate(${sentenceConfig.margin.left}, ${legendY})`);
-  
-  const legendWidth = sentenceConfig.width - sentenceConfig.margin.left - sentenceConfig.margin.right;
-  const legendItemWidth = legendWidth / barData.length;
-  
-  // Add legend items
-  barData.forEach((d, i) => {
-    const legendItem = legend.append("g")
-      .attr("transform", `translate(${i * legendItemWidth}, 0)`);
-    
-    // Add color square
-    legendItem.append("rect")
-      .attr("width", 15)
-      .attr("height", 15)
-      .attr("fill", sentenceConfig.colors[d.category]);
-    
-    // Add text
-    legendItem.append("text")
-      .attr("x", 20)
-      .attr("y", 12)
-      .style("fill", "white")
-      .style("font-size", "14px")
-      .text(`${d.category}: ${d.percentage}%`);
-  });
-}
-
-// Start once DOM is ready
 document.addEventListener("DOMContentLoaded", initSentenceVisualization);

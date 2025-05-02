@@ -42,7 +42,7 @@
     margin: 0 0 1rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    font-family: 'Canvas-Sans', system-ui, -apple-system, sans-serif;
+    font-family: 'Canvas-Sans', system-ui, -apple-system;
 }
 
 .header-description {
