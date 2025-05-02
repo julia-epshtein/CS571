@@ -3,6 +3,7 @@ body {
     margin: 0;
     background-color: black;
     line-height: 1.5;
+    font-family: 'Inter', sans-serif;
   }
   
   /* Layout Containers */
@@ -23,12 +24,13 @@ body {
   
   .dashboard {
     max-width: 1200px;
-    background: rgb(24, 24, 24);
+    background: rgb(0, 0, 0);
     padding: 1.5rem;
     margin: 0 auto 2rem;
     border-radius: 8px;
     text-align: left;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    
   }
   
   /* Utility Classes */

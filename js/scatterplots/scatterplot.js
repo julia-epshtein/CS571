@@ -1,7 +1,7 @@
 const scatterplotConfig = {
-    width: 800,
-    height: 500,
-    margin: { top: 60, right: 100, bottom: 60, left: 60 },
+    width: 900,
+    height: 600,
+    margin: { top: 60, right: 20, bottom: 50, left: 60 },
     yearRange: [2009, 2016],
     pointRadius: 6,
     transitionDuration: 1000
