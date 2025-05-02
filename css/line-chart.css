@@ -46,7 +46,7 @@
 
   .axis-label {
     font-size: 18px;
-    fill: black;
+    fill: white;
   }
   
   /* grid */
@@ -107,3 +107,6 @@
     stroke-dasharray: 3,3;
     pointer-events: none;
   }
+
+
+  
