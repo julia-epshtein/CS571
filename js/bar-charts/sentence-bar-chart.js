@@ -1,15 +1,15 @@
 const sentenceConfig = {
-  width: 800,
-  height: 500,
-  margin: { top: 80, right: 100, bottom: 150, left: 120 },
-  barHeight: 50,
-  barPadding: 30,
-  colors: {
+  width: 200,  // down from 250
+    height: 150,
+    margin: { top: 20, right: 30, bottom: 60, left: 60 },
+    barHeight: 40,
+    barPadding: 10,
+    colors: {
     'Black': '#cbca75',
     'Latino': '#cbca75',
     'White': '#cbca75',
     'Other': '#cbca75'
-  }
+    }
 };
 
 function initSentenceVisualization() {
@@ -57,16 +57,18 @@ function renderSentenceVisualization(barData, year) {
   const svg = d3.select(".sentence-bar-svg");
   const width = sentenceConfig.width - sentenceConfig.margin.left - sentenceConfig.margin.right;
   const height = barData.length * (sentenceConfig.barHeight + sentenceConfig.barPadding);
-
+/*
   svg.append("text")
     .attr("x", width / 2)
-    .attr("y", -40)
+    .attr("y", -35)
     .attr("text-anchor", "middle")
     .attr("class", "chart-title")
     .style("fill", "white")
     .style("font-size", "28px")
     .style("font-weight", "bold")
-    .text(`Imprisonment Rate (per 100K)`);
+    .text(`Imprisonment Rate (per 100K)`)
+    .style("font-size", "14px");
+*/
 
   const y = d3.scaleBand()
     .domain(barData.map(d => d.category))
@@ -141,7 +143,7 @@ function renderSentenceVisualization(barData, year) {
     .attr("dy", "0.35em")
     .attr("text-anchor", "middle")
     .style("fill", "white")
-    .style("font-size", "16px")
+    .style("font-size", "9px")
     .style("font-weight", "bold")
     .text(d => d.percentage + "%");
   

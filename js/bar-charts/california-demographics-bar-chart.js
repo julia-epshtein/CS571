@@ -1,15 +1,15 @@
 const californiaDemographicsConfig = {
-  width: 800,
-  height: 500,
-  margin: { top: 80, right: 100, bottom: 150, left: 120 },
-  barHeight: 50,
-  barPadding: 30,
-  colors: {
+  width: 200,  // down from 250
+    height: 150,
+    margin: { top: 20, right: 30, bottom: 60, left: 60 },
+    barHeight: 40,
+    barPadding: 10,
+    colors: {
     'Black': '#cb4f1b',
-    'Hispanic': '#cb4f1b',
+    'Latino': '#cb4f1b',
     'White': '#cb4f1b',
     'Other': '#cb4f1b'
-  }
+    }
 };
 
 function initCaliforniaDemographics() {
@@ -54,7 +54,7 @@ function processCaliforniaDemographicData(whiteData, hispanicData, blackData, as
   
   const demographicGroups = [
     { group: 'Black', count: californiaBlack, percentage: (californiaBlack / total * 100).toFixed(1) },
-    { group: 'Hispanic', count: californiaHispanic, percentage: (californiaHispanic / total * 100).toFixed(1) },
+    { group: 'Latino', count: californiaHispanic, percentage: (californiaHispanic / total * 100).toFixed(1) },
     { group: 'White', count: californiaWhite, percentage: (californiaWhite / total * 100).toFixed(1) },
     { group: 'Other', count: californiaAsian + californiaIndian, percentage: ((californiaAsian + californiaIndian) / total * 100).toFixed(1) }
   ];
@@ -75,15 +75,18 @@ function renderCaliforniaDemographics({ barData, total }) {
   const width = californiaDemographicsConfig.width - californiaDemographicsConfig.margin.left - californiaDemographicsConfig.margin.right;
   const height = barData.length * (californiaDemographicsConfig.barHeight + californiaDemographicsConfig.barPadding);
 
+  /*
   svg.append("text")
     .attr("x", width / 2)
-    .attr("y", -40)
+    .attr("y", -35)
     .attr("text-anchor", "middle")
     .attr("class", "chart-title")
     .style("fill", "white")
     .style("font-size", "28px")
     .style("font-weight", "bold")
-    .text("Percent of the State Population");
+    .text("Percent of the State Population")
+    .style("font-size", "14px");
+*/
 
   const y = d3.scaleBand()
     .domain(barData.map(d => d.group))
@@ -158,7 +161,7 @@ function renderCaliforniaDemographics({ barData, total }) {
     .attr("dy", "0.35em")
     .attr("text-anchor", "middle")
     .style("fill", "white")
-    .style("font-size", "16px")
+    .style("font-size", "9px")
     .style("font-weight", "bold")
     .text(d => d.percentage + "%");
     

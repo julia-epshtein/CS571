@@ -32,9 +32,11 @@
             <div class="container">
               <h2>Sentencing by County</h2>
               <p>
-                Here we can provide insights from the California Sentencing by
-                County map. For example, we might observe trends of higher
-                incarceration rates in certain counties.
+                Counties like Tulare, Kings, Yuba, Lake, Shasta, and Tehama consistently 
+                show some of the highest imprisonment rates throughout the years.
+                These patterns may reflect regional differences in sentencing
+                practices, local crime policies, or resource allocation for law 
+                enforcement.
               </p>
             </div>
             <div id="map"></div>
@@ -44,8 +46,9 @@
             <div class="container">
               <h2>% Minority by County</h2>
               <p>
-                For future reference: Add context here for explaining demographic
-                patterns in relation to sentencing rates.
+                Counties like Tulare, Kings, Yuba, Lake, Shasta, and Tehama consistently show elevated imprisonment rates. 
+              These regions vary widely in racial demographics — Tulare (63%) and Kings (60.2%) have high minority populations, 
+              while Shasta (16%) and Lake (30.4%) have significantly lower minority representation.
               </p>
             </div>
             <div id="minority-map"></div>
@@ -56,37 +59,46 @@
 
       <hr class="section-divider" />
 
-      <div class="dashboard">
-        <div class="container">
-          <h1>California's Prison Population vs. State Demographics</h1>
-          <p>
-            These charts compare the ethnic composition of California's prison population with the overall demographic makeup of the state and imprisonment rates, highlighting significant disparities.
-          </p>
+      <div class="three-charts-container">
+        <div class="chart-wrapper">
+          <h3 class="chart-heading">Percent of People in Prison</h3>
+          <div id="bar-chart"></div>
+          <div class="container">
+            <p class="chart-caption">Prison Population Demographics</p>
+            <p>Black and Latino individuals are overrepresented in California's prison
+               population, comprising over 70% of the incarcerated despite making up a 
+               smaller share of the state’s total population. This suggests disproportionate
+                incarceration patterns affecting communities of color.</p>
+          </div>
         </div>
+      
+        <div class="chart-wrapper">
+          <h3 class="chart-heading">Percent of the State Population</h3>
+          <div id="california-demographics-bar-chart"></div>
+          <div class="container">
+            <p class="chart-caption">California State Demographics</p>
+            <p>White individuals make up the largest racial group in the state, 
+              followed by Latino populations. In contrast to prison data, Black
+               residents represent a small fraction of California’s overall population.
 
-        <div class="three-charts-container">
-          <div class="chart-wrapper">
-            <div id="bar-chart"></div>
-            <div class="container">
-              <p class="chart-caption">Prison Population Demographics</p>
-            </div>
+            </p>
           </div>
+        </div>
+      
+        <div class="chart-wrapper">
+          <h3 class="chart-heading">Imprisonment Rate (per 100K)</h3>
+          <div id="sentence-bar-chart"></div>
+          <div class="container">
+            <p class="chart-caption">Imprisonment Rate per 100K</p>
+            <p>Black individuals face the highest imprisonment rate by far,
+               at over 1,600 per 100,000 residents. This stark disparity highlights
+                systemic racial inequalities in sentencing and incarceration.
 
-          <div class="chart-wrapper">
-            <div id="california-demographics-bar-chart"></div>
-            <div class="container">
-              <p class="chart-caption">California State Demographics</p>
-            </div>
-          </div>
-
-          <div class="chart-wrapper">
-            <div id="sentence-bar-chart"></div>
-            <div class="container">
-              <p class="chart-caption">Imprisonment Rate per 100K</p>
-            </div>
+            </p>
           </div>
         </div>
       </div>
+       
 
       <hr class="section-divider" />
 
@@ -98,6 +110,22 @@
           <p>
             This chart shows how sentence lengths vary between second and third
             strikers. 
+          </p>
+            <p>
+  
+            Among Second Strikers, about 38.8% receive sentences longer than 50 months. 
+            While that’s already significant, the contrast becomes stark with Third 
+            Strikers, nearly 70% of whom fall into the 50+ months category — often 
+            indicating life sentences or decades-long incarceration.
+          </p>
+  
+            <p>
+  
+            This sharp jump underscores how the Three Strikes Law severely escalates 
+            punishment at the third offense, frequently resulting in extremely
+            long sentences regardless of offense severity. The chart visually 
+            reinforces the law’s disproportional impact on repeat offenders, 
+            many of whom may be incarcerated for nonviolent or lower-level crimes.
           </p>
           <div id="strikes-bar-chart"></div>
         </div>
@@ -111,6 +139,24 @@
             <p>
               These heatmaps show imprisonment rates and costs across all California
               counties from 2009-2016. Darker colors indicate higher values.
+            </p>
+            <p>
+
+              On the left, we observe strikingly high incarceration rates in certain counties over time:
+              Kings County, consistently the highest, peaking at 1568.5 per 100,000
+              Tulare, Tehama, Shasta, and Yuba Counties, all with rates above 1000 per 100,000 in at least one year
+              These counties are predominantly rural, raising questions about how location, economic status, and judicial culture shape incarceration outcomes
+              Meanwhile, counties like San Francisco and Marin maintain relatively low rates, pointing to significant regional disparities in sentencing patterns.
+            </p>
+
+            <p>
+              The right heatmap illustrates the financial cost of imprisonment across California counties from 2009 to 2011, 
+              measured in millions of dollars. Notably, Los Angeles County far surpasses all others, spending over $2.6 billion
+              per year—a reflection of both its large incarcerated population and its size. Other high-cost counties include Orange, 
+              San Bernardino, Santa Clara, and Riverside, each consistently exceeding $500 million annually. In contrast, smaller or 
+              rural counties such as Trinity, Modoc, and Alpine report costs under $5 million, despite some having high incarceration rates. 
+              This disparity highlights how imprisonment costs are influenced not only by sentencing practices, but also by population size and jail 
+              infrastructure, and it underscores the enormous economic burden incarceration places on the state.
             </p>
         </div>
         <div class="heatmaps-container" style="display: flex; justify-content: space-between">
@@ -137,6 +183,19 @@
             county, with the regression line showing the overall trend. Use the
             controls to explore different years.
           </p>
+
+          <p>
+            Across all years, there is a clear positive correlation: 
+            counties with higher poverty rates tend to report higher
+            incarceration rates. This pattern underscores how economic 
+            hardship may be linked to increased criminalization, whether 
+            through over-policing in low-income areas, lack of access to 
+            legal defense, or systemic cycles of poverty and incarceration.
+            Users can scroll through the years to observe how consistent 
+            this correlation remains, with some counties persistently in 
+            the upper-right quadrant—signaling both high poverty and high
+            imprisonment.
+          </p>
         </div>
         <div id="scatterplot-container"></div>
       </div>
@@ -148,6 +207,23 @@
         <p>
           These charts show the historical trends of imprisonment rates and
           costs across all California counties from 2009-2016.
+        </p>
+
+        <p>
+          These line charts reveal contrasting trends in incarceration rates and associated costs across 
+          California counties from 2009 to 2016. On the left, the red line shows a steady decline in 
+          imprisonment rates, dropping from about 660 per 100,000 residents in 2009 to under 500 by 2016—
+          a likely result of reform efforts such as Proposition 36 and Proposition 47, which reduced 
+          sentences for non-violent offenders.
+        </p>
+      
+        <p>
+          However, the blue line on the right shows that imprisonment costs have risen, climbing from 
+          approximately $138 million to over $160 million despite fewer people being incarcerated. 
+          This suggests that the cost of incarceration per individual has increased, potentially due 
+          to rising healthcare expenses, an aging prison population, or increased facility operating 
+          costs. Together, these charts highlight a critical mismatch: while reforms may reduce the 
+          number of prisoners, systemic inefficiencies continue to drive up the financial burden.
         </p>
       </div>
         <div class="line-charts-container">
