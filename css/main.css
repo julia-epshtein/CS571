@@ -1,162 +1,156 @@
 /* Base Styles */
 body {
-    margin: 0;
-    background-color: black;
-    line-height: 1.5;
-    font-family: 'Inter', sans-serif;
-  }
-  
-  /* Layout Containers */
-  .container-wide {
-    max-width: 2000px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
-  }
-  
-  .container {
-    max-width: 960px;
-    margin: 0 auto 2rem;
-    padding: 1.5rem;
-    text-align: left;
-  }
-  
-  .dashboard {
-    max-width: 1200px;
-    background: rgb(0, 0, 0);
-    padding: 2rem;
-    margin: 0 auto 3rem;
-    border-radius: 8px;
-    text-align: left;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
-  
-  /* Utility Classes */
-  .scrollable-heatmap {
-    width: 100%;
-    overflow-x: auto;
-  }
-  
-  .section-divider {
-    border: none;
-    border-top: 2px solid #c89f65;
-    max-width: 950px;
-    margin: 3rem auto;
-  }
-  
-  .container-wide + hr.section-divider {
-    max-width: 1200px;
-  }
-  
-  /* Typography */
-  h1, h2, h3, p, .Chart-title, .chart-caption {
-    text-align: left;
-    color: #fff;
-  }
-  
+  margin: 0;
+  background-color: black;
+  line-height: 1.6;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  color: #fff;
+}
+
+/* Layout Containers */
+.container-wide {
+  max-width: 2000px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto 2rem;
+  padding: 1.5rem;
+}
+
+.dashboard {
+  max-width: 1200px;
+  background: rgb(0, 0, 0);
+  padding: 2rem;
+  margin: 0 auto 3rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Typography */
+h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 1.25rem;
+  color: #e9b46a;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+p {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.chart-caption h4 {
+  color: #c89f65;
+  margin-top: 1rem;
+}
+
+/* Utility Classes */
+.section-divider {
+  border: none;
+  border-top: 2px solid #c89f65;
+  max-width: 950px;
+  margin: 3rem auto;
+}
+
+.container-wide + hr.section-divider {
+  max-width: 1200px;
+}
+
+/* Chart Containers */
+.charts-container, 
+.maps-container, 
+.three-charts-container, 
+.heatmaps-container, 
+.line-charts-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.chart-wrapper {
+  background-color: #2a2a2a;      
+  padding: 24px;
+  margin: 40px auto;             
+  max-width: 800px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.map-wrapper {
+  flex: 1;
+  min-width: 300px;
+  max-width: 600px;
+}
+
+/* Axis Styling */
+.axis-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  fill: white;
+}
+
+.axis text {
+  font-size: 0.75rem;
+  font-weight: 500;
+  fill: white;
+}
+
+.axis path,
+.axis line {
+  stroke: white;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
   h1 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
+      font-size: 2rem;
   }
   
   h2 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
+      font-size: 1.5rem;
   }
   
-  .Chart-title {
-    font-size: 30px;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+  h3 {
+      font-size: 1.25rem;
   }
   
-  #summary {
-    text-align: center;
-    font-size: 15px;
-    color: white;
-    margin-top: 15px;
-    font-weight: 500;
+  .container {
+      padding: 1rem;
   }
   
-  /* Chart Containers */
-  #chart-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 20px;
-  }
-  
-  /* Common Chart Styling */
-  .axis-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    fill: white;
-  }
-
-  .axis text {
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: bold;
-    fill: white;
-  }
-
-  .axis path,
-  .axis line {
-    stroke: white;
-  }
-  
-  .charts-container, 
-  .maps-container, 
-  .three-charts-container, 
-  .heatmaps-container, 
-  .line-charts-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    margin: 0 auto;
-    width: 100%;
-  }
-  
-  .ethnicity-bar-chart-wrapper {
-    flex: 1;
-    min-width: 300px;
-    max-width: 450px;
-    text-align: center;
-  }
-  
-  /* Individual Components */
-  .map-wrapper, 
-  .chart-wrapper, 
-  .line-chart-wrapper {
-    text-align: left;
-  }
-
   .chart-wrapper {
-    background-color: #2a2a2a;      
-    padding: 24px;
-    margin: 40px auto;             
-    max-width: 800px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      padding: 16px;
+      margin: 20px auto;
   }
-  
-  .chart-wrapper .chart-title {           
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 0 0 16px;
-  }
-
-  .container h1 {
-    font-size: 2rem;
-    margin-top: -30px;
-    color: #e9b46a;
-  }
-
-  .container p {
-    font-size: 1rem;
-  }
+}
