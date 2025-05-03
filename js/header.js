@@ -9,11 +9,14 @@ function createHeader() {
     
     const mainTitle = document.createElement('div');
     mainTitle.className = 'header-main-title';
-    mainTitle.textContent = 'THREE STRIKES AND YOU\'RE OUT.';
+    mainTitle.textContent = "THREE STRIKES AND YOU'RE OUT.";
     
     const description = document.createElement('div');
     description.className = 'header-description';
-    description.innerHTML = 'California’s Three Strikes Law, also known as “Three Strikes and You’re Out,” mandates a minimum life sentence of 25 years to life for those convicted of three serious felonies—an effort originally designed to deter repeat offenders but one that has contributed to over-incarceration and systemic unfairness. Explore our interactive visualizations to see how this law, intended to punish the most dangerous criminals, has instead led to harsh outcomes, revealing the real impact behind the statistics and sparking a conversation on justice reform.';;
+    description.innerHTML = `
+        <p><strong>California’s Three Strikes Law</strong>, also known as “Three Strikes and You’re Out,” is designed to deter repeat offenders by mandating a minimum life sentence of 25 years to life for those convicted of three serious felonies, which can lead to incarceration and systemic unfairness.
+        <h6><strong>Explore</strong> our interactive visualizations to see how this law, intended to punish the most dangerous criminals, has instead led to harsh outcomes. The visualizations reveal the real impact behind the statistics and a way to spark a conversation on justice reform.</h6>
+    `;
     
     const nameBox = document.createElement('div');
     nameBox.className = 'name-box';
@@ -21,12 +24,10 @@ function createHeader() {
     
     header.appendChild(logo);
     header.appendChild(mainTitle);
-    header.appendChild(description);
     header.appendChild(nameBox);
+    header.appendChild(description);   
     
     document.body.insertBefore(header, document.body.firstChild);
 }
 
-    document.addEventListener('DOMContentLoaded', function() {
-    createHeader();
-});
+document.addEventListener('DOMContentLoaded', createHeader);

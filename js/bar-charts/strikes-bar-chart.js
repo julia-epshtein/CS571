@@ -1,7 +1,7 @@
 const strikesBarConfig = {
   width: 900,
   height: 500,
-  margin: { top: 50, right: 50, bottom: 100, left: 60 },
+  margin: { top: 50, right: 100, bottom: 100, left: 90 },
   colors: ["#6baed6", "#54278f"]
 };
 

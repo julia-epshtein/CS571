@@ -2,7 +2,7 @@
     max-width: 960px;
     margin: 2rem auto 1rem;
     color: #c89f65;
-    padding: 30px 20px;
+    padding: 0 1rem;
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
@@ -10,6 +10,7 @@
     text-align: left;
     background-color: black;
     box-shadow: 0 4px 12px rgba(23, 23, 23, 0.2);
+    font-family: 'Inter', sans-serif;
 }
 
 .header-logo {
@@ -20,45 +21,41 @@
     
 }
 
-.header-title {
-    font-size: 36px;
-    font-weight: 700;
-    margin-bottom: 5px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
-
 .header-subtitle {
-    font-size: 16px;
-    margin-bottom: 30px;
-    letter-spacing: 1px;
-    opacity: 0.9;
+    font-size: 1.25rem;
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
 }
 
 .header-main-title {
-    font-size: 55px;
-    font-weight: 700;
     line-height: 1.2;
     margin: 0 0 1rem;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    font-family: 'Canvas-Sans', system-ui, -apple-system;
+    letter-spacing: 2.1px;
+    font-size: 2.9rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
 }
 
-.header-description {
+.header-description p {
     max-width: 900px;
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: 20px;
+    line-height: 1.7;
     margin: 0 0 1rem;
+    color: #c9c9c9;
+    margin-bottom: 1.25rem;
 }
 
 .name-box {
     position: flex-start;
     top: 22px;
     right: 20px;
-    color: white;
-    font-size: 14px;
+    color: #c9c9c9;
+    font-size: 20px;
     font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 30px;
+
 }
 
 @media (max-width: 768px) {
@@ -73,4 +70,12 @@
         padding: 20px 10px;
         margin: 1.5rem auto;
     }
+}
+
+
+.header-description h6 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+    color: #c9c9c9;
+    font-weight: 500;
 }

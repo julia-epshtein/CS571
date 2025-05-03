@@ -116,21 +116,27 @@ document.addEventListener('DOMContentLoaded', function() {
       .attr("class", "axis axis--y")
       .call(d3.axisLeft(y));
     
-    // Add X axis label
+    // Add X axis label with improved spacing
     svg.append("text")
       .attr("class", "axis-label")
       .attr("x", width / 2)
-      .attr("y", height + margin.bottom)
+      .attr("y", height + margin.bottom + 20) // Increased spacing
       .style("text-anchor", "middle")
+      .style("font-size", "16px")
+      .style("font-weight", "bold")
+      .style("font-family", "'Inter', sans-serif")
       .text("Year");
     
-    // Add Y axis label
+    // Add Y axis label with improved spacing
     svg.append("text")
       .attr("class", "axis-label")
       .attr("transform", "rotate(-90)")
       .attr("y", -margin.left + 15)
       .attr("x", -height / 2)
       .style("text-anchor", "middle")
+      .style("font-size", "16px")
+      .style("font-weight", "bold")
+      .style("font-family", "'Inter', sans-serif")
       .text("Rate per 100,000");
     
     // Create line generator
