@@ -14,8 +14,9 @@ function createHeader() {
     const description = document.createElement('div');
     description.className = 'header-description';
     description.innerHTML = `
-        <p><strong>California’s Three Strikes Law</strong>, also known as “Three Strikes and You’re Out,” is designed to deter repeat offenders by mandating a minimum life sentence of 25 years to life for those convicted of three serious felonies, which can lead to incarceration and systemic unfairness.
-        <h6><strong>Explore</strong> our interactive visualizations to see how this law, intended to punish the most dangerous criminals, has instead led to harsh outcomes. The visualizations reveal the real impact behind the statistics and a way to spark a conversation on justice reform.</h6>
+        <p><strong>California’s Three Strikes Law</strong> mandates a minimum 25-years-to-life sentence for individuals convicted of <strong>three serious felonies</strong>, including burglary, robbery, murder, and other violent crimes.</p>
+        <p>This project aims to raise awareness of the law’s negative impacts, especially on California <strong>incarceration rates</strong> and <strong>marginalized communities</strong>.</p>
+        <p>We put together <strong>six</strong> data visualizations to tell the story.</p>
     `;
     
     const nameBox = document.createElement('div');

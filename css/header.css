@@ -18,7 +18,6 @@
     height: 200px;
     margin-bottom: 1rem;
     align-self: flex-start;
-    
 }
 
 .header-main-title {
@@ -29,6 +28,7 @@
     font-size: 5rem;
     font-weight: 700;
     margin-bottom: 0.25rem;
+    font-family: 'Inter', sans-serif;
 }
 
 .header-description p {
@@ -38,14 +38,11 @@
     margin: 0 0 1rem;
     color: #c9c9c9;
     margin-bottom: 1.25rem;
+    font-family: 'Inter', sans-serif;
 }
 
-
-.header-description h6 {
-    font-size: 1.8rem;
-    margin: 0 0 1rem;
-    color: #c9c9c9;
-    font-weight: 500;
+.header-description p strong {
+    color: #c89f65;
 }
 
 .name-box {
