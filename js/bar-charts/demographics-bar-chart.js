@@ -1,6 +1,6 @@
 // Configuration
 const demographicsConfig = {
-  width: 200,  // down from 250
+  width: 200,  
   height: 150,
   margin: { top: 20, right: 30, bottom: 60, left: 60 },
   barHeight: 40,
@@ -91,21 +91,6 @@ function renderDemographicsVisualization({ barData, total }) {
   const svg = d3.select(".demographics-bar-svg");
   const width = demographicsConfig.width - demographicsConfig.margin.left - demographicsConfig.margin.right;
   const height = barData.length * (demographicsConfig.barHeight + demographicsConfig.barPadding);
-
-  /*
-  svg.append("text")
-    .attr("x", width / 2)
-    .attr("y", -35)
-    .attr("text-anchor", "middle")
-    .attr("class", "chart-title")
-    .style("fill", "white")
-    .style("font-size", "28px")
-    .style("font-weight", "bold")
-    .style("font-family", "'Inter', sans-serif")
-    .text("Percent of People in Prison")
-    .style("font-size", "14px");
-
-*/
 
   const y = d3.scaleBand()
     .domain(barData.map(d => d.group))

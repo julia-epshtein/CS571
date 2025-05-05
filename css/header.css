@@ -1,7 +1,7 @@
 .header {
     max-width: 960px;
     margin: 2rem auto 1rem;
-    color: #c89f65;
+    color: #e9b46a;
     padding: 0 1rem;
     margin-bottom: 20px;
     display: flex;
@@ -36,13 +36,13 @@
     font-size: 1.8rem;
     line-height: 1.7;
     margin: 0 0 1rem;
-    color: #c9c9c9;
+    color: #fff;
     margin-bottom: 1.25rem;
     font-family: 'Inter', sans-serif;
 }
 
 .header-description p strong {
-    color: #c89f65;
+    color: #e9b46a;
 }
 
 .name-box {

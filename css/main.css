@@ -38,6 +38,8 @@ h1 {
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 1.5rem;
+  color: #e9b46a;
+
 }
 
 h2 {
@@ -50,8 +52,12 @@ h2 {
 
 h3 {
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 400;
   margin-bottom: 1rem;
+}
+
+h3 strong {
+  color: #e9b46a;
 }
 
 h4 {
