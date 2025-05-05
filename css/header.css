@@ -1,7 +1,7 @@
 .header {
     max-width: 960px;
     margin: 2rem auto 1rem;
-    color: #c89f65;
+    color: #e9b46a;
     padding: 0 1rem;
     margin-bottom: 20px;
     display: flex;
@@ -14,17 +14,10 @@
 }
 
 .header-logo {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     margin-bottom: 1rem;
     align-self: flex-start;
-    
-}
-
-.header-subtitle {
-    font-size: 1.25rem;
-    opacity: 0.8;
-    margin-bottom: 0.5rem;
 }
 
 .header-main-title {
@@ -32,18 +25,24 @@
     margin: 0 0 1rem;
     text-transform: uppercase;
     letter-spacing: 2.1px;
-    font-size: 2.9rem;
+    font-size: 5rem;
     font-weight: 700;
     margin-bottom: 0.25rem;
+    font-family: 'Inter', sans-serif;
 }
 
 .header-description p {
     max-width: 900px;
-    font-size: 20px;
+    font-size: 1.8rem;
     line-height: 1.7;
     margin: 0 0 1rem;
-    color: #c9c9c9;
+    color: #fff;
     margin-bottom: 1.25rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.header-description p strong {
+    color: #e9b46a;
 }
 
 .name-box {
@@ -70,12 +69,4 @@
         padding: 20px 10px;
         margin: 1.5rem auto;
     }
-}
-
-
-.header-description h6 {
-    font-size: 1.25rem;
-    margin: 0 0 1rem;
-    color: #c9c9c9;
-    font-weight: 500;
 }

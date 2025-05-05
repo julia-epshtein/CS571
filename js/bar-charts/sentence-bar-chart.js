@@ -1,5 +1,5 @@
 const sentenceConfig = {
-  width: 200,  // down from 250
+  width: 200,  
     height: 150,
     margin: { top: 20, right: 30, bottom: 60, left: 60 },
     barHeight: 40,
