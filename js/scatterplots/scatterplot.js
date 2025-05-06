@@ -224,7 +224,12 @@ const scatterplotConfig = {
     const counties = [...new Set(data.map(d => d.county))];
     colorScale = d3.scaleOrdinal()
       .domain(counties)
-      .range(d3.schemeTableau10);
+      .range([
+        "#00E5A0", // bright teal/green (Color #1)
+        "#FF9500", // bright orange (Color #2)
+        "#00D8FF", // bright cyan (Color #3)
+        "#FF00E5", // bright magenta (Color #4)
+      ]);
     
     // Update axes with larger tick labels
     const xAxis = d3.axisBottom(xScale).ticks(6);
@@ -362,7 +367,6 @@ const scatterplotConfig = {
       d3.select("#scatterplot-prev-year").style("color", "white"); 
     }
     
-    // Next button color
     if (currYear >= scatterplotConfig.yearRange[1]) {
       d3.select("#scatterplot-next-year").style("color", "#444"); 
     } else {
