@@ -53,7 +53,7 @@ const scatterplotConfig = {
     chartG.append("text")
       .attr("class", "axis-label")
       .attr("x", getChartWidth() / 2)
-      .attr("y", getChartHeight() + scatterplotConfig.margin.bottom + 20) // Increased spacing from axis
+      .attr("y", getChartHeight() + scatterplotConfig.margin.bottom + 20) 
       .style("text-anchor", "middle")
       .style("font-size", "16px")
       .style("font-weight", "bold")
@@ -64,7 +64,7 @@ const scatterplotConfig = {
       .attr("class", "axis-label")
       .attr("transform", "rotate(-90)")
       .attr("x", -getChartHeight() / 2)
-      .attr("y", -scatterplotConfig.margin.left + 15) // Adjusted position
+      .attr("y", -scatterplotConfig.margin.left + 15) 
       .style("text-anchor", "middle")
       .style("font-size", "16px")
       .style("font-weight", "bold")
@@ -78,29 +78,60 @@ const scatterplotConfig = {
     
     // controls
     const controls = container.append("div")
-      .attr("class", "scatterplot-controls");
+      .attr("class", "scatterplot-controls")
+      .style("position", "absolute")
+      .style("top", "10px")
+      .style("right", "10px")
+      .style("background", "black")
+      .style("padding", "12px")
+      .style("display", "flex")
+      .style("align-items", "center")
+      .style("border-radius", "4px");
     
-    controls.append("button")
+    // Year label
+    controls.append("span")
+      .attr("id", "scatterplot-year-label")
+      .style("color", "white")
+      .style("font-weight", "bold")
+      .style("font-size", "22px")
+      .style("margin-right", "12px")
+      .text(`${currYear}`);
+    
+    const prevButton = controls.append("button")
       .attr("id", "scatterplot-prev-year")
-      .text("◀")
+      .text("❮")
+      .style("background", "none")
+      .style("border", "none")
+      .style("cursor", "pointer")
+      .style("font-size", "24px")
+      .style("padding", "0")
+      .style("margin-right", "8px")
+      .style("line-height", "1")
+      .style("color", currYear <= scatterplotConfig.yearRange[0] ? "#444" : "white")
       .on("click", () => {
         if (currYear > scatterplotConfig.yearRange[0]) {
-            currYear--;
+          currYear--;
           updateScatterplot();
+          updateArrowColors();
         }
       });
     
-    controls.append("span")
-      .attr("id", "scatterplot-year-label")
-      .text(`Year: ${currYear}`);
-    
-    controls.append("button")
+    // Next year button
+    const nextButton = controls.append("button")
       .attr("id", "scatterplot-next-year")
-      .text("▶")
+      .text("❯")
+      .style("background", "none")
+      .style("border", "none")
+      .style("cursor", "pointer")
+      .style("font-size", "24px")
+      .style("padding", "0")
+      .style("line-height", "1")
+      .style("color", currYear >= scatterplotConfig.yearRange[1] ? "#444" : "white")
       .on("click", () => {
         if (currYear < scatterplotConfig.yearRange[1]) {
-            currYear++;
+          currYear++;
           updateScatterplot();
+          updateArrowColors();
         }
       });
   }
@@ -127,7 +158,10 @@ const scatterplotConfig = {
     
     // Update year 
     d3.select("#scatterplot-year-display").text(`Year: ${currYear}`);
-    d3.select("#scatterplot-year-label").text(`Year: ${currYear}`);
+    d3.select("#scatterplot-year-label").text(`${currYear}`);
+    
+    // Update arrow colors
+    updateArrowColors();
     
     // Filter data for current year
     const yearData = scatterplotData.filter(d => d.Year === currYear);
@@ -149,13 +183,10 @@ const scatterplotConfig = {
       adultImprisonments: d['Total adult imprisonments']
     }));
         
-    // Update scales
     updateScales(processedData, povertyCol, imprisonmentCol);
     
-    // Update points
     updatePoints(processedData);
     
-    // Update regression line
     updateRegressionLine(processedData);
   }
   
@@ -206,7 +237,7 @@ const scatterplotConfig = {
       .style("font-size", "14px")
       .style("font-weight", "bold")
       .style("font-family", "'Inter', sans-serif")
-      .attr("dy", "1em"); // Push numbers down a bit for better spacing
+      .attr("dy", "1em"); 
     
     yAxisG.transition()
       .duration(scatterplotConfig.transitionDuration)
@@ -321,6 +352,22 @@ const scatterplotConfig = {
       .transition()
       .duration(500)
       .style("opacity", 0);
+  }
+  
+  function updateArrowColors() {
+    // Previous button color
+    if (currYear <= scatterplotConfig.yearRange[0]) {
+      d3.select("#scatterplot-prev-year").style("color", "#444"); 
+    } else {
+      d3.select("#scatterplot-prev-year").style("color", "white"); 
+    }
+    
+    // Next button color
+    if (currYear >= scatterplotConfig.yearRange[1]) {
+      d3.select("#scatterplot-next-year").style("color", "#444"); 
+    } else {
+      d3.select("#scatterplot-next-year").style("color", "white"); 
+    }
   }
   
   initScatterplot();

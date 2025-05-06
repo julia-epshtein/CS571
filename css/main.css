@@ -160,3 +160,9 @@ p {
       margin: 20px auto;
   }
 }
+
+.chart-heading {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-top: -1.5rem;
+}
