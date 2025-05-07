@@ -4,19 +4,15 @@ document.addEventListener('DOMContentLoaded', function() {
       // Process data to get averages per year
       const processedData = processData(data);
       
-      // Create both charts
       const rateChart = createRateChart(processedData);
       const costChart = createCostChart(processedData);
       
-      // Store references to both charts
       const charts = { rateChart, costChart };
       
       addOverlayRectangles(charts);
       
-      // Set up event listeners on overlay rectangles
       rateChart.svg.select(".overlay")
         .on("mouseenter", function() {
-          // Show crosshairs on both charts when entering either chart
           rateChart.focus.style("opacity", 1);
           costChart.focus.style("opacity", 1);
         })
@@ -30,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
       
       costChart.svg.select(".overlay")
         .on("mouseenter", function() {
-          // Show crosshairs on both charts when entering either chart
           rateChart.focus.style("opacity", 1);
           costChart.focus.style("opacity", 1);
         })
@@ -46,8 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
       console.error("Error loading the data:", error);
     });
   });
-  
-  // Define reforms data
+
   const reforms = {
     2009: "Three Strikes Law in full effect",
     2011: "Public Safety Realignment Act (AB 109)",
@@ -125,18 +119,16 @@ document.addEventListener('DOMContentLoaded', function() {
       .attr("class", "axis axis--y")
       .call(d3.axisLeft(y));
     
-    // Add X axis label with improved spacing
     svg.append("text")
       .attr("class", "axis-label")
       .attr("x", width / 2)
-      .attr("y", height + margin.bottom + 20) // Increased spacing
+      .attr("y", height + margin.bottom + 20) 
       .style("text-anchor", "middle")
       .style("font-size", "16px")
       .style("font-weight", "bold")
       .style("font-family", "'Inter', sans-serif")
       .text("Year");
     
-    // Add Y axis label with improved spacing
     svg.append("text")
       .attr("class", "axis-label")
       .attr("transform", "rotate(-90)")
@@ -304,9 +296,7 @@ document.addEventListener('DOMContentLoaded', function() {
     return { svg, x, y, width, height, margin, focus, tooltip, data };
   }
   
-  // Function to add overlay rectangles for better mouse tracking
   function addOverlayRectangles({ rateChart, costChart }) {
-    // Add an overlay rectangle to rate chart for better mouse detection
     rateChart.svg.append("rect")
       .attr("class", "overlay")
       .attr("width", rateChart.width)
@@ -314,7 +304,6 @@ document.addEventListener('DOMContentLoaded', function() {
       .style("fill", "none")
       .style("pointer-events", "all");
     
-    // Add an overlay rectangle to cost chart for better mouse detection
     costChart.svg.append("rect")
       .attr("class", "overlay")
       .attr("width", costChart.width)
@@ -383,47 +372,46 @@ document.addEventListener('DOMContentLoaded', function() {
       .attr("stroke", "#e41a1c")
       .attr("stroke-width", 2);
     
-    // Update tooltip with actual data point value and reform information
+    // Update tooltip with actual data point value
     const nearestYear = Math.round(year);
     const reform = rateChart.data.find(d => d.year === nearestYear)?.reform || "";
     const reformInfo = reform ? `<br/><strong>Reform:</strong> ${reform}` : "";
     
     rateChart.tooltip
       .html(`<div class="tooltip-content">
-              <strong>Year: ${nearestYear}</strong><br/>
-              <strong>Rate:</strong> ${interpolatedRate.toFixed(1)} per 100,000${reformInfo}
+              <strong>Year: ${nearestYear}</strong>
+              <div style="margin-top: 6px;"><span style="color: #e41a1c; font-weight: 600;">Rate:</span> ${interpolatedRate.toFixed(1)} per 100,000</div>
+              ${reform ? `<div style="margin-top: 6px;"><span style="color: #c89f65; font-weight: 600;">Reform:</span> ${reform}</div>` : ''}
             </div>`)
       .style("left", (rateX + rateChart.margin.left) + "px")
       .style("top", (rateY + rateChart.margin.top - 15) + "px")
       .style("opacity", 1);
     
-    // Update cost chart
     const costX = costChart.x(year);
     const costY = costChart.y(interpolatedCost);
     
-    // Update crosshair line to extend from top to bottom
     costChart.focus.select(".crosshair-line")
       .attr("transform", `translate(${costX},0)`)
       .attr("y1", 0)
       .attr("y2", costChart.height);
     
-    // Update circle position to be exactly on the line
+
     costChart.focus.select(".crosshair-circle")
       .attr("transform", `translate(${costX},${costY})`)
       .attr("r", 6)
       .attr("fill", "white")
       .attr("stroke", "#1f77b4")
       .attr("stroke-width", 2);
-    
-    // Update tooltip with actual data point value and reform information
+
     const costNearestYear = Math.round(year);
     const costReform = costChart.data.find(d => d.year === costNearestYear)?.reform || "";
     const costReformInfo = costReform ? `<br/><strong>Reform:</strong> ${costReform}` : "";
     
     costChart.tooltip
       .html(`<div class="tooltip-content">
-              <strong>Year: ${costNearestYear}</strong><br/>
-              <strong>Cost:</strong> $${interpolatedCost.toFixed(1)}M${costReformInfo}
+              <strong>Year: ${costNearestYear}</strong>
+              <div style="margin-top: 6px;"><span style="color: #1f77b4; font-weight: 600;">Cost:</span> $${interpolatedCost.toFixed(1)}M</div>
+              ${costReform ? `<div style="margin-top: 6px;"><span style="color: #c89f65; font-weight: 600;">Reform:</span> ${costReform}</div>` : ''}
             </div>`)
       .style("left", (costX + costChart.margin.left) + "px")
       .style("top", (costY + costChart.margin.top - 15) + "px")

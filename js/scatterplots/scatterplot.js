@@ -287,7 +287,7 @@ const scatterplotConfig = {
       .attr("r", 0)
       .attr("fill", d => colorScale(d.county))
       .attr("opacity", 0.5)
-      .attr("cursor", "pointer") // Add pointer cursor to indicate interactivity
+      .attr("cursor", "pointer") 
       .on("mouseover", showTooltip)
       .on("mouseout", hideTooltip)
       .transition()
