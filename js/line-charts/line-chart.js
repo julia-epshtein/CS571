@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
       // Store references to both charts
       const charts = { rateChart, costChart };
       
-      // Add overlay rectangles for better mouse detection
       addOverlayRectangles(charts);
       
       // Set up event listeners on overlay rectangles
@@ -48,6 +47,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   
+  // Define reforms data
+  const reforms = {
+    2009: "Three Strikes Law in full effect",
+    2011: "Public Safety Realignment Act (AB 109)",
+    2012: "Proposition 36 reformed Three Strikes Law",
+    2014: "Proposition 47 reduced some felonies to misdemeanors",
+    2016: "Proposition 57 expanded parole eligibility"
+  };
+
   function processData(data) {
     // Group data by year and calculate averages
     const groupedByYear = d3.group(data, d => d.Year);
@@ -59,7 +67,8 @@ document.addEventListener('DOMContentLoaded', function() {
       return {
         year: year,
         avgRate: avgRate,
-        avgCost: avgCost
+        avgCost: avgCost,
+        reform: reforms[year] || ""
       };
     });
     
@@ -351,37 +360,73 @@ document.addEventListener('DOMContentLoaded', function() {
     const interpolatedRate = d0.avgRate + t * (d1.avgRate - d0.avgRate);
     const interpolatedCost = d0.avgCost + t * (d1.avgCost - d0.avgCost);
     
+    // Find the nearest actual data point for display
+    const nearestIndex = Math.round(year) - rateChart.data[0].year;
+    const nearestDataPoint = rateChart.data[Math.min(Math.max(0, nearestIndex), rateChart.data.length - 1)];
+    
     // Update rate chart
     const rateX = rateChart.x(year);
     // For y-position, use the interpolated value for smooth curve following
     const rateY = rateChart.y(interpolatedRate);
     
+    // Update crosshair line to extend from top to bottom
     rateChart.focus.select(".crosshair-line")
-      .attr("transform", `translate(${rateX},0)`);
+      .attr("transform", `translate(${rateX},0)`)
+      .attr("y1", 0)
+      .attr("y2", rateChart.height);
     
+    // Update circle position to be exactly on the line
     rateChart.focus.select(".crosshair-circle")
-      .attr("transform", `translate(${rateX},${rateY})`);
+      .attr("transform", `translate(${rateX},${rateY})`)
+      .attr("r", 6)
+      .attr("fill", "white")
+      .attr("stroke", "#e41a1c")
+      .attr("stroke-width", 2);
+    
+    // Update tooltip with actual data point value and reform information
+    const nearestYear = Math.round(year);
+    const reform = rateChart.data.find(d => d.year === nearestYear)?.reform || "";
+    const reformInfo = reform ? `<br/><strong>Reform:</strong> ${reform}` : "";
     
     rateChart.tooltip
-      .html(`Year: ${year.toFixed(1)}<br/>Rate: ${interpolatedRate.toFixed(1)}`)
+      .html(`<div class="tooltip-content">
+              <strong>Year: ${nearestYear}</strong><br/>
+              <strong>Rate:</strong> ${interpolatedRate.toFixed(1)} per 100,000${reformInfo}
+            </div>`)
       .style("left", (rateX + rateChart.margin.left) + "px")
-      .style("top", (rateY + rateChart.margin.top) + "px")
+      .style("top", (rateY + rateChart.margin.top - 15) + "px")
       .style("opacity", 1);
     
     // Update cost chart
     const costX = costChart.x(year);
     const costY = costChart.y(interpolatedCost);
     
+    // Update crosshair line to extend from top to bottom
     costChart.focus.select(".crosshair-line")
-      .attr("transform", `translate(${costX},0)`);
+      .attr("transform", `translate(${costX},0)`)
+      .attr("y1", 0)
+      .attr("y2", costChart.height);
     
+    // Update circle position to be exactly on the line
     costChart.focus.select(".crosshair-circle")
-      .attr("transform", `translate(${costX},${costY})`);
+      .attr("transform", `translate(${costX},${costY})`)
+      .attr("r", 6)
+      .attr("fill", "white")
+      .attr("stroke", "#1f77b4")
+      .attr("stroke-width", 2);
+    
+    // Update tooltip with actual data point value and reform information
+    const costNearestYear = Math.round(year);
+    const costReform = costChart.data.find(d => d.year === costNearestYear)?.reform || "";
+    const costReformInfo = costReform ? `<br/><strong>Reform:</strong> ${costReform}` : "";
     
     costChart.tooltip
-      .html(`Year: ${year.toFixed(1)}<br/>Cost: $${interpolatedCost.toFixed(1)}M`)
+      .html(`<div class="tooltip-content">
+              <strong>Year: ${costNearestYear}</strong><br/>
+              <strong>Cost:</strong> $${interpolatedCost.toFixed(1)}M${costReformInfo}
+            </div>`)
       .style("left", (costX + costChart.margin.left) + "px")
-      .style("top", (costY + costChart.margin.top) + "px")
+      .style("top", (costY + costChart.margin.top - 15) + "px")
       .style("opacity", 1);
   }
   
