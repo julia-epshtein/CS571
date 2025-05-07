@@ -1,16 +1,18 @@
 // Configuration
 const demographicsConfig = {
-  width: 200,  
-  height: 150,
-  margin: { top: 20, right: 30, bottom: 60, left: 60 },
-  barHeight: 40,
-  barPadding: 10,
+  width: 400, 
+  height: 300, 
+  margin: { top: 10, right: 60, bottom: 20, left: 80 },
+  barHeight: 30,
+  barPadding: 15,
   colors: {
-    'Black': '#293a54',
-    'Latino': '#293a54',
-    'White': '#293a54',
-    'Other': '#293a54'
-  }
+    'Black': '#cb4f1b', 
+    'Latino': '#cb4f1b',
+    'White': '#cb4f1b',
+    'Other': '#cb4f1b'
+  },
+  barWidth: 220, 
+  maxBarLength: 220 
 };
 
 
@@ -21,7 +23,7 @@ const ethnicityGroups = {
   'Other': ['Other Asian', 'Chinese', 'Cambodian', 'Korean', 'Indian', 'Japanese', 'Thai', 'Vietnamese', 'Filipino', 'Other', 'American Indian', 'Laotian', 'Jamaican', 'Unknown', 'Pacific Islander', 'Samoan', 'Hawaiian', 'Guamanian'],
 };
 
-// Initialization
+
 function initDemographicsVisualization() {
   setupDemographicsSVG();
   loadDemographicsData();
@@ -35,9 +37,7 @@ function setupDemographicsSVG() {
     .style("background-color", "black")
     .append("g")
     .attr("transform", `translate(${demographicsConfig.margin.left}, ${demographicsConfig.margin.top})`)
-    .attr("class", "demographics-bar-svg")
-    .attr("viewBox", `0 0 ${demographicsConfig.width} ${demographicsConfig.height}`)
-    .attr("preserveAspectRatio", "xMidYMid meet");
+    .attr("class", "demographics-bar-svg");
     
 }
 
@@ -92,24 +92,43 @@ function renderDemographicsVisualization({ barData, total }) {
   const width = demographicsConfig.width - demographicsConfig.margin.left - demographicsConfig.margin.right;
   const height = barData.length * (demographicsConfig.barHeight + demographicsConfig.barPadding);
 
+
   const y = d3.scaleBand()
     .domain(barData.map(d => d.group))
     .range([0, height])
-    .padding(0.1);
+    .padding(0.3);
     
-  const xMax = d3.max(barData, d => d.count);
-  const x = d3.scaleLinear()
-    .domain([0, xMax * 1.1])
-    .range([0, width]);
+  const barWidth = demographicsConfig.barWidth;
+
+  svg.selectAll(".bar-background")
+    .data(barData)
+    .enter()
+    .append("rect")
+    .attr("class", "bar-background")
+    .attr("y", d => y(d.group))
+    .attr("x", 0)
+    .attr("height", y.bandwidth())
+    .attr("width", width)
+    .attr("fill", "#fcfcfc")
+    .attr("opacity", 0.08);
 
   svg.append("g")
-    .call(d3.axisLeft(y))
+    .attr("class", "category-labels")
     .selectAll("text")
+    .data(barData)
+    .enter()
+    .append("text")
+    .attr("x", -10)
+    .attr("y", d => y(d.group) + y.bandwidth() / 2)
+    .attr("dy", "0.35em")
+    .attr("text-anchor", "end")
     .style("fill", "white")
-    .style("font-size", "16px");
+    .style("font-size", "14px")
+    .text(d => d.group);
 
   svg.selectAll(".domain").style("stroke", "none");
   svg.selectAll(".tick line").style("stroke", "none");
+  svg.selectAll(".tick text").style("display", "none");
 
   const tooltip = d3.select("body")
     .append("div")
@@ -133,8 +152,13 @@ function renderDemographicsVisualization({ barData, total }) {
     .attr("y", d => y(d.group))
     .attr("x", 0)
     .attr("height", y.bandwidth())
-    .attr("width", d => x(d.count))
+    .attr("width", d => {
+      const maxPercentage = d3.max(barData, d => parseFloat(d.percentage));
+      return (parseFloat(d.percentage) / maxPercentage) * demographicsConfig.maxBarLength;
+    })
     .attr("fill", d => demographicsConfig.colors[d.group])
+    .attr("rx", 2) 
+    .attr("ry", 2) 
     .on("mouseover", function(event, d) {
       d3.select(this).style("opacity", 0.8);
       tooltip.transition()
@@ -160,26 +184,17 @@ function renderDemographicsVisualization({ barData, total }) {
     .enter()
     .append("text")
     .attr("class", "percent-label")
-    .attr("x", d => Math.min(x(d.count) / 2, 50))
+    .attr("x", d => {
+      return 60; 
+    })
     .attr("y", d => y(d.group) + y.bandwidth() / 2)
     .attr("dy", "0.35em")
     .attr("text-anchor", "middle")
     .style("fill", "white")
-    .style("font-size", "9px")
+    .style("font-size", "16px")
     .style("font-weight", "bold")
     .text(d => d.percentage + "%");
     
-  svg.selectAll(".count-label")
-    .data(barData)
-    .enter()
-    .append("text")
-    .attr("class", "count-label")
-    .attr("x", d => x(d.count) + 10)
-    .attr("y", d => y(d.group) + y.bandwidth() / 2)
-    .attr("dy", "0.35em")
-    .style("fill", "white")
-    .style("font-size", "14px")
-    .text(d => d.count.toLocaleString());
 }
 
 document.addEventListener("DOMContentLoaded", initDemographicsVisualization);

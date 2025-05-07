@@ -1,8 +1,8 @@
 const strikesBarConfig = {
-  width: 900,
-  height: 500,
-  margin: { top: 50, right: 100, bottom: 100, left: 90 },
-  colors: ["#6baed6", "#54278f"]
+  width: 1150,
+  height: 620,
+  margin: { top: 55, right: 90, bottom: 95, left: 120 },
+  colors: ["#265882", "#7c2e71"]
 };
 
 function initStrikesVisualization() {
@@ -15,12 +15,16 @@ function setupStrikesSVG() {
   
   d3.select("#strikes-bar-chart").html("");
   
+  // Create SVG container
   const svg = d3
     .select("#strikes-bar-chart")
     .append("svg")
     .attr("width", strikesBarConfig.width)
     .attr("height", strikesBarConfig.height)
-    .style("background-color", "black");  
+    .style("display", "block")
+    .style("margin", "0")
+    .style("margin-left", "-100px")
+    .style("margin-top", "50px");
 
   svg
     .append("g")
@@ -104,14 +108,18 @@ function renderStrikesChart(data) {
     .selectAll("text")
     .style("text-anchor", "middle")
     .attr("transform", "translate(0,10)")
-    .style("fill", "white"); 
+    .style("fill", "white")
+    .style("font-family", "Inter, sans-serif")
+    .style("font-size", "16px"); 
 
   svg
     .append("g")
     .attr("class", "axis y-axis")
     .call(d3.axisLeft(y).tickFormat(d => `${d}%`))
     .selectAll("text")
-    .style("fill", "white"); 
+    .style("fill", "white")
+    .style("font-family", "Inter, sans-serif")
+    .style("font-size", "16px"); 
 
   svg.selectAll(".domain")
     .style("stroke", "white");  
@@ -125,7 +133,10 @@ function renderStrikesChart(data) {
       `translate(${chartWidth / 2}, ${chartHeight + strikesBarConfig.margin.bottom - 20})`
     )
     .style("text-anchor", "middle")
-    .style("fill", "white")  
+    .style("fill", "white")
+    .style("font-family", "Inter, sans-serif")
+    .style("font-size", "18px")
+    .style("font-weight", "600")  
     .text("Sentence Length (months)");
 
   svg
@@ -136,7 +147,10 @@ function renderStrikesChart(data) {
     .attr("x", 0 - chartHeight / 2)
     .attr("dy", "1em")
     .style("text-anchor", "middle")
-    .style("fill", "white")  
+    .style("fill", "white")
+    .style("font-family", "Inter, sans-serif")
+    .style("font-size", "18px")
+    .style("font-weight", "600")  
     .text("Percentage of Cases (%)");
 
   // Tooltip 
@@ -176,9 +190,9 @@ function renderStrikesChart(data) {
       tooltip.transition().duration(200).style("opacity", 0.9);
       tooltip
         .html(`
-          <div style="margin-bottom: 4px; font-weight: 700;">${d.strikeType}</div>
-          <div>Sentence Length: ${d.bin} months</div>
-          <div>Percentage: ${d.percentage.toFixed(1)}%</div>
+          <div style="margin-bottom: 4px; font-weight: 700; font-family: Inter, sans-serif; font-size: 14px;">${d.strikeType}</div>
+          <div style="font-family: Inter, sans-serif; font-size: 14px;">Sentence Length: ${d.bin} months</div>
+          <div style="font-family: Inter, sans-serif; font-size: 14px;">Percentage: ${d.percentage.toFixed(1)}%</div>
         `)
         .style("left", `${event.pageX + 15}px`)
         .style("top", `${event.pageY - 30}px`);
@@ -191,25 +205,27 @@ function renderStrikesChart(data) {
   const legend = svg
     .append("g")
     .attr("class", "legend")
-    .attr("transform", `translate(${chartWidth - 150}, -30)`);
+    .attr("transform", `translate(${chartWidth - 220}, -40)`);
 
   strikeTypes.forEach((type, i) => {
     const legendItem = legend
       .append("g")
-      .attr("transform", `translate(0, ${i * 20})`);
+      .attr("transform", `translate(0, ${i * 30})`);
 
     legendItem
       .append("rect")
-      .attr("width", 15)
-      .attr("height", 15)
+      .attr("width", 24)
+      .attr("height", 24)
       .attr("fill", color(type));
 
     legendItem
       .append("text")
-      .attr("x", 20)
-      .attr("y", 12)
+      .attr("x", 32)
+      .attr("y", 17)
       .text(type)
-      .style("font-size", "12px")
+      .style("font-family", "Inter, sans-serif")
+      .style("font-size", "18px")
+      .style("font-weight", "600")
       .style("fill", "white"); 
   });
 }

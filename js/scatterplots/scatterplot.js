@@ -21,15 +21,11 @@ const scatterplotConfig = {
     const container = d3.select("#scatterplot-container");
     
     // title
-    container.append("h2")
+    container.append("h1")
       .attr("class", "scatterplot-title")
       .text("Poverty Rate vs. Imprisonment Rate by County");
     
-    // year display
-    container.append("div")
-      .attr("class", "scatterplot-year")
-      .attr("id", "scatterplot-year-display")
-      .text(`Year: ${currYear}`);
+
     
     // SVG
     svg = container.append("svg")
@@ -48,12 +44,14 @@ const scatterplotConfig = {
     
     yAxisG = chartG.append("g")
       .attr("class", "y axis");
+      
+
     
     // axis labels
     chartG.append("text")
       .attr("class", "axis-label")
       .attr("x", getChartWidth() / 2)
-      .attr("y", getChartHeight() + scatterplotConfig.margin.bottom + 20) // Increased spacing from axis
+      .attr("y", getChartHeight() + scatterplotConfig.margin.bottom + 20) 
       .style("text-anchor", "middle")
       .style("font-size", "16px")
       .style("font-weight", "bold")
@@ -64,7 +62,7 @@ const scatterplotConfig = {
       .attr("class", "axis-label")
       .attr("transform", "rotate(-90)")
       .attr("x", -getChartHeight() / 2)
-      .attr("y", -scatterplotConfig.margin.left + 15) // Adjusted position
+      .attr("y", -scatterplotConfig.margin.left + 15) 
       .style("text-anchor", "middle")
       .style("font-size", "16px")
       .style("font-weight", "bold")
@@ -74,33 +72,77 @@ const scatterplotConfig = {
     // tooltip
     container.append("div")
       .attr("class", "scatterplot-tooltip")
-      .attr("id", "scatterplot-tooltip");
+      .attr("id", "scatterplot-tooltip")
+      .style("position", "fixed")
+      .style("background", "rgba(79, 75, 75, 0.95)")
+      .style("color", "white")
+      .style("padding", "12px")
+      .style("border-radius", "4px")
+      .style("pointer-events", "none")
+      .style("font-family", "'Inter', sans-serif")
+      .style("font-size", "16px")
+      .style("opacity", 0)
+      .style("z-index", 10000)
+      .style("min-width", "200px")
+      .style("border", "2px solid white")
+      .style("box-shadow", "0 0 5px rgba(0,0,0,0.5)");
     
     // controls
     const controls = container.append("div")
-      .attr("class", "scatterplot-controls");
+      .attr("class", "scatterplot-controls")
+      .style("position", "absolute")
+      .style("top", "10px")
+      .style("right", "10px")
+      .style("background", "black")
+      .style("padding", "12px")
+      .style("display", "flex")
+      .style("align-items", "center")
+      .style("border-radius", "4px");
     
-    controls.append("button")
+    // Year label
+    controls.append("span")
+      .attr("id", "scatterplot-year-label")
+      .style("color", "white")
+      .style("font-weight", "bold")
+      .style("font-size", "22px")
+      .style("margin-right", "12px")
+      .text(`${currYear}`);
+    
+    const prevButton = controls.append("button")
       .attr("id", "scatterplot-prev-year")
-      .text("◀")
+      .text("❮")
+      .style("background", "none")
+      .style("border", "none")
+      .style("cursor", "pointer")
+      .style("font-size", "24px")
+      .style("padding", "0")
+      .style("margin-right", "8px")
+      .style("line-height", "1")
+      .style("color", currYear <= scatterplotConfig.yearRange[0] ? "#444" : "white")
       .on("click", () => {
         if (currYear > scatterplotConfig.yearRange[0]) {
-            currYear--;
+          currYear--;
           updateScatterplot();
+          updateArrowColors();
         }
       });
     
-    controls.append("span")
-      .attr("id", "scatterplot-year-label")
-      .text(`Year: ${currYear}`);
-    
-    controls.append("button")
+    // Next year button
+    const nextButton = controls.append("button")
       .attr("id", "scatterplot-next-year")
-      .text("▶")
+      .text("❯")
+      .style("background", "none")
+      .style("border", "none")
+      .style("cursor", "pointer")
+      .style("font-size", "24px")
+      .style("padding", "0")
+      .style("line-height", "1")
+      .style("color", currYear >= scatterplotConfig.yearRange[1] ? "#444" : "white")
       .on("click", () => {
         if (currYear < scatterplotConfig.yearRange[1]) {
-            currYear++;
+          currYear++;
           updateScatterplot();
+          updateArrowColors();
         }
       });
   }
@@ -125,11 +167,10 @@ const scatterplotConfig = {
   function updateScatterplot() {
     if (!scatterplotData) return;
     
-    // Update year 
-    d3.select("#scatterplot-year-display").text(`Year: ${currYear}`);
-    d3.select("#scatterplot-year-label").text(`Year: ${currYear}`);
+    d3.select("#scatterplot-year-label").text(`${currYear}`);
     
-    // Filter data for current year
+    updateArrowColors();
+    
     const yearData = scatterplotData.filter(d => d.Year === currYear);
     
     // Get poverty column name for this year
@@ -149,13 +190,10 @@ const scatterplotConfig = {
       adultImprisonments: d['Total adult imprisonments']
     }));
         
-    // Update scales
     updateScales(processedData, povertyCol, imprisonmentCol);
     
-    // Update points
     updatePoints(processedData);
     
-    // Update regression line
     updateRegressionLine(processedData);
   }
   
@@ -193,9 +231,14 @@ const scatterplotConfig = {
     const counties = [...new Set(data.map(d => d.county))];
     colorScale = d3.scaleOrdinal()
       .domain(counties)
-      .range(d3.schemeTableau10);
-    
-    // Update axes with larger tick labels
+      .range([
+        "#00E5A0", // bright teal/green (Color #1)
+        "#FF9500", // bright orange (Color #2)
+        "#00D8FF", // bright cyan (Color #3)
+        "#FF00E5", // bright magenta (Color #4)
+      ]);
+      
+
     const xAxis = d3.axisBottom(xScale).ticks(6);
     const yAxis = d3.axisLeft(yScale).ticks(6);
     
@@ -206,7 +249,7 @@ const scatterplotConfig = {
       .style("font-size", "14px")
       .style("font-weight", "bold")
       .style("font-family", "'Inter', sans-serif")
-      .attr("dy", "1em"); // Push numbers down a bit for better spacing
+      .attr("dy", "1em"); 
     
     yAxisG.transition()
       .duration(scatterplotConfig.transitionDuration)
@@ -243,7 +286,8 @@ const scatterplotConfig = {
       .attr("cy", d => yScale(d.imprisonmentRate))
       .attr("r", 0)
       .attr("fill", d => colorScale(d.county))
-      .attr("opacity", 0.8)
+      .attr("opacity", 0.5)
+      .attr("cursor", "pointer") 
       .on("mouseover", showTooltip)
       .on("mouseout", hideTooltip)
       .transition()
@@ -301,19 +345,48 @@ const scatterplotConfig = {
   function showTooltip(event, d) {
     const tooltip = d3.select("#scatterplot-tooltip");
     
-    tooltip.transition()
-      .duration(200)
-      .style("opacity", 0.9);
-    
     tooltip.html(`
-      <strong>${d.county}</strong><br>
-      Poverty Rate: ${d.povertyRate.toFixed(1)}%<br>
-      Imprisonment Rate: ${d.imprisonmentRate.toFixed(1)} per 100,000<br>
-      ${d.adultImprisonments ? `Total Imprisonments: ${d.adultImprisonments.toLocaleString()}<br>` : ''}
-      ${d.totalPopulation ? `Population: ${d.totalPopulation.toLocaleString()}` : ''}
-    `)
-      .style("left", (event.pageX + 10) + "px")
-      .style("top", (event.pageY - 28) + "px");
+      <div style="font-size: 16px; font-weight: bold; margin-bottom: 6px; text-align: center;">
+        ${d.county}
+      </div>
+      <div style="font-size: 14px; line-height: 1.4;">
+        <div style="margin-bottom: 4px;"><strong>Poverty:</strong> ${d.povertyRate.toFixed(1)}%</div>
+        <div style="margin-bottom: 4px;"><strong>Imprisonment:</strong> ${d.imprisonmentRate.toFixed(1)}</div>
+        ${d.totalPopulation ? `<div style="margin-bottom: 4px;"><strong>Population:</strong> ${d.totalPopulation.toLocaleString()}</div>` : ''}
+      </div>
+    `);
+    
+    const tooltipWidth = 200;
+    const tooltipHeight = 130;
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+    
+    let left = event.clientX + 20;
+    let top = event.clientY - 20;
+    
+    if (left + tooltipWidth > windowWidth) {
+      left = event.clientX - tooltipWidth - 20;
+    }
+    
+    if (top + tooltipHeight > windowHeight) {
+      top = event.clientY - tooltipHeight - 20;
+    }
+    
+    tooltip
+      .style("left", left + "px")
+      .style("top", top + "px")
+      .transition()
+      .duration(200)
+      .style("opacity", 1);
+      
+    // Highlight the current point
+    d3.selectAll(".point")
+      .filter(p => p.county === d.county)
+      .transition()
+      .duration(100)
+      .attr("r", scatterplotConfig.pointRadius * 2) 
+      .attr("stroke", "white")
+      .attr("stroke-width", 3);
   }
   
   function hideTooltip() {
@@ -321,6 +394,30 @@ const scatterplotConfig = {
       .transition()
       .duration(500)
       .style("opacity", 0);
+      
+
+    d3.selectAll(".point")
+      .transition()
+      .duration(100)
+      .attr("r", scatterplotConfig.pointRadius)
+      .attr("stroke", "none");
   }
+  
+  function updateArrowColors() {
+    // Previous button color
+    if (currYear <= scatterplotConfig.yearRange[0]) {
+      d3.select("#scatterplot-prev-year").style("color", "#444"); 
+    } else {
+      d3.select("#scatterplot-prev-year").style("color", "white"); 
+    }
+    
+    if (currYear >= scatterplotConfig.yearRange[1]) {
+      d3.select("#scatterplot-next-year").style("color", "#444"); 
+    } else {
+      d3.select("#scatterplot-next-year").style("color", "white"); 
+    }
+  }
+  
+
   
   initScatterplot();

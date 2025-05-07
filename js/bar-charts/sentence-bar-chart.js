@@ -1,15 +1,17 @@
 const sentenceConfig = {
-  width: 200,  
-    height: 150,
-    margin: { top: 20, right: 30, bottom: 60, left: 60 },
-    barHeight: 40,
-    barPadding: 10,
-    colors: {
-    'Black': '#cbca75',
+  width: 400, 
+  height: 300, 
+  margin: { top: 10, right: 60, bottom: 20, left: 80 }, 
+  barHeight: 30,
+  barPadding: 15,
+  colors: {
+    'Black': '#cbca75', 
     'Latino': '#cbca75',
     'White': '#cbca75',
     'Other': '#cbca75'
-    }
+  },
+  barWidth: 220, 
+  maxBarLength: 220 
 };
 
 function initSentenceVisualization() {
@@ -57,37 +59,44 @@ function renderSentenceVisualization(barData, year) {
   const svg = d3.select(".sentence-bar-svg");
   const width = sentenceConfig.width - sentenceConfig.margin.left - sentenceConfig.margin.right;
   const height = barData.length * (sentenceConfig.barHeight + sentenceConfig.barPadding);
-/*
-  svg.append("text")
-    .attr("x", width / 2)
-    .attr("y", -35)
-    .attr("text-anchor", "middle")
-    .attr("class", "chart-title")
-    .style("fill", "white")
-    .style("font-size", "28px")
-    .style("font-weight", "bold")
-    .text(`Imprisonment Rate (per 100K)`)
-    .style("font-size", "14px");
-*/
 
   const y = d3.scaleBand()
     .domain(barData.map(d => d.category))
     .range([0, height])
-    .padding(0.1);
+    .padding(0.3);
     
-  const xMax = d3.max(barData, d => d.value);
-  const x = d3.scaleLinear()
-    .domain([0, xMax * 1.1])
-    .range([0, width]);
+
+  const barWidth = sentenceConfig.barWidth;
+
+  svg.selectAll(".bar-background")
+    .data(barData)
+    .enter()
+    .append("rect")
+    .attr("class", "bar-background")
+    .attr("y", d => y(d.category))
+    .attr("x", 0)
+    .attr("height", y.bandwidth())
+    .attr("width", width)
+    .attr("fill", "#fcfcfc")
+    .attr("opacity", 0.08);
 
   svg.append("g")
-    .call(d3.axisLeft(y))
+    .attr("class", "category-labels")
     .selectAll("text")
+    .data(barData)
+    .enter()
+    .append("text")
+    .attr("x", -10)
+    .attr("y", d => y(d.category) + y.bandwidth() / 2)
+    .attr("dy", "0.35em")
+    .attr("text-anchor", "end")
     .style("fill", "white")
-    .style("font-size", "16px");
+    .style("font-size", "14px")
+    .text(d => d.category);
 
   svg.selectAll(".domain").style("stroke", "none");
   svg.selectAll(".tick line").style("stroke", "none");
+  svg.selectAll(".tick text").style("display", "none");
 
   const tooltip = d3.select("body")
     .append("div")
@@ -111,8 +120,13 @@ function renderSentenceVisualization(barData, year) {
     .attr("y", d => y(d.category))
     .attr("x", 0)
     .attr("height", y.bandwidth())
-    .attr("width", d => x(d.value))
+    .attr("width", d => {
+      const maxPercentage = d3.max(barData, d => parseFloat(d.percentage));
+      return (parseFloat(d.percentage) / maxPercentage) * sentenceConfig.maxBarLength;
+    })
     .attr("fill", d => sentenceConfig.colors[d.category])
+    .attr("rx", 2) 
+    .attr("ry", 2) 
     .on("mouseover", function(event, d) {
       d3.select(this).style("opacity", 0.8);
       tooltip.transition()
@@ -133,31 +147,23 @@ function renderSentenceVisualization(barData, year) {
         .style("opacity", 0);
     });
 
-  svg.selectAll(".percent-label")
+
+  svg.selectAll(".value-label")
     .data(barData)
     .enter()
     .append("text")
-    .attr("class", "percent-label")
-    .attr("x", d => Math.min(x(d.value) / 2, 50))
+    .attr("class", "value-label")
+    .attr("x", d => {
+      return 70; 
+    })
     .attr("y", d => y(d.category) + y.bandwidth() / 2)
     .attr("dy", "0.35em")
     .attr("text-anchor", "middle")
     .style("fill", "white")
-    .style("font-size", "9px")
+    .style("font-size", "16px")
     .style("font-weight", "bold")
     .text(d => d.percentage + "%");
   
-  svg.selectAll(".count-label")
-    .data(barData)
-    .enter()
-    .append("text")
-    .attr("class", "count-label")
-    .attr("x", d => x(d.value) + 10)
-    .attr("y", d => y(d.category) + y.bandwidth() / 2)
-    .attr("dy", "0.35em")
-    .style("fill", "white")
-    .style("font-size", "14px")
-    .text(d => Math.round(d.value).toLocaleString());
 }
 
 document.addEventListener("DOMContentLoaded", initSentenceVisualization);

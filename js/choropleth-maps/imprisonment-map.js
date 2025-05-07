@@ -41,30 +41,11 @@ function setupYearControls() {
     .style("position", "absolute")
     .style("top", "10px")
     .style("right", "10px")
-    .style("background", "rgba(0,0,0,0.7)")
-    .style("padding", "8px")
-    .style("border-radius", "5px")
+    .style("background", "black")
+    .style("padding", "12px")
     .style("display", "flex")
     .style("align-items", "center")
-    .style("gap", "5px");
-
-  // Previous year button
-  controlsContainer
-    .append("button")
-    .attr("id", "prev-year")
-    .text("◀")
-    .style("background", "none")
-    .style("border", "1px solid white")
-    .style("color", "white")
-    .style("cursor", "pointer")
-    .style("border-radius", "3px")
-    .on("click", () => {
-      if (currentYear > mapConfig.yearRange[0]) {
-        currentYear--;
-        updateYearDisplay();
-        updateMap();
-      }
-    });
+    .style("border-radius", "4px");
 
   // Year label
   controlsContainer
@@ -72,31 +53,94 @@ function setupYearControls() {
     .attr("id", "year-label")
     .style("color", "white")
     .style("font-weight", "bold")
-    .style("min-width", "60px")
-    .style("text-align", "center")
-    .text(`Year: ${currentYear}`);
+    .style("font-size", "22px")
+    .style("margin-right", "12px")
+    .text(`${currentYear}`);
+
+  // Previous year button
+  const prevButton = controlsContainer
+    .append("button")
+    .attr("id", "prev-year")
+    .text("❮")
+    .style("background", "none")
+    .style("border", "none")
+    .style("cursor", "pointer")
+    .style("font-size", "24px")
+    .style("padding", "0")
+    .style("margin-right", "8px")
+    .style("line-height", "1")
+    .on("click", () => {
+      if (currentYear > mapConfig.yearRange[0]) {
+        currentYear--;
+        updateYearDisplay();
+        updateMap();
+        updateArrowColors();
+      }
+    });
 
   // Next year button
-  controlsContainer
+  const nextButton = controlsContainer
     .append("button")
     .attr("id", "next-year")
-    .text("▶")
+    .text("❯")
     .style("background", "none")
-    .style("border", "1px solid white")
-    .style("color", "white")
+    .style("border", "none")
     .style("cursor", "pointer")
-    .style("border-radius", "3px")
+    .style("font-size", "24px")
+    .style("padding", "0")
+    .style("line-height", "1")
     .on("click", () => {
       if (currentYear < mapConfig.yearRange[1]) {
         currentYear++;
         updateYearDisplay();
         updateMap();
+        updateArrowColors();
       }
     });
+  
+  // Set initial arrow colors
+  updateArrowColors();
+
+  // Function to update arrow colors based on current year
+  function updateArrowColors() {
+    // Previous button color
+    if (currentYear <= mapConfig.yearRange[0]) {
+      prevButton.style("color", "#444"); 
+    } else {
+      prevButton.style("color", "white"); 
+    }
+    
+    // Next button color
+    if (currentYear >= mapConfig.yearRange[1]) {
+      nextButton.style("color", "#444"); 
+    } else {
+      nextButton.style("color", "white"); 
+    }
+  }
 }
 
 function updateYearDisplay() {
-  d3.select("#year-label").text(`Year: ${currentYear}`);
+  d3.select("#year-label").text(`${currentYear}`);
+  
+  // Update arrow colors when year changes
+  updateArrowColors();
+}
+
+// Function to update arrow colors based on current year
+function updateArrowColors() {
+  // Previous button color
+  if (currentYear <= mapConfig.yearRange[0]) {
+    d3.select("#prev-year").style("color", "#444"); 
+  } else {
+    d3.select("#prev-year").style("color", "white");
+  }
+  
+  // Next button color
+  if (currentYear >= mapConfig.yearRange[1]) {
+    d3.select("#next-year").style("color", "#444"); 
+  } else {
+    d3.select("#next-year").style("color", "white"); 
+  }
 }
 
 // Load and process data
