@@ -25,7 +25,13 @@ const scatterplotConfig = {
       .attr("class", "scatterplot-title")
       .text("Poverty Rate vs. Imprisonment Rate by County");
     
-
+    container.append("p")
+      .attr("class", "scatterplot-subtitle")
+      .style("text-align", "center")
+      .style("margin-top", "30px")
+      .style("margin-bottom", "20px")
+      .style("font-style", "italic")
+      .text("Circle size represents county incarcerated population");
     
     // SVG
     svg = container.append("svg")
@@ -186,8 +192,8 @@ const scatterplotConfig = {
       county: d.County,
       povertyRate: +d[povertyCol] * 100, 
       imprisonmentRate: +d[imprisonmentCol],
-      totalPopulation: d['Total population'],
-      adultImprisonments: d['Total adult imprisonments']
+      totalPopulation: +d['Total adult population incarcerated'] || 100,
+      adultImprisonments: +d['Total adult imprisonments per 100,000/population age 18-69']
     }));
         
     updateScales(processedData, povertyCol, imprisonmentCol);
@@ -261,6 +267,11 @@ const scatterplotConfig = {
   }
   
   function updatePoints(data) {
+    const populationExtent = d3.extent(data, d => d.totalPopulation);
+    const radiusScale = d3.scaleSqrt()
+      .domain(populationExtent)
+      .range([scatterplotConfig.pointRadius, scatterplotConfig.pointRadius * 5]);
+    
     const points = chartG.selectAll(".point")
       .data(data, d => d.county);
     
@@ -276,6 +287,7 @@ const scatterplotConfig = {
       .duration(scatterplotConfig.transitionDuration)
       .attr("cx", d => xScale(d.povertyRate))
       .attr("cy", d => yScale(d.imprisonmentRate))
+      .attr("r", d => radiusScale(d.totalPopulation))
       .attr("fill", d => colorScale(d.county));
     
     // Add new points
@@ -292,7 +304,7 @@ const scatterplotConfig = {
       .on("mouseout", hideTooltip)
       .transition()
       .duration(scatterplotConfig.transitionDuration)
-      .attr("r", scatterplotConfig.pointRadius);
+      .attr("r", d => radiusScale(d.totalPopulation));
   }
   
   function updateRegressionLine(data) {
@@ -379,12 +391,12 @@ const scatterplotConfig = {
       .duration(200)
       .style("opacity", 1);
       
-    // Highlight the current point
-    d3.selectAll(".point")
-      .filter(p => p.county === d.county)
+    const currentRadius = parseFloat(d3.select(event.target).attr("r"));
+    
+    d3.select(event.target)
       .transition()
       .duration(100)
-      .attr("r", scatterplotConfig.pointRadius * 2) 
+      .attr("r", currentRadius * 1.3)
       .attr("stroke", "white")
       .attr("stroke-width", 3);
   }
@@ -395,11 +407,29 @@ const scatterplotConfig = {
       .duration(500)
       .style("opacity", 0);
       
-
+    const yearData = scatterplotData.filter(d => d.Year === currYear);
+    const povertyCol = getPovertyColumnForYear(currYear);
+    const imprisonmentCol = "Total adult imprisonments per 100,000/population age 18-69";
+    
+    const processedData = yearData
+      .filter(d => d[povertyCol] !== null && !isNaN(d[povertyCol]) && 
+                 d[imprisonmentCol] !== null && !isNaN(d[imprisonmentCol]) &&
+                 d.County)
+      .map(d => ({
+        county: d.County,
+        povertyRate: +d[povertyCol] * 100, 
+        imprisonmentRate: +d[imprisonmentCol],
+        totalPopulation: +d['Total adult population incarcerated'] || 100
+      }));
+    
+    const populationExtent = d3.extent(processedData, d => d.totalPopulation);
+    const radiusScale = d3.scaleSqrt()
+      .domain(populationExtent)
+      .range([scatterplotConfig.pointRadius, scatterplotConfig.pointRadius * 5]);
     d3.selectAll(".point")
       .transition()
       .duration(100)
-      .attr("r", scatterplotConfig.pointRadius)
+      .attr("r", d => radiusScale(d.totalPopulation))
       .attr("stroke", "none");
   }
   
