@@ -33,7 +33,7 @@ This project visualizes California's sentencing and imprisonment data across cou
 [Watch our project demonstration](https://www.youtube.com/watch?v=AnRJEltGcEg)
 
 ## Process Book
-[View our process book](https://www.canva.com/design/DAGkQXK-pD4/-254poNSlgvkSuaSI0a3Ww/view?utm_content=DAGkQXK-pD4&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hd6e2adb9d6)
+[View our process book]([https://www.canva.com/design/DAGkQXK-pD4/-254poNSlgvkSuaSI0a3Ww/view?utm_content=DAGkQXK-pD4&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hd6e2adb9d6](https://www.dropbox.com/scl/fi/rhl73plg1pmsexdispkpx/Process-Book.pdf?rlkey=50zf4i0a2wfl09rt0xugtz8kp&st=sy3ki31j&dl=0))
 
 ## Project Structure
 
