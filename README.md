@@ -27,7 +27,7 @@ pip install -r requirements.txt
 This project visualizes California's sentencing and imprisonment data across counties, focusing on racial disparities, poverty correlations, and the impact of the Three Strikes law. The interactive dashboard presents multiple visualizations to help understand patterns in incarceration rates, costs, and demographic disparities.
 
 ## Project Website
-[View our live project website]()
+[View our live project website](https://julia-epshtein.github.io/CS571/)
 
 ## Project Screencast
 [Watch our project demonstration](https://youtu.be/cZ36vaP5tb0)
