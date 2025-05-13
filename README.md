@@ -90,8 +90,6 @@ CS571/
 
 ### External Libraries
 - **JavaScript Libraries**:
-  - **D3.js (v7)**: Core library used for all data visualizations
-  - **D3-scale-chromatic (v1)**: For color scales in maps and charts
   - **TopoJSON (v3)**: For map rendering and geographic data processing
 - **Styling**:
   - **Google Fonts**: For typography throughout the application
