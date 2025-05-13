@@ -102,7 +102,9 @@ CS571/
 ## Data Sources
 - All data files are located in the `data/` directory
 - Raw data from California Department of Corrections and Rehabilitation (CDCR)
-- Processed data in CSV format for each visualization
+- Raw data from Center on Juvenile and Criminal Justice
+- Demographic data from National Institute on Minority Health and Health Disparities
+- Processed data in CSV format
 
 ## Setup Instructions
 
