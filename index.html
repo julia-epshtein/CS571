@@ -29,6 +29,7 @@
           <h3>The Three Strikes law aimed to target repeat offenders, but it has worsened racial disparities in sentencing. <strong>Black and Latino</strong> defendants face harsher penalties due to biases in arrests and prosecutions.
           </h3> 
           <h3>In counties that enforce the law aggressively, people often receive <strong>life sentences</strong> for minor offenses, reinforcing deep inequalities in the justice system.</h3>       
+         
           <div class="maps-container">
           <div class="map-wrapper">
             <div class="container">
@@ -42,7 +43,11 @@
               <h2>% Minority by County</h2>
             </div>
             <div id="minority-map"></div>
-            <div id="minority-legend-container"></div>
+            <div id="minority-legend-container">
+              <div class="minority-legend">
+                <div id="minority-legend-container"></div>  
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -135,11 +140,24 @@
             far exceeding others. Orange, San Bernardino, Santa Clara, and Riverside top $500M each year, 
             while smaller counties like Trinity, Modoc, and Alpine stay under $5M, despite high incarceration rates. 
           </h3>
-                  </div>
+          </div> 
+          <div class="container county-filter-container">
+            <button id="toggle-county-filter" class="dropdown-toggle">▼ Select Counties</button>
+            <div id="county-dropdown-container" class="county-dropdown hidden">
+              <div style="margin-bottom: 10px;">
+                <button id="select-all" class="dropdown-btn">Select All</button>
+                <button id="clear-all" class="dropdown-btn">Clear All</button>
+              </div>
+              <div id="county-checkboxes" class="checkbox-list"></div>
+            </div>
+          </div>
+          
+          
         <div class="heatmaps-container" style="display: flex; justify-content: space-between">
           <div id="rates-heatmap-container"></div>
           <div id="costs-heatmap-container"></div>
         </div>
+        
       </div>
       </div>
 
@@ -151,6 +169,7 @@
       <script src="js/bar-charts/california-demographics-bar-chart.js"></script>
       <script src="js/bar-charts/demographics-bar-chart.js"></script>
       <script src="js/bar-charts/sentence-bar-chart.js"></script>
+      <script src="js/heatmaps/county_func.js"></script>
       <script src="js/heatmaps/imprisonment-heatmap.js"></script>
       <script src="js/heatmaps/costs-heatmap.js"></script>
       <script src="js/scatterplots/scatterplot.js"></script>

@@ -3,12 +3,12 @@ const ratesHeatmapConfig = {
   height: 600,
   margin: { top: 70, right: 30, bottom: 30, left: 150 },
   colorScheme: d3.interpolateYlOrRd, 
-  title: "Imprisonment Rates Over Time (per 100,000)",
+  title: "Imprisonment Rates per 100,000",
   containerId: "#rates-heatmap-container",
   visibleCounties: 10
 };
 
-function initRatesHeatmap() {
+function initRatesHeatmap(selectedCounties = null) {
   // Load data
   d3.csv("data/all_years/measures_all_years.csv", d3.autoType).then(data => {
     // Process data for heatmap
@@ -18,6 +18,26 @@ function initRatesHeatmap() {
       'Year', 
       'Total adult imprisonments per 100,000/population age 18-69'
     );
+
+    if (!selectedCounties) {
+      setupSharedCountyDropdown(processedData.counties);
+    }
+    
+    // Filter counties if needed
+    if (selectedCounties && selectedCounties.length > 0) {
+      const filteredMatrix = [];
+      const filteredCounties = [];
+    
+      processedData.counties.forEach((c, i) => {
+        if (selectedCounties.includes(c)) {
+          filteredCounties.push(c);
+          filteredMatrix.push(processedData.matrix[i]);
+        }
+      });
+    
+      processedData.counties = filteredCounties;
+      processedData.matrix = filteredMatrix;
+    }
     
     // Create the heatmap
     createHeatmap(processedData, ratesHeatmapConfig);
@@ -222,4 +242,6 @@ function createHeatmap(heatmapData, config) {
   scrollContainer.select("svg").attr("height", totalHeight + config.margin.top + config.margin.bottom);
 }
 
-document.addEventListener('DOMContentLoaded', initRatesHeatmap);
+document.addEventListener('DOMContentLoaded', () => {
+  initRatesHeatmap(null); // explicitly pass null
+});

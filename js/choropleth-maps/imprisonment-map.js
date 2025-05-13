@@ -2,7 +2,7 @@ const mapConfig = {
   width: 500,    
   height: 500,  
   projection: d3.geoMercator(),
-  colors: d3.schemeReds[9],
+  colors: d3.schemeReds[6],
   yearRange: [2009, 2016]
 };
 
@@ -45,7 +45,8 @@ function setupYearControls() {
     .style("padding", "12px")
     .style("display", "flex")
     .style("align-items", "center")
-    .style("border-radius", "4px");
+    .style("border-radius", "4px")
+    .style("top", "-10px");
 
   // Year label
   controlsContainer
@@ -196,15 +197,20 @@ function processCountyData(data, year) {
 
 function renderMap(geoData, countyStats) {
   const svg = d3.select("#map svg g");
-
   svg.selectAll("*").remove();
 
   mapConfig.projection.fitSize([mapConfig.width, mapConfig.height], geoData);
   const path = d3.geoPath().projection(mapConfig.projection);
 
-  // Get imprisonment rates for color scale domain
   const rates = Object.values(countyStats).map(d => d.rate).filter(d => !isNaN(d));
   const colorScale = d3.scaleQuantile().domain(rates).range(mapConfig.colors);
+
+  // Create tooltip
+  const tooltip = d3.select("body")
+    .append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0)
+    .html('<div class="tooltip-arrow"></div>');
 
   svg.selectAll("path")
     .data(geoData.features)
@@ -215,8 +221,7 @@ function renderMap(geoData, countyStats) {
     .attr("fill", d => {
       const countyName = d.properties.name;
       const countyData = countyStats[countyName];
-      if (!countyData) return "#333"; // Dark gray for counties with no data
-      return isNaN(countyData.rate) ? "#333" : colorScale(countyData.rate);
+      return !countyData ? "#333" : isNaN(countyData.rate) ? "#333" : colorScale(countyData.rate);
     })
     .on("mouseover", function(event, d) {
       const countyName = d.properties.name;
@@ -226,44 +231,59 @@ function renderMap(geoData, countyStats) {
         .style("stroke", "#fff") 
         .style("stroke-width", "1.5px");
 
-      const tooltip = d3.select(".tooltip");
-      tooltip.transition().duration(200).style("opacity", 0.9);
+      tooltip.transition()
+        .duration(150)
+        .style("opacity", 0.95)
+        .style("transform", "translateY(0)");
 
-      let tooltipContent = `<strong>${countyName} (${currentYear})</strong>`;
+      let tooltipContent = `<div class="tooltip-header">${countyName} (${currentYear})</div>`;
       if (countyData) {
-        tooltipContent += `<br>Imprisonment Rate: ${countyData.rate.toFixed(1)} per 100,000`;
+        tooltipContent += `
+          <div class="tooltip-row">
+            <span class="tooltip-label">Imprisonment Rate:</span>
+            <span class="tooltip-value">${countyData.rate.toFixed(1)} per 100,000</span>
+          </div>`;
         if (countyData.adultImprisonments) {
-          tooltipContent += `<br>Total Imprisonments: ${countyData.adultImprisonments.toLocaleString()}`;
+          tooltipContent += `
+            <div class="tooltip-row">
+              <span class="tooltip-label">Total Imprisonments:</span>
+              <span class="tooltip-value">${countyData.adultImprisonments.toLocaleString()}</span>
+            </div>`;
         }
         if (countyData.totalPopulation) {
-          tooltipContent += `<br>Population: ${countyData.totalPopulation.toLocaleString()}`;
+          tooltipContent += `
+            <div class="tooltip-row">
+              <span class="tooltip-label">Population:</span>
+              <span class="tooltip-value">${countyData.totalPopulation.toLocaleString()}</span>
+            </div>`;
         }
         if (countyData.minorityRate) {
-          tooltipContent += `<br>Minority Imprisonment Index: ${countyData.minorityRate.toFixed(2)}`;
+          tooltipContent += `
+            <div class="tooltip-row">
+              <span class="tooltip-label">Minority Index:</span>
+              <span class="tooltip-value">${countyData.minorityRate.toFixed(2)}</span>
+            </div>`;
         }
       } else {
-        tooltipContent += "<br>No data available";
+        tooltipContent += `<div class="tooltip-row">No data available</div>`;
       }
 
-      tooltip.html(tooltipContent)
+      tooltip.html(`<div class="tooltip-arrow"></div>` + tooltipContent)
         .style("left", (event.pageX + 15) + "px")
         .style("top", (event.pageY - 28) + "px");
-        
-      // Also update the county details section if it exists
-      if (d3.select("#county-details").size() > 0) {
-        displayCountyDetails(countyName, countyData);
-      }
     })
     .on("mouseout", function() {
       d3.select(this)
         .style("stroke", "#eee") 
         .style("stroke-width", "0.5px");
-      d3.select(".tooltip").transition().duration(500).style("opacity", 0);
+      tooltip.transition()
+        .duration(500)
+        .style("opacity", 0)
+        .style("transform", "translateY(-5px)");
     });
 
   createLegend(colorScale);
-  }
-
+}
 function roundToNearest(num, nearest) {
   return Math.round(num / nearest) * nearest;
 }
@@ -280,8 +300,11 @@ function createLegend(colorScale) {
     .style("font-weight", "bold")
     .style("color", "white");  
 
+  const itemsContainer = legend.append("div")
+    .attr("class", "legend-item-container");
+
   thresholds.forEach((threshold, i) => {
-    const item = legend.append("div").attr("class", "legend-item");
+    const item = itemsContainer.append("div").attr("class", "legend-item");
     item.append("div")
       .attr("class", "legend-color")
       .style("background-color", mapConfig.colors[i + 1]);

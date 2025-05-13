@@ -8,7 +8,7 @@ const costsHeatmapConfig = {
   visibleCounties: 10,
 };
 
-function initCostsHeatmap() {
+function initCostsHeatmap(selectedCounties = null) {
   // Load data
   d3.csv("data/all_years/measures_all_years.csv", d3.autoType).then((data) => {
     // Process data for heatmap
@@ -18,6 +18,24 @@ function initCostsHeatmap() {
       "Year",
       "Total imprisonment costs (millions of dollars)"
     );
+    if (!selectedCounties) {
+      setupSharedCountyDropdown(processedData.counties);
+    }
+    
+    if (selectedCounties && selectedCounties.length > 0) {
+      const filteredMatrix = [];
+      const filteredCounties = [];
+    
+      processedData.counties.forEach((c, i) => {
+        if (selectedCounties.includes(c)) {
+          filteredCounties.push(c);
+          filteredMatrix.push(processedData.matrix[i]);
+        }
+      });
+    
+      processedData.counties = filteredCounties;
+      processedData.matrix = filteredMatrix;
+    }
 
     // Create the heatmap
     createHeatmap(processedData, costsHeatmapConfig);
@@ -263,4 +281,6 @@ function createHeatmap(heatmapData, config) {
     .attr("height", totalHeight + config.margin.top + config.margin.bottom);
 }
 
-document.addEventListener("DOMContentLoaded", initCostsHeatmap);
+document.addEventListener('DOMContentLoaded', () => {
+  initCostsHeatmap(null);
+});

@@ -1,3 +1,49 @@
+/* tooltip */
+.tooltip {
+  position: absolute;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  border-radius: 6px;
+  border: 1px solid white;
+  font-size: 20px;
+  font-weight: 500;
+  z-index: 10;
+  transform: translate(-50%, -100%);
+  white-space: normal;
+  transition: left 0.1s ease, top 0.1s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  width: 240px;              
+  white-space: normal;        
+  word-wrap: break-word;      
+}
+
+.tooltip-header {
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 6px;
+}
+
+.tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.tooltip-label {
+  font-weight: 500;
+  color: #ccc;
+  margin-right: 10px;
+}
+
+.tooltip-value {
+  font-weight: 600;
+  color: #fff;
+}
+
 /* Container for maps */
 .maps-container {
   display: flex;
@@ -7,6 +53,7 @@
   flex-wrap: wrap;
   width: 100%;
 }
+
 
 /* Individual map wrapper */
 .map-wrapper {
@@ -41,27 +88,27 @@
 /* Legend styling */
 .legend {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 10px;
+  flex-direction: column;
+  gap: 5px;
   padding: 10px;
   background: rgba(0,0,0,0.7);
   border-radius: 5px;
-  width: fit-content;
-  align-items: center;
+  /*width: fit-content; */
+  align-items: flex-start;
   margin: 0;
 }
 
 .legend-item {
   display: flex;
-  align-items: center;
-  margin-right: 15px;
+  flex-direction: column;  
+  align-items: center;     
+  gap: 2px;
 }
 
 .legend-color {
   width: 15px;
   height: 15px;
-  margin-right: 5px;
+  margin: 0; 
 }
 
 .legend-text,
@@ -69,5 +116,18 @@
   font-size: 12px;
   color: white !important;
   margin: 0;
+  text-align: center;
 }
 
+.legend-items-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .legend {
+    flex-wrap: wrap; 
+  }
+}

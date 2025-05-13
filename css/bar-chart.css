@@ -18,14 +18,21 @@
 
 .tooltip {
   position: absolute;
-  padding: 12px;
-  background: rgba(0, 0, 0, 0.9);
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.85);
   color: white;
   border-radius: 6px;
+  border: 1px solid white;
   pointer-events: none;
-  font-size: 14px;
-  line-height: 1.4;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  font-weight: 500;
+  z-index: 10;
+  transform: translate(-50%, -100%);
+  white-space: normal;
+  transition: left 0.1s ease, top 0.1s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  width: 240px;              
+  white-space: normal;        
+  word-wrap: break-word;      
 }
 
 #legend {
