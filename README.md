@@ -30,7 +30,7 @@ This project visualizes California's sentencing and imprisonment data across cou
 [View our live project website](https://julia-epshtein.github.io/CS571/)
 
 ## Project Screencast
-[Watch our project demonstration]([https://youtu.be/cZ36vaP5tb0](https://www.youtube.com/watch?v=AnRJEltGcEg&feature=youtu.be))
+[Watch our project demonstration](https://www.youtube.com/watch?v=AnRJEltGcEg)
 
 ## Process Book
 [View our process book](https://www.canva.com/design/DAGkQXK-pD4/-254poNSlgvkSuaSI0a3Ww/view?utm_content=DAGkQXK-pD4&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hd6e2adb9d6)
