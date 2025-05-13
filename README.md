@@ -156,7 +156,3 @@ The scatterplot visualization (in `js/scatterplots/scatterplot.js`) features:
 - Julia Epshtein [@julia-epshtein](https://github.com/julia-epshtein)
 - Jayani Tripathi [@jayanitripathi](https://github.com/jayanitripathi)
 
-## Acknowledgments
-- Data provided by the California Department of Corrections and Rehabilitation
-- Special thanks to Professor Hamza Elhamdadi and the CS571 course staff
-
