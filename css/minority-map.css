@@ -37,3 +37,45 @@
   color: #4a5568;
   font-size: 16px;
 }
+.minority-legend {
+  display: flex;
+  flex-direction: column; 
+  gap: 5px;
+  padding: 10px;
+  background: rgba(0,0,0,0.7);
+  border-radius: 5px;
+  width: fit-content;
+  align-items: flex-start; 
+  margin: 0;
+}
+
+.minority-legend-item {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+  flex-direction: column; 
+  align-items: center;
+  gap: 2px;
+}
+
+.minority-legend-item + .minority-legend-item {
+  margin-top: 0;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  gap: 2px;
+}
+
+/* Wrap items in a row */
+#minority-legend-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+
+@media (max-width: 768px) {
+  .minority-legend {
+    flex-wrap: wrap;
+  }
+}

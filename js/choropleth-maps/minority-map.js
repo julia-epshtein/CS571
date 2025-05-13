@@ -2,7 +2,7 @@ const minorityMapConfig = {
   width: 500,
   height: 500,
   projection: d3.geoMercator(),
-  colors: d3.schemeReds[7],
+  colors: d3.schemeReds[6],
 };
 
 let geoDataMinority = null;
@@ -178,12 +178,15 @@ function createMinorityLegend(colorScale) {
 
   const legendContainer = d3.select("#minority-legend-container")
     .append("div")
-    .attr("class", "legend");
+    .attr("class", "minority-legend");
 
   legendContainer.append("div")
     .text("% Minority:")
     .style("font-weight", "bold")
     .style("color", "white"); 
+
+  const row = legendContainer.append("div")
+    .attr("class", "legend-items-row");
 
   const bins = [
     { range: "0-10%", color: minorityMapConfig.colors[0] },
@@ -195,8 +198,8 @@ function createMinorityLegend(colorScale) {
   ];
 
   bins.forEach(bin => {
-    const item = legendContainer.append("div")
-      .attr("class", "legend-item");
+    const item = row.append("div")
+      .attr("class", "minority-legend-item");
 
     item.append("div")
       .attr("class", "legend-color")
@@ -208,6 +211,7 @@ function createMinorityLegend(colorScale) {
       .style("color", "white"); 
   });
 }
+
 
 document.addEventListener("DOMContentLoaded", function() {
   initMinorityMap();
