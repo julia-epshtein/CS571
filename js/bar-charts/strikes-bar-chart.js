@@ -24,8 +24,9 @@ function setupStrikesSVG() {
     .style("display", "block")
     .style("margin", "0")
     .style("margin-left", "-100px")
+    .style("background-color", "#1F2937") 
     .style("margin-top", "50px");
-
+    
   svg
     .append("g")
     .attr("class", "strikes-chart-container")
@@ -136,21 +137,21 @@ function renderStrikesChart(data) {
     .style("fill", "white")
     .style("font-family", "Inter, sans-serif")
     .style("font-size", "18px")
-    .style("font-weight", "600")  
+    .style("font-weight", "300")  
     .text("Sentence Length (months)");
 
   svg
     .append("text")
     .attr("class", "axis-label")
     .attr("transform", "rotate(-90)")
-    .attr("y", 0 - strikesBarConfig.margin.left)
+    .attr("y", 0 - (strikesBarConfig.margin.left - 30))    
     .attr("x", 0 - chartHeight / 2)
     .attr("dy", "1em")
     .style("text-anchor", "middle")
     .style("fill", "white")
     .style("font-family", "Inter, sans-serif")
     .style("font-size", "18px")
-    .style("font-weight", "600")  
+    .style("font-weight", "300")  
     .text("Percentage of Cases (%)");
 
   // Tooltip 

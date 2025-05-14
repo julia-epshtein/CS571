@@ -10,8 +10,8 @@ const sentenceConfig = {
     'White': '#cbca75',
     'Other': '#cbca75'
   },
-  barWidth: 220, 
-  maxBarLength: 220 
+  barWidth: 240, 
+  maxBarLength: 240 
 };
 
 function initSentenceVisualization() {
@@ -63,7 +63,7 @@ function renderSentenceVisualization(barData, year) {
   const y = d3.scaleBand()
     .domain(barData.map(d => d.category))
     .range([0, height])
-    .padding(0.3);
+    .padding(0.1);
     
 
   const barWidth = sentenceConfig.barWidth;
@@ -104,7 +104,7 @@ function renderSentenceVisualization(barData, year) {
     .style("position", "absolute")
     .style("background-color", "#111")
     .style("border", "1px solid #333")
-    .style("border-radius", "5px")
+    // .style("border-radius", "5px")
     .style("padding", "10px")
     .style("color", "white")
     .style("font-size", "14px")
@@ -120,13 +120,8 @@ function renderSentenceVisualization(barData, year) {
     .attr("y", d => y(d.category))
     .attr("x", 0)
     .attr("height", y.bandwidth())
-    .attr("width", d => {
-      const maxPercentage = d3.max(barData, d => parseFloat(d.percentage));
-      return (parseFloat(d.percentage) / maxPercentage) * sentenceConfig.maxBarLength;
-    })
+    .attr("width", d => (parseFloat(d.percentage) / 100) * sentenceConfig.maxBarLength)
     .attr("fill", d => sentenceConfig.colors[d.category])
-    .attr("rx", 2) 
-    .attr("ry", 2) 
     .on("mouseover", function(event, d) {
       d3.select(this).style("opacity", 0.8);
       tooltip.transition()

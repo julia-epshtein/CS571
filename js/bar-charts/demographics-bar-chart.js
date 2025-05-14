@@ -11,8 +11,8 @@ const demographicsConfig = {
     'White': '#cb4f1b',
     'Other': '#cb4f1b'
   },
-  barWidth: 220, 
-  maxBarLength: 220 
+  barWidth: 240, 
+  maxBarLength: 240 
 };
 
 
@@ -96,7 +96,7 @@ function renderDemographicsVisualization({ barData, total }) {
   const y = d3.scaleBand()
     .domain(barData.map(d => d.group))
     .range([0, height])
-    .padding(0.3);
+    .padding(0.1);
     
   const barWidth = demographicsConfig.barWidth;
 
@@ -136,7 +136,7 @@ function renderDemographicsVisualization({ barData, total }) {
     .style("position", "absolute")
     .style("background-color", "#111")
     .style("border", "1px solid #333")
-    .style("border-radius", "5px")
+    // .style("border-radius", "5px")
     .style("padding", "10px")
     .style("color", "white")
     .style("font-size", "14px")
@@ -152,13 +152,8 @@ function renderDemographicsVisualization({ barData, total }) {
     .attr("y", d => y(d.group))
     .attr("x", 0)
     .attr("height", y.bandwidth())
-    .attr("width", d => {
-      const maxPercentage = d3.max(barData, d => parseFloat(d.percentage));
-      return (parseFloat(d.percentage) / maxPercentage) * demographicsConfig.maxBarLength;
-    })
+    .attr("width", d => (parseFloat(d.percentage) / 100) * demographicsConfig.maxBarLength)
     .attr("fill", d => demographicsConfig.colors[d.group])
-    .attr("rx", 2) 
-    .attr("ry", 2) 
     .on("mouseover", function(event, d) {
       d3.select(this).style("opacity", 0.8);
       tooltip.transition()
@@ -193,8 +188,7 @@ function renderDemographicsVisualization({ barData, total }) {
     .style("fill", "white")
     .style("font-size", "16px")
     .style("font-weight", "bold")
-    .text(d => d.percentage + "%");
-    
+    .text(d => d.percentage + "%"); 
 }
 
 document.addEventListener("DOMContentLoaded", initDemographicsVisualization);

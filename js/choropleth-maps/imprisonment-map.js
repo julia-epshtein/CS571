@@ -23,7 +23,7 @@ function setupMapSVG() {
     .append("svg")
     .attr("width", mapConfig.width)
     .attr("height", mapConfig.height)
-    .style("background-color", "black") 
+    .style("background-color", "#1F2937") 
     .append("g")
     .attr("class", "map-container");
 
@@ -293,44 +293,44 @@ function createLegend(colorScale) {
   legendContainer.html("");
 
   const legend = legendContainer.append("div").attr("class", "legend");
-  const thresholds = colorScale.quantiles();
-
+  
+  // Legend title
   legend.append("div")
     .text("Imprisonment Rate (per 100,000):")
     .style("font-weight", "bold")
-    .style("color", "white");  
+    .style("color", "white");
 
-  const itemsContainer = legend.append("div")
-    .attr("class", "legend-item-container");
+  // Container for ALL items (including the last one)
+  const itemsRow = legend.append("div")
+    .attr("class", "legend-items-row"); 
 
+  const thresholds = colorScale.quantiles();
+
+  // Add all items (including ranges)
   thresholds.forEach((threshold, i) => {
-    const item = itemsContainer.append("div").attr("class", "legend-item");
+    const item = itemsRow.append("div").attr("class", "legend-item");
     item.append("div")
       .attr("class", "legend-color")
       .style("background-color", mapConfig.colors[i + 1]);
 
-    let label;
-    if (i === 0) {
-      label = `< ${roundToNearest(threshold, 10).toFixed(0)}`;
-    } else {
-      label = `${roundToNearest(thresholds[i - 1], 10).toFixed(0)} - ${roundToNearest(threshold, 10).toFixed(0)}`;
-    }
+    const label = (i === 0) 
+      ? `< ${roundToNearest(threshold, 10).toFixed(0)}`
+      : `${roundToNearest(thresholds[i - 1], 10).toFixed(0)} - ${roundToNearest(threshold, 10).toFixed(0)}`;
 
     item.append("div")
       .attr("class", "legend-label")
-      .text(label)
-      .style("color", "white");  
+      .text(label);
   });
 
-  const lastItem = legend.append("div").attr("class", "legend-item");
+  // Add the last item ("> X") to the SAME row
+  const lastItem = itemsRow.append("div").attr("class", "legend-item");
   lastItem.append("div")
     .attr("class", "legend-color")
     .style("background-color", mapConfig.colors[mapConfig.colors.length - 1]);
 
   lastItem.append("div")
     .attr("class", "legend-label")
-    .text(`> ${roundToNearest(thresholds[thresholds.length - 1], 10).toFixed(0)}`)
-    .style("color", "white");  
+    .text(`> ${roundToNearest(thresholds[thresholds.length - 1], 10).toFixed(0)}`);
 }
 
 function displayCountyDetails(countyName, countyData) {
