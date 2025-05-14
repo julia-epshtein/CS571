@@ -20,7 +20,7 @@ function setupMinorityMapSVG() {
     .append("svg")
     .attr("width", minorityMapConfig.width)
     .attr("height", minorityMapConfig.height)
-    .style("background-color", "black")  
+    .style("background-color", "#1F2937") 
     .append("g")
     .attr("class", "map-container");
 

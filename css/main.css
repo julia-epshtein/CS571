@@ -9,6 +9,16 @@ body {
   color: #fff;
 }
 
+.heatmap-title, 
+.scatterplot-title,
+.line-chart-wrapper h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e9b46a; /* Gold/orange color */
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
 /* Layout Containers */
 .container-wide {
   max-width: 2000px;
@@ -28,7 +38,6 @@ body {
   background: rgb(0, 0, 0);
   padding: 2rem;
   margin: 0 auto 3rem;
-  border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
@@ -92,8 +101,8 @@ p {
 
 /* Chart Containers */
 .charts-container, 
-.maps-container, 
 .three-charts-container, 
+.maps-container,
 .heatmaps-container, 
 .line-charts-container {
   display: flex;
@@ -105,18 +114,11 @@ p {
 }
 
 .chart-wrapper {
-  background-color: #2a2a2a;      
+  background-color: #1F2937;      
   padding: 24px;
   margin: 40px auto;             
   max-width: 800px;
-  border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-}
-
-.map-wrapper {
-  flex: 1;
-  min-width: 300px;
-  max-width: 600px;
 }
 
 /* Axis Styling */

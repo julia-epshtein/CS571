@@ -1,0 +1,77 @@
+.chart-wrapper, 
+.map-wrapper, 
+.line-chart-wrapper, 
+#scatterplot-container, 
+#rates-heatmap-container, 
+#costs-heatmap-container {
+  background-color: #1F2937 !important;
+  display: flex !important; 
+  flex-direction: column !important;
+  justify-content: center !important; 
+  min-height: 100%;
+}
+
+.chart-wrapper svg,
+#map,
+#minority-map,
+#line-chart,
+#cost-chart,
+#scatterplot {
+  background-color: #1F2937 !important;
+}
+
+.chart-wrapper svg,
+#map,
+#minority-map,
+#line-chart,
+#cost-chart,
+#scatterplot {
+  width: 100% !important;
+  height: auto !important;
+  display: block !important;
+}
+
+/* Text styling */
+.chart-wrapper h3, 
+.heatmap-title, 
+.scatterplot-title, 
+.line-chart-wrapper h3 {
+  color: #cccccc !important;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+/* Axis styling */
+.axis text, 
+.axis-label, 
+.heatmap-axis text, 
+.heatmap-axis path, 
+.heatmap-axis line, 
+.heatmap-legend text, 
+.heatmap-legend-title, 
+.scatterplot-tooltip, 
+.scatterplot-year, 
+.axis text, 
+.axis-label {
+  fill: #cccccc !important;
+  stroke: #cccccc !important;
+  color: #cccccc !important;
+}
+
+#bar-chart,
+#california-demographics-bar-chart,
+#sentence-bar-chart,
+#strikes-bar-chart,
+#rate-chart,
+#cost-chart {
+  display: block !important;
+  text-align: left;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.chart-wrapper {
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+  padding: 8px !important; 
+}

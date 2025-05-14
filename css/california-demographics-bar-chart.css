@@ -11,29 +11,19 @@
   flex-wrap: wrap;
   justify-content: space-around;
   gap: 20px;
+  align-items: center; 
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .ethnicity-bar-chart-container,
-  .maps-container {
-      flex-direction: column;
-  }
-  
-  .ethnicity-bar-chart-wrapper,
-  .map-wrapper {
-      max-width: 100%;
-  }
-}
-
+/* Main chart container styles */
 .three-charts-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 30px;
   flex-wrap: nowrap;
   margin-top: 30px;
+  min-height: 400px; 
 }
 
 .chart-wrapper {
@@ -41,13 +31,52 @@
   max-width: 33%;
   min-width: 300px;
   text-align: center;
-  background-color: black; /* ← Change this line */
+  background-color: black; 
 
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
 }
-
 .chart-wrapper svg {
   width: 100%;
   height: auto;
   display: block;
 }
 
+/* Chart heading styles */
+.chart-heading {
+  width: 100%;
+  margin-bottom: 15px;
+  color: #cccccc;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ethnicity-bar-chart-container,
+  .maps-container {
+    flex-direction: column;
+  }
+  
+  .ethnicity-bar-chart-wrapper,
+  .map-wrapper {
+    max-width: 100%;
+  }
+  
+  .three-charts-container {
+    flex-direction: column;
+    align-items: stretch; 
+    min-height: auto;
+  }
+  
+  .chart-wrapper {
+    max-width: 100%;
+    margin-bottom: 30px;
+  }
+  
+  .chart-wrapper:last-child {
+    margin-bottom: 0;
+  }
+}
