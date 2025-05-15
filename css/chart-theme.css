@@ -34,7 +34,6 @@
 /* Text styling */
 .chart-wrapper h3, 
 .heatmap-title, 
-.scatterplot-title, 
 .line-chart-wrapper h3 {
   color: #cccccc !important;
   margin-top: 0;

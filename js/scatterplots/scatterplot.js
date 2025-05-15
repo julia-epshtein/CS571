@@ -1,7 +1,7 @@
 const scatterplotConfig = {
-  width: 1100,
-  height: 800,
-  margin: { top: 60, right: 20, bottom: 40, left: 80 },
+  width: 1000, 
+  height: 600, 
+  margin: { top: 60, right: 20, bottom: 80, left: 80 },
   yearRange: [2009, 2016],
   pointRadius: 6,
   transitionDuration: 1000
@@ -13,54 +13,67 @@ let xScale, yScale, colorScale;
 let svg, chartG, xAxisG, yAxisG;
 
 function initScatterplot() {
+  const container = document.getElementById("scatterplot-container");
+  if (container) {
+    scatterplotConfig.width = Math.min(container.clientWidth, 1000);
+  }
+
   setupScatterplotSVG();
   loadScatterplotData();
+
+  window.addEventListener("resize", function() {
+    if (container) {
+      const newWidth = Math.min(container.clientWidth, 1000);
+      if (newWidth !== scatterplotConfig.width) {
+        scatterplotConfig.width = newWidth;
+        svg.attr("width", scatterplotConfig.width)
+           .attr("viewBox", `0 0 ${scatterplotConfig.width} ${scatterplotConfig.height}`);
+        if (scatterplotData) updateScatterplot();
+      }
+    }
+  });
 }
 
 function setupScatterplotSVG() {
   const container = d3.select("#scatterplot-container");
   
   // title
-  container.append("h1")
+  container.append("h2")
     .attr("class", "scatterplot-title")
     .text("Poverty Rate vs. Imprisonment Rate by County");
   
   container.append("p")
     .attr("class", "scatterplot-subtitle")
     .style("text-align", "center")
-    .style("margin-top", "30px")
-    .style("margin-bottom", "20px")
-    .style("font-style", "italic")
-    .text("Circle size represents county incarcerated population");
+    .style("margin-top", "20px")
+    .style("margin-bottom", "10px")
+    .text("Circle size = number of incarcerated people in the county");
   
-  // SVG
+  // svg
   svg = container.append("svg")
     .attr("id", "scatterplot")
     .attr("width", scatterplotConfig.width)
-    .attr("height", scatterplotConfig.height);
-  
-  // main chart group
+    .attr("height", scatterplotConfig.height)
+    .attr("viewBox", `0 0 ${scatterplotConfig.width} ${scatterplotConfig.height}`); // NEW
+
   chartG = svg.append("g")
     .attr("transform", `translate(${scatterplotConfig.margin.left}, ${scatterplotConfig.margin.top})`);
   
-  // axes groups
+  // axes
   xAxisG = chartG.append("g")
     .attr("class", "x axis")
     .attr("transform", `translate(0, ${getChartHeight()})`);
   
   yAxisG = chartG.append("g")
     .attr("class", "y axis");
-    
-
   
-  // axis labels
+  // labels
   chartG.append("text")
-    .attr("class", "axis-label")
+  .attr("class", "axis-label x-axis-label")
     .attr("x", getChartWidth() / 2)
-    .attr("y", getChartHeight() + scatterplotConfig.margin.bottom + 10) 
     .style("text-anchor", "middle")
     .style("font-size", "16px")
-    .style("font-weight", "bold")
+    .style("font-weight", "300")
     .style("font-family", "'Inter', sans-serif")
     .text("Adult Poverty Rate (%)");
   
@@ -68,10 +81,10 @@ function setupScatterplotSVG() {
     .attr("class", "axis-label")
     .attr("transform", "rotate(-90)")
     .attr("x", -getChartHeight() / 2)
-    .attr("y", -scatterplotConfig.margin.left + 30) 
+    .attr("y", -scatterplotConfig.margin.left + 20)
     .style("text-anchor", "middle")
     .style("font-size", "16px")
-    .style("font-weight", "bold")
+    .style("font-weight", "300")
     .style("font-family", "'Inter', sans-serif")
     .text("Imprisonments per 100,000 Adults");
   
@@ -93,13 +106,12 @@ function setupScatterplotSVG() {
     .style("border", "2px solid white")
     .style("box-shadow", "0 0 5px rgba(0,0,0,0.5)");
   
-  // controls
+  // toggle
   const controls = container.append("div")
     .attr("class", "scatterplot-controls")
     .style("position", "absolute")
     .style("top", "10px")
     .style("right", "10px")
-    .style("background", "black")
     .style("padding", "12px")
     .style("display", "flex")
     .style("align-items", "center")
@@ -114,10 +126,10 @@ function setupScatterplotSVG() {
     .style("margin-right", "12px")
     .text(`${currYear}`);
   
+  // Prev button 
   const prevButton = controls.append("button")
     .attr("id", "scatterplot-prev-year")
     .text("❮")
-    .style("background", "none")
     .style("border", "none")
     .style("cursor", "pointer")
     .style("font-size", "24px")
@@ -133,11 +145,10 @@ function setupScatterplotSVG() {
       }
     });
   
-  // Next year button
+  // Next button 
   const nextButton = controls.append("button")
     .attr("id", "scatterplot-next-year")
     .text("❯")
-    .style("background", "none")
     .style("border", "none")
     .style("cursor", "pointer")
     .style("font-size", "24px")
@@ -178,29 +189,27 @@ function updateScatterplot() {
   updateArrowColors();
   
   const yearData = scatterplotData.filter(d => d.Year === currYear);
-  
-  // Get poverty column name for this year
   const povertyCol = getPovertyColumnForYear(currYear);
   const imprisonmentCol = "Total adult imprisonments per 100,000/population age 18-69";
   
-  // Process data for year
   const processedData = yearData
-  .filter(d => d[povertyCol] !== null && !isNaN(d[povertyCol]) && 
+    .filter(d => d[povertyCol] !== null && !isNaN(d[povertyCol]) && 
                d[imprisonmentCol] !== null && !isNaN(d[imprisonmentCol]) &&
                d.County)
-  .map(d => ({
-    county: d.County,
-    povertyRate: +d[povertyCol] * 100, 
-    imprisonmentRate: +d[imprisonmentCol],
-    totalPopulation: +d['Total adult population incarcerated'] || 100,
-    adultImprisonments: +d['Total adult imprisonments per 100,000/population age 18-69']
-  }));
+    .map(d => ({
+      county: d.County,
+      povertyRate: +d[povertyCol] * 100, 
+      imprisonmentRate: +d[imprisonmentCol],
+      totalPopulation: +d['Total adult population incarcerated'] || 100,
+      adultImprisonments: +d['Total adult imprisonments per 100,000/population age 18-69']
+    }));
       
   updateScales(processedData, povertyCol, imprisonmentCol);
-  
   updatePoints(processedData);
-  
   updateRegressionLine(processedData);
+  chartG.select(".x-axis-label")
+        .attr("x", getChartWidth() / 2)
+        .attr("y", getChartHeight() + scatterplotConfig.margin.bottom);
 }
 
 function getPovertyColumnForYear(year) {
@@ -219,21 +228,17 @@ function getPovertyColumnForYear(year) {
 }
 
 function updateScales(data, povertyCol, imprisonmentCol) {
-  // Get extents
   const xExtent = d3.extent(data, d => d.povertyRate);
   const yExtent = d3.extent(data, d => d.imprisonmentRate);
   
-  // Update x scale
   xScale = d3.scaleLinear()
     .domain([Math.max(0, xExtent[0] - 2), xExtent[1] + 2])
     .range([0, getChartWidth()]);
   
-  // Update y scale
   yScale = d3.scaleLinear()
-    .domain([Math.max(0, yExtent[0] - 50), yExtent[1] + 50])
+    .domain([Math.max(0, yExtent[0] - 50), yExtent[1] + 100])
     .range([getChartHeight(), 0]);
   
-  // Update color scale
   const counties = [...new Set(data.map(d => d.county))];
   colorScale = d3.scaleOrdinal()
     .domain(counties)
@@ -244,7 +249,6 @@ function updateScales(data, povertyCol, imprisonmentCol) {
       "#FF00E5", // bright magenta (Color #4)
     ]);
     
-
   const xAxis = d3.axisBottom(xScale).ticks(6);
   const yAxis = d3.axisLeft(yScale).ticks(6);
   
@@ -275,14 +279,12 @@ function updatePoints(data) {
   const points = chartG.selectAll(".point")
     .data(data, d => d.county);
   
-  // Remove old points
   points.exit()
     .transition()
     .duration(scatterplotConfig.transitionDuration)
     .attr("r", 0)
     .remove();
   
-  // Update existing points
   points.transition()
     .duration(scatterplotConfig.transitionDuration)
     .attr("cx", d => xScale(d.povertyRate))
@@ -290,7 +292,6 @@ function updatePoints(data) {
     .attr("r", d => radiusScale(d.totalPopulation))
     .attr("fill", d => colorScale(d.county));
   
-  // Add new points
   points.enter()
     .append("circle")
     .attr("class", "point")
@@ -308,16 +309,13 @@ function updatePoints(data) {
 }
 
 function updateRegressionLine(data) {
-  // Calculate regression coefficients
   const regression = linearRegression(data.map(d => [d.povertyRate, d.imprisonmentRate]));
   
-  // Generate line data
   const lineData = [
     { x: d3.min(data, d => d.povertyRate), y: regression.predict(d3.min(data, d => d.povertyRate)) },
     { x: d3.max(data, d => d.povertyRate), y: regression.predict(d3.max(data, d => d.povertyRate)) }
   ];
   
-  // Update or create the line
   const line = chartG.selectAll(".regression-line")
     .data([lineData]);
   
@@ -434,7 +432,6 @@ function hideTooltip() {
 }
 
 function updateArrowColors() {
-  // Previous button color
   if (currYear <= scatterplotConfig.yearRange[0]) {
     d3.select("#scatterplot-prev-year").style("color", "#444"); 
   } else {
@@ -447,7 +444,5 @@ function updateArrowColors() {
     d3.select("#scatterplot-next-year").style("color", "white"); 
   }
 }
-
-
 
 initScatterplot();
