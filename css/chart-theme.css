@@ -33,8 +33,7 @@
 
 /* Text styling */
 .chart-wrapper h3, 
-.heatmap-title, 
-.line-chart-wrapper h3 {
+.heatmap-title{
   color: #cccccc !important;
   margin-top: 0;
   margin-bottom: 15px;

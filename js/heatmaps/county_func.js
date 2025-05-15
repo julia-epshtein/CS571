@@ -8,7 +8,6 @@ function setupSharedCountyDropdown(counties) {
   // Prevent duplicate entries
   if (!container.select("label").empty()) return;
 
-  // Add checkboxes with improved styling
   counties.forEach(county => {
     container.append("label")
       .attr("class", "county-checkbox")
@@ -83,9 +82,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const chevron = toggleBtn.querySelector(".chevron");
 
     if (dropdown.classList.contains("hidden")) {
-      chevron.textContent = "▼"; // Down chevron
+      chevron.textContent = "▼"; 
     } else {
-      chevron.textContent = "▲"; // Up chevron
+      chevron.textContent = "▲";
     }
   });
 
