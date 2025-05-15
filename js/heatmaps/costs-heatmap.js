@@ -17,7 +17,7 @@ function initCostsHeatmap(selectedCounties = null) {
       "County",
       "Year",
       "Total imprisonment costs (millions of dollars)"
-    );
+    ); 
     if (!selectedCounties) {
       setupSharedCountyDropdown(processedData.counties);
     }

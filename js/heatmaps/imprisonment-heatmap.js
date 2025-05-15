@@ -208,7 +208,7 @@ function createHeatmap(heatmapData, config) {
     .attr("x1", "0%")
     .attr("y1", "0%")
     .attr("x2", "100%")
-    .attr("y2", "0%");
+    .attr("y2", "0%"); 
 
   linearGradient.selectAll("stop")
     .data(colorScale.ticks().map((t, i, n) => ({ offset: `${100*i/n.length}%`, color: colorScale(t) })))

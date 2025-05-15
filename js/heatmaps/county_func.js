@@ -110,4 +110,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     dropdown.insertBefore(buttonContainer, document.getElementById("county-checkboxes"));
   }
-});
+}); 
